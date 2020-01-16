@@ -3,11 +3,11 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-exec(open("src/version.py").read())  # loads __version__
+exec(open("dnachisel/version.py").read())  # loads __version__
 
 setuptools.setup(
     name="synbiopython",
-    version="0.0.1",
+    version=__version__,
     author="Global Biofundries Alliance",
     author_email="author@example.com",
     description="Python tools for Synthetic Biology.",
