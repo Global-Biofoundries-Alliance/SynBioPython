@@ -3,7 +3,7 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-exec(open("dnachisel/version.py").read())  # loads __version__
+exec(open("synbiopython/version.py").read())  # loads __version__
 
 setuptools.setup(
     name="synbiopython",
