@@ -17,6 +17,14 @@ To install for development, clone the repository into the folder of your choice 
 pip install --user . && pip install --user -e .
 ```
 
+You should now be able to run this in Python:
+
+```python
+import synbioptyhon
+print(synbiopython.__version__)
+
+```
+
 Contribute!
 -----------
 
