@@ -3,6 +3,8 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+exec(open("src/version.py").read())  # loads __version__
+
 setuptools.setup(
     name="synbiopython",
     version="0.0.1",
