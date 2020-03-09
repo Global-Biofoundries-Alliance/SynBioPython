@@ -108,3 +108,4 @@ venv.bak/
 /.settings
 /**/.DS_Store
 
+/synbiopython/codon/data/*.txt

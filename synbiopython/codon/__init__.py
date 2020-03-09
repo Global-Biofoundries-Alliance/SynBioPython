@@ -12,12 +12,13 @@ import os.path
 import pandas
 
 
+DATA_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                        'data')
+
+
 def _get_spec_df():
     '''Get tax id, name from species.table as Pandas DataFrame.'''
-    data_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                            'data')
-
-    spec_tab_df = pandas.read_csv(os.path.join(data_dir, 'species.table'),
+    spec_tab_df = pandas.read_csv(os.path.join(DATA_DIR, 'species.table'),
                                   names=['name', 'tax_id'],
                                   sep='\t', comment='#')
 
