@@ -1,4 +1,5 @@
-from .Plate import Plate
-from .PickList import PickList, Transfer
-from .AssemblyPlan import AssemblyPlan
-from .Well import TransferError
+from .containers.Plate import Plate, Plate96
+from .Picklist.PickList import PickList, Transfer
+from .Picklist.Transfer import TransferError
+from .containers.builtin_containers import Plate96, Plate384, Plate1536
+

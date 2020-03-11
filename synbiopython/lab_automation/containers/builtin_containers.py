@@ -47,7 +47,7 @@ class Plate4ti0130(Plate96):
 
 class PlateLabcyteEchoLp0200LdvWell(Well):
     capacity = 12e-6
-        echo_dead_volume = 3e-6
+    echo_dead_volume = 3e-6
 
 class PlateLabcyteEchoLp0200Ldv(Plate384):
     """Low dead volume 384-well Echo plate"""

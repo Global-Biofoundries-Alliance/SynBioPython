@@ -9,8 +9,6 @@ from fuzzywuzzy import process
 import re
 
 
-
-
 def round_at(value, rounding):
     """Round value at the nearest rounding"""
     if rounding is None:
@@ -23,12 +21,12 @@ def dicts_to_columns(dicts):
     return {key: [d[key] for d in dicts] for key in dicts[0]}
 
 
-def replace_nans_in_dict(dictionnary, replace_by="null"):
-    for key, value in dictionnary.items():
+def replace_nans_in_dict(dictionary, replace_by="null"):
+    for key, value in dictionary.items():
         if isinstance(value, dict):
             replace_nans_in_dict(value, replace_by=replace_by)
         elif value == np.nan:
-            dictionnary[key] = replace_by
+            dictionary[key] = replace_by
 
 
 def human_seq_size(n):
@@ -48,11 +46,7 @@ unit_factors = {
 }
 
 volume_values_and_units = sorted(
-    [
-        (value, unit)
-        for (unit, value) in unit_factors.items()
-        if unit.endswith("L")
-    ]
+    [(value, unit) for (unit, value) in unit_factors.items() if unit.endswith("L")]
 )
 
 

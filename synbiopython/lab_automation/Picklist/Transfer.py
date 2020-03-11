@@ -27,20 +27,21 @@ class Transfer:
 
     def to_plain_string(self):
         """Return "{volume}L from {source_well} to {dest_well}"."""
-        return ("{self.volume:.02E}L from {self.source_well.plate.name} "
+        return ("Transfer {self.volume:.02E}L from {self.source_well.plate.name} "
                 "{self.source_well.name} into "
                 "{self.destination_well.plate.name} "
                 "{self.destination_well.name}").format(
                     self=self
         )
     def to_short_string(self):
-        """Return "{volume}L from {source_well} to {dest_well}"."""
-        return ("{self.__class__.__name__}({self.source_well}=>{self.dest_well}).plate.name} "
-                "{self.source_well.name} into "
-                "{self.destination_well.plate.name} "
-                "{self.destination_well.name}").format(
-                    self=self
-        )
+        """Return "{volume}L from {source_well} -> {dest_well}"."""
+        return ("{self.__class__.__name__} {self.volume:.02E}L {self.source_well} -> {self.destination_well}"
+                # "{self.source_well.plate.name} "
+                # "{self.source_well.name} "
+                # "into "
+                # "{self.destination_well.plate.name} "
+                # "{self.destination_well.name}"
+                ).format(self=self)
 
     def with_new_volume(self, new_volume):
         """Return a version of the transfer with a new volume."""
@@ -50,46 +51,45 @@ class Transfer:
                         data=self.data)
     
     def apply(self):
-        error_prefix = "%s error:" % self.as_short_string()
-        "%s impossible: %s is empty" % (
-                 self, destination_well, self))
+        error_prefix = "%s error:" % self.to_short_string()
+        
         if self.source_well.is_empty:
-            raise TransferError(
-                
-        factor = float(transfer_volume) / self.volume
+            raise TransferError("Source well is empty!")
 
         #  pre-check in both source and destination wells that transfers
         #  are valid
-        if factor > 1:
+        if self.volume > self.source_well.volume:
             raise TransferError(
-                ("Substraction of %.2e L from %s impossible."
+                ("Subtraction of %.2e L from %s impossible."
                  " Current volume: %.2e L")
-                % (transfer_volume, self, self.volume)
+                % (self.volume, self, self.source_well.volume)
             )
-        final_destination_volume = destination_well.volume + transfer_volume
-        if ((destination_well.capacity is not None) and
-           (final_destination_volume > destination_well.capacity)):
+        final_destination_volume = self.destination_well.volume + self.volume
+        if ((self.destination_well.capacity is not None) and
+           (final_destination_volume > self.destination_well.capacity)):
             raise TransferError(
                 "Transfer of %.2e L from %s to %s brings volume over capacity."
-                % (transfer_volume, self, destination_well)
+                % (self.volume, self, self.destination_well)
             )
 
         #  If you arrive here, it means that the transfer is valid, do it.
-        quantities_transfered = {
+        factor = float(self.volume) / self.source_well.volume
+
+        quantities_transferred = {
             component: quantity * factor
-            for component, quantity in self.content.quantities.items()
+            for component, quantity in self.source_well.content.quantities.items()
         }
-        destination_well.add_content(quantities_transfered,
-                                     volume=transfer_volume)
-        self.subtract_content(quantities_transfered,
-                              volume=transfer_volume)
-        if self not in destination_well.sources:
-            destination_well.sources.append(self)
+        self.destination_well.add_content(quantities_transferred,
+                                     volume=self.volume)
+        self.source_well.subtract_content(quantities_transferred,
+                              volume=self.volume)
+        if self not in self.destination_well.sources:
+            self.destination_well.sources.append(self)
 
     def __repr__(self):
         """Return "xx L from {source_well} into {dest_well}"."""
         return self.to_plain_string()
 
+
 class TransferError(ValueError):
     pass
-

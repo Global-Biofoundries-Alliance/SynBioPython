@@ -49,18 +49,14 @@ class PickList:
 
     def to_plain_string(self):
         """Return the list of transfers in human-readable format"""
-        return "\n".join(
-            transfer.to_plain_string() for transfer in self.transfers_list
-        )
+        return "\n".join(transfer.to_plain_string() for transfer in self.transfers_list)
 
     def to_plain_textfile(self, filename):
         """Write the picklist in a file in a human reable format."""
         with open(filename, "w+") as f:
             f.write(self.to_plain_string())
 
-    def simulate(
-        self, content_field="content", inplace=True, callback_function=None
-    ):
+    def simulate(self, content_field="content", inplace=True, callback_function=None):
         """Simulate the execution of the picklist"""
 
         if not inplace:
@@ -78,12 +74,8 @@ class PickList:
             for transfer in self.transfers_list:
                 new_source_plate = new_plates[transfer.source_well.plate]
                 new_dest_plate = new_plates[transfer.destination_well.plate]
-                new_source_well = new_source_plate.wells[
-                    transfer.source_well.name
-                ]
-                new_dest_well = new_dest_plate.wells[
-                    transfer.destination_well.name
-                ]
+                new_source_well = new_source_plate.wells[transfer.source_well.name]
+                new_dest_well = new_dest_plate.wells[transfer.destination_well.name]
                 new_transfer_list.append(
                     Transfer(
                         volume=transfer.volume,
@@ -94,8 +86,7 @@ class PickList:
 
             new_picklist = PickList(transfers_list=new_transfer_list)
             new_picklist.simulate(
-                content_field=content_field,
-                inplace=True,
+                content_field=content_field, inplace=True,
             )
             return new_plates
 
@@ -141,8 +132,7 @@ class PickList:
                 return transfer.__dict__[sorting_method]
 
         return PickList(
-            sorted(self.transfers_list, key=sorting_method),
-            data={"parent": self},
+            sorted(self.transfers_list, key=sorting_method), data={"parent": self},
         )
 
     def split_by(self, category, sort_key):
@@ -167,7 +157,7 @@ class PickList:
             for cat in sorted(categories, key=sort_key)
         ]
 
-    def total_transfered_volume(self):
+    def total_transferred_volume(self):
         """Return the sum of all volumes from all transfers."""
         return sum([transfer.volume for transfer in self.transfers_list])
 
@@ -197,9 +187,7 @@ class PickList:
 
         destination_wells = (
             well
-            for well in destination_plate.iter_wells(
-                direction=destination_direction
-            )
+            for well in destination_plate.iter_wells(direction=destination_direction)
             if destination_criterion(well)
         )
         transfers_list = []
@@ -230,9 +218,9 @@ class PickList:
             n_additional_dispense = int(trf.volume / max_dispense_volume)
             rest = trf.volume - n_additional_dispense * max_dispense_volume
             for i in range(n_additional_dispense):
-                transfers.append(trf.change_volume(max_dispense_volume))
+                transfers.append(trf.with_new_volume(max_dispense_volume))
             if rest > 0:
-                transfers.append(trf.change_volume(rest))
+                transfers.append(trf.with_new_volume(rest))
         return PickList(transfers_list=transfers)
 
     def __add__(self, other):

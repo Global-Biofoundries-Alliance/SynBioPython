@@ -11,8 +11,8 @@ from .helper_functions import (
     wellname_to_index,
     coordinates_to_wellname,
     rowname_to_number,
-    replace_nans_in_dict,
 )
+from ..tools import replace_nans_in_dict
 
 
 class Plate:
@@ -49,13 +49,13 @@ class Plate:
                 wellname = coordinates_to_wellname((row, column))
                 data = self.wells_data.get(wellname, {})
                 well = self.well_class(
-                    plate=self,
-                    row=row,
-                    column=column,
-                    name=wellname,
-                    data=data,
+                    plate=self, row=row, column=column, name=wellname, data=data,
                 )
                 self.wells[wellname] = well
+
+    def __getitem__(self, k):
+        """Return e.g. well A1's dict when calling `myplate['A1']`."""
+        return self.wells[k]
 
     def find_unique_well_by_condition(self, condition):
         """Return the unique well of the plate satisfying the condition.
@@ -71,18 +71,17 @@ class Plate:
             raise ValueError("No wells found matching the condition")
         return wells[0]
 
-
     def find_unique_well_containing(self, query):
         """Return the unique well whose content contains the query."""
+
         def condition(well):
             return query in well.content.quantities.keys()
+
         return self.find_unique_well_by_condition(condition)
 
     def list_well_data_fields(self):
         """Return all fields used in well data in the plate"""
-        return sorted(
-            list(set(field for well in self for field in well.data.keys()))
-        )
+        return sorted(list(set(field for well in self for field in well.data.keys())))
 
     def list_wells_in_column(self, column_number):
         """Return the list of all wells of the plate in the given column.
@@ -93,9 +92,7 @@ class Plate:
         >>>      print(well.name)
         """
         # TODO: at some point, avoid iterating over all wells, make it smarter
-        return [
-            well for well in self.iter_wells() if well.column == column_number
-        ]
+        return [well for well in self.iter_wells() if well.column == column_number]
 
     def list_wells_in_row(self, row):
         """Return the list of all wells of the plate in the given row.
@@ -133,7 +130,6 @@ class Plate:
         direction_of_occurence="row",
     ):
         if key is None:
-
             def key(well):
                 return well.data.get(data_field, None)
 
@@ -187,6 +183,9 @@ class Plate:
         """
         return wellname_to_index(wellname, self.num_wells, direction=direction)
 
+    def wells_sorted_by(self, sortkey):
+        return (e for e in sorted(self.wells.values(), key=sortkey))
+
     def iter_wells(self, direction="row"):
         """Iter through the wells either by row or by column.
         
@@ -204,3 +203,7 @@ class Plate:
 
     def __repr__(self):
         return "%s(%s)" % (self.__class__.__name__, self.name)
+
+
+def get_plate_class(num_wells):
+    return {96: Plate96, 384: Plate384, 1536: Plate1536,}[num_wells]

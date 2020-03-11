@@ -1,4 +1,5 @@
 from .WellContent import WellContent
+from ..Picklist.Transfer import TransferError
 
 class Well:
     """Generic class for a well.
@@ -19,7 +20,7 @@ class Well:
       The well's name, for instance "A1"
 
     data
-      A dictionnary storing data on the well, used in algorithms and reports.
+      A dictionary storing data on the well, used in algorithms and reports.
 
 
     """
