@@ -17,20 +17,20 @@ from ..tools import replace_nans_in_dict
 
 class Plate:
     """Base class for all plates.
-    
+
     See the builtin_containers for usage classes, such as generic microplate
     classes (Plate96, Plate384, etc.)
-    
+
     Parameters
     ----------
 
     name
       Name or ID of the Plate as it will appear in strings and reports
-    
+
     wells_data
       A dict {"A1": {data}, "A2": ...}. The format of the data is left free
 
-    
+
     plate_data
 
     """
@@ -59,7 +59,7 @@ class Plate:
 
     def find_unique_well_by_condition(self, condition):
         """Return the unique well of the plate satisfying the condition.
-        
+
         The ``condition`` method should have a signature of Well=>True/False
 
         Raises a ValueError if 0 or several wells satisfy the condition.
@@ -130,6 +130,7 @@ class Plate:
         direction_of_occurence="row",
     ):
         if key is None:
+
             def key(well):
                 return well.data.get(data_field, None)
 
@@ -149,7 +150,7 @@ class Plate:
 
     def get_well_at_index(self, index, direction="row"):
         """Return the well at the corresponding index
-        
+
         Examples
         --------
 
@@ -161,10 +162,10 @@ class Plate:
 
     def index_to_wellname(self, index, direction="row"):
         """Return the name of the well at the corresponding index
-        
+
         Examples
         --------
-        
+
         >>> plate.index_to_wellname(1)  # "A1"
         >>> plate.get_well_at_index(2)  # "A2"
         >>> plate.get_well_at_index(2, direction="column")  # "B1"
@@ -188,8 +189,7 @@ class Plate:
 
     def iter_wells(self, direction="row"):
         """Iter through the wells either by row or by column.
-        
-        
+
         Examples
         --------
 
@@ -203,7 +203,3 @@ class Plate:
 
     def __repr__(self):
         return "%s(%s)" % (self.__class__.__name__, self.name)
-
-
-def get_plate_class(num_wells):
-    return {96: Plate96, 384: Plate384, 1536: Plate1536,}[num_wells]

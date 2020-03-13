@@ -10,12 +10,11 @@ class PickList:
     -----------
 
     transfers_list
-      A list of Transfer objects that will be part of a same dispensing
+      A list of Transfer objects that will be part of the same dispensing
       operation, in the order in which they are meant to be simulated.
 
     data
-      A dict with some infos on the picklist.
-
+      A dict with information on the picklist.
     """
 
     def __init__(self, transfers_list=(), data=None):
@@ -178,12 +177,19 @@ class PickList:
 
         if not hasattr(volume, "__call__"):
             constant_volume = volume
-            volume = lambda source_well: constant_volume
+
+            def volume(source_well):
+                return constant_volume
 
         if source_criterion is None:
-            source_criterion = lambda well: True
+
+            def source_criterion(well):
+                return True
+
         if destination_criterion is None:
-            destination_criterion = lambda well: True
+
+            def destination_criterion(well):
+                return True
 
         destination_wells = (
             well

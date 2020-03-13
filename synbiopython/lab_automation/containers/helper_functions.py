@@ -1,6 +1,7 @@
 import math
 import re
 
+
 def compute_rows_columns(num_wells):
     """Convert 96->(8,12), 384->(16,24), etc."""
     a = math.sqrt(num_wells / 6)
@@ -22,9 +23,7 @@ def rowname_to_number(name):
 def number_to_rowname(number):
     "Convert 1->A 26->Z 27->AA etc."
     if number > 26:
-        return number_to_rowname(int(number / 26)) + number_to_rowname(
-            number % 26
-        )
+        return number_to_rowname(int(number / 26)) + number_to_rowname(number % 26)
     return "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[number - 1]
 
 

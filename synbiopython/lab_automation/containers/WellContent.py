@@ -24,10 +24,7 @@ class WellContent:
 
     def to_dict(self):
         """Return a dict {volume: 0.0001, quantities: {...:...}}"""
-        return {
-            "volume": self.volume,
-            "quantities": self.quantities
-        }
+        return {"volume": self.volume, "quantities": self.quantities}
 
     def make_empty(self):
         self.volume = 0
