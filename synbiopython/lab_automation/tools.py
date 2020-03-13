@@ -9,7 +9,7 @@ from fuzzywuzzy import process
 import re
 
 
-def round_at(value, rounding):
+def round_at(value, rounding=None):
     """Round value at the nearest rounding"""
     if rounding is None:
         return value
@@ -25,7 +25,7 @@ def replace_nans_in_dict(dictionary, replace_by="null"):
     for key, value in dictionary.items():
         if isinstance(value, dict):
             replace_nans_in_dict(value, replace_by=replace_by)
-        elif value == np.nan:
+        elif value is np.nan:
             dictionary[key] = replace_by
 
 

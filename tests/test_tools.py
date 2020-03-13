@@ -1,21 +1,27 @@
 import pytest
 
-import synbiopython.lab_automation as lab
+import numpy as np
 
-wellname_data = [
-    ("A5", "row", 5),
-    ("A5", "column", 33),
-    ("C6", "row", 30),
-    ("C6", "column", 43),
-]
-inverted_wellname_data = [[s[-1], s[1], s[0]] for s in wellname_data]
+from synbiopython.lab_automation import tools
 
 
-@pytest.mark.parametrize("wellname, direction, expected", wellname_data)
-def test_wellname_to_index(wellname, direction, expected):
-    assert lab.Plate96().wellname_to_index(wellname, direction) == expected
+def test_round_at():
+    assert tools.round_at(42.0) == 42.0
+    assert tools.round_at(6.28318, 10 ** (-2)) == 6.28
 
 
-@pytest.mark.parametrize("index, direction, expected", inverted_wellname_data)
-def test_index_to_wellname(index, direction, expected):
-    assert lab.Plate96().index_to_wellname(index, direction) == expected
+def test_dicts_to_columns():
+    test_dict = {1: np.nan, 2: {"a": np.nan}}
+    tools.replace_nans_in_dict(test_dict)
+    expected = {1: "null", 2: {"a": "null"}}
+    assert test_dict == expected
+
+
+def test_human_seq_size():
+    assert tools.human_seq_size(42) == "42b"
+    tools.human_seq_size(1042) == "1.0k"
+    tools.human_seq_size(42000) == "42k"
+
+
+def test_human_volume():
+    assert tools.human_volume(500) == "500 L"
