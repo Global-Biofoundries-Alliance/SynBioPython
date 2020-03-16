@@ -1,5 +1,8 @@
 # SynBioPython
 
+[![Build Status](https://travis-ci.org/Edinburgh-Genome-Foundry/SynBioPython.svg?branch=travis)](https://travis-ci.org/Edinburgh-Genome-Foundry/SynBioPython)[![Coverage Status](https://coveralls.io/repos/github/Edinburgh-Genome-Foundry/SynBioPython/badge.svg?branch=travis)](https://coveralls.io/github/Edinburgh-Genome-Foundry/SynBioPython?branch=travis)
+
+
 Synbiopython will provide generic tools for Synthetic Biology.
 
 Installation
