@@ -53,10 +53,6 @@ def test_sorted_by():
     assert isinstance(lab.PickList().sorted_by(), lab.PickList)
 
 
-def test_split_by():
-    assert isinstance(lab.PickList().sorted_by(), lab.PickList)
-
-
 def test_total_transferred_volume():
     assert picklist.total_transferred_volume() == 25 * 10 ** (-6)
 
