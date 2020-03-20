@@ -1,6 +1,7 @@
 import pytest
 
 import synbiopython.lab_automation as lab
+from synbiopython.lab_automation.containers.Well import Well
 
 
 def condition(well):
@@ -23,19 +24,18 @@ def test_list_well_data_fields():
 
 
 def test_list_wells_in_column():
-    expected = "<class 'synbiopython.lab_automation.containers.Well.Well'>"
-    result = str(type(lab.Plate96().list_wells_in_column(5)[0]))
-    assert result == expected
+    assert isinstance(lab.Plate96().list_wells_in_column(5)[0], Well)
 
 
 def test_list_wells_in_row():
-    expected = "<class 'synbiopython.lab_automation.containers.Well.Well'>"
-    result = str(type(lab.Plate96().list_wells_in_row(5)[0]))
-    assert result == expected
+    assert isinstance(lab.Plate96().list_wells_in_row(5)[0], Well)
 
 
 def test_list_filtered_wells():
-    pass
+    def condition(well):
+        return well.volume > 50
+
+    assert lab.Plate96().list_filtered_wells(condition) == []
 
 
 def test_wells_grouped_by():
@@ -68,7 +68,7 @@ def test_index_to_wellname(index, direction, expected):
 
 def test_iter_wells():
     result = lab.Plate96().iter_wells()
-    assert str(type(result)) == "<class 'generator'>"
+    assert isinstance(next(result), Well)
 
 
 def test___repr__():

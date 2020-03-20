@@ -66,13 +66,3 @@ def human_volume(vol, unit="auto"):
         return "%d %s" % (vol, unit)
     else:
         return "%s %s" % (("%.02f" % vol).rstrip("0"), unit)
-
-
-def did_you_mean(name, other_names, limit=5, min_score=50):
-    if isinstance(name, (list, tuple)):
-        return {
-            n: did_you_mean(n, other_names, limit=limit, min_score=min_score)
-            for n in name
-        }
-    results = process.extract(name, list(other_names), limit=limit)
-    return [e for (e, score) in results if score >= min_score]
