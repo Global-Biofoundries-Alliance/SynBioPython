@@ -2,6 +2,8 @@ import pytest
 
 import synbiopython.lab_automation as lab
 from synbiopython.lab_automation.Picklist.Transfer import TransferError
+from synbiopython.lab_automation.containers.Well import Well
+
 
 plate = lab.Plate96()
 well = plate.get_well_at_index(1)
@@ -13,7 +15,7 @@ def test_volume():
 
 def test_iterate_sources_tree():
     result = well.iterate_sources_tree()
-    assert str(type(result)) == "<class 'generator'>"
+    assert isinstance(next(result), Well)
 
 
 def test_add_content():

@@ -16,7 +16,7 @@ picklist = lab.PickList()
 
 def test_add_transfer():
     picklist.add_transfer(transfer=transfer_1)
-    assert type(picklist.transfers_list[0]) == lab.Transfer
+    assert isinstance(picklist.transfers_list[0], lab.Transfer)
 
 
 def test_to_plain_string():
@@ -50,11 +50,11 @@ def test_restricted_to():
 
 
 def test_sorted_by():
-    pass
+    assert isinstance(lab.PickList().sorted_by(), lab.PickList)
 
 
 def test_split_by():
-    pass
+    assert isinstance(lab.PickList().sorted_by(), lab.PickList)
 
 
 def test_total_transferred_volume():

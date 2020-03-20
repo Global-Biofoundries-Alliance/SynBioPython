@@ -116,8 +116,8 @@ class Plate:
         ---------
         >>> def condition(well):
         >>>     return well.volume > 50
-        >>> for well in myplate.wells_satifying(condition):
-        >>>     print( well.name )
+        >>> for well in myplate.list_filtered_wells(condition):
+        >>>     print(well.name)
         """
         return list(filter(well_filter, self.wells.values()))
 

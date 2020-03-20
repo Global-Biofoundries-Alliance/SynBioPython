@@ -40,6 +40,23 @@ def test_apply():
     with pytest.raises(ValueError):
         transfer.apply()
 
+    source_2 = lab.Plate96(name="Source_2")
+    source_2.wells["A1"].add_content({"Compound_1": 1}, volume=5 * 10 ** (-6))
+    destination_2 = lab.Plate96(name="Destination_2")
+    transfer_2 = lab.Transfer(source_2.wells["A1"], destination_2.wells["B2"], volume)
+
+    with pytest.raises(ValueError):
+        transfer_2.apply()
+
+    source_2.wells["A1"].add_content({"Compound_1": 1}, volume=25 * 10 ** (-6))
+    destination_2.wells["B2"].capacity = 3 * 10 ** (-6)
+    with pytest.raises(ValueError):
+        transfer_2.apply()
+
+    destination_2.wells["B2"].capacity = 50 * 10 ** (-6)
+    transfer_2.apply()
+    assert destination_2.wells["B2"].volume == volume
+
 
 def test___repr__():
     assert (
