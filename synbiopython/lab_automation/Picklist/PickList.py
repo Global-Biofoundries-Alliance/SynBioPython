@@ -134,28 +134,6 @@ class PickList:
             sorted(self.transfers_list, key=sorting_method), data={"parent": self},
         )
 
-    def split_by(self, category, sort_key):
-        """Split the picklist into a list of picklists, per category.
-
-        The returned list if of the form [(cat, subpicklist)] where
-        ``cat`` is the value of the category for all transfers in
-        ``subpicklist``.
-
-        The parameter ``category`` is either the name of a transfer attribute
-        or a function f(transfer)=> value which is used to
-        """
-        if isinstance(category, str):
-            str_category = category
-
-            def category(t):
-                return t.__dict__[str_category]
-
-        categories = set([category(tr) for tr in self.transfers_list])
-        return [
-            (cat, self.restricted_to(lambda tr: category(tr) == cat))
-            for cat in sorted(categories, key=sort_key)
-        ]
-
     def total_transferred_volume(self):
         """Return the sum of all volumes from all transfers."""
         return sum([transfer.volume for transfer in self.transfers_list])
