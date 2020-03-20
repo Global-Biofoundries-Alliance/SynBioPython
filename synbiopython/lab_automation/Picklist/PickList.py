@@ -160,62 +160,6 @@ class PickList:
         """Return the sum of all volumes from all transfers."""
         return sum([transfer.volume for transfer in self.transfers_list])
 
-    @staticmethod
-    def from_plates(
-        source_plate,
-        destination_plate,
-        volume,
-        source_criterion=None,
-        destination_criterion=None,
-        source_direction="row",
-        destination_direction="row",
-    ):
-        """Create a PickList object based on plates and conditions.
-
-        BROKEN due to changes in picklists. TODO: Fix.
-        """
-
-        if not hasattr(volume, "__call__"):
-            constant_volume = volume
-
-            def volume(source_well):
-                return constant_volume
-
-        if source_criterion is None:
-
-            def source_criterion(well):
-                return True
-
-        if destination_criterion is None:
-
-            def destination_criterion(well):
-                return True
-
-        destination_wells = (
-            well
-            for well in destination_plate.iter_wells(direction=destination_direction)
-            if destination_criterion(well)
-        )
-        transfers_list = []
-        if isinstance(source_plate, (list, tuple)):
-            source_wells = (
-                p.iter_wells(direction=source_direction) for p in source_plate
-            )
-        else:
-            source_wells = source_plate.iter_wells(direction=source_direction)
-        for source_well in source_wells:
-            if source_criterion(source_well):
-                destination_well = next(destination_wells)
-                transfers_list.append(
-                    Transfer(
-                        source_well=source_well,
-                        destination_well=destination_well,
-                        volume=volume(source_well),
-                    )
-                )
-
-        return PickList(transfers_list)
-
     def enforce_maximum_dispense_volume(self, max_dispense_volume):
         """Return a new picklist were every too-large dispense is broken down
         into smaller dispenses."""
@@ -237,7 +181,7 @@ class PickList:
         """Merge the list of picklists into a single picklist.
 
         The transfers in the final picklist are the concatenation of the
-        tranfers in the different picklists, in the order in which they appear
+        transfers in the different picklists, in the order in which they appear
         in the list.
         """
         return sum(picklists_list, PickList([]))
