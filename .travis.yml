@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.6"
+# command to install dependencies
+install:
+  - pip install coveralls pytest-cov==2.6 pytest==3.2.3
+  - pip install -e .
+# command to run tests
+script:
+  - python -m pytest -v --cov synbiopython --cov-report term-missing
+
+after_success:
+  - coveralls
