@@ -1,5 +1,6 @@
 # SynBioPython
 
+
 Synbiopython will provide generic tools for Synthetic Biology.
 
 Installation
@@ -14,19 +15,19 @@ pip install --user git+https://github.com/Global-Biofoundries-Alliance/SynBioPyt
 To install for development, clone the repository into the folder of your choice and install with:
 
 ```
-pip install --user . && pip install --user -e .
+pip install --user -e .
 ```
 
 You should now be able to run this in Python:
 
-```python
-import synbioptyhon
+```
+python
+import synbiopython
 print(synbiopython.__version__)
-
 ```
 
 Contribute!
 -----------
 
 SynBioPython is developed collectively by members of the Global Biofoundries
-Alliance and released on Github under the MIT license. Constributions are welcome!
+Alliance and released on Github under the MIT license. Contributions are welcome!
