@@ -105,4 +105,7 @@ venv.bak/
 
 /.project
 /.pydevproject
+/.settings
 /**/.DS_Store
+
+/synbiopython/codon/data/*.txt
