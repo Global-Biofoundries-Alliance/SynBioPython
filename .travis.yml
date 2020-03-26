@@ -5,6 +5,12 @@ python:
 install:
   - pip install coveralls pytest-cov==2.6 pytest==3.2.3
   - pip install -e .
+  - pip install dnaplotlib
+  - pip install tellurium
+  - pip install simplesbml
+  - pip install biopython
+  - pip install reportlab
+  
 # command to run tests
 script:
   - python -m pytest -v --cov synbiopython --cov-report term-missing

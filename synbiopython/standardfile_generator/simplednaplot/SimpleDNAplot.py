@@ -16,7 +16,7 @@ pip install dnaplotlib
 
 """
 
-import dnaplotlib as dpl
+from . import dnaplotlib as dpl
 import matplotlib.pyplot as plt
 import matplotlib
 import re
@@ -173,6 +173,10 @@ class SimpleDNAplot:
                         first_yoffset = -4
                         second_yoffset = 5.5
                         reg_type = "Repression"
+                    elif "Activation2" in reg_parts[1]:
+                        first_yoffset = -4
+                        second_yoffset = 5.5
+                        reg_type = "Activation"
                     else:
                         second_yoffset = 0
                         reg_type = reg_parts[1]

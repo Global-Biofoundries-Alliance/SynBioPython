@@ -52,9 +52,11 @@ class GenSBOLconv:
         gd_feature_set = gd_track_for_features.new_set()
 
         for feature in record.features:
-            if feature.type != "CDS":
-                # Exclude this feature
+            if feature.type == "primer":
                 continue
+            #            if (feature.type != "CDS"):
+            #                # Exclude this feature
+            #                continue
             if len(gd_feature_set) % 2 == 0:
                 color = colors.lightblue
 
