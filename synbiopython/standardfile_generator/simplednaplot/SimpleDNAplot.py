@@ -13,7 +13,7 @@ Reference: https://github.com/VoigtLab/dnaplotlib
 
 """
 
-from . import dnaplotlib as dpl
+import dnaplotlib as dpl
 import matplotlib.pyplot as plt
 import matplotlib
 import re
@@ -31,7 +31,7 @@ class SimpleDNAplot:
     # The default color is black if color is not specified
     """
 
-    def circuit(self, Input, Regulation=None):
+    def CircuitDesign(self, Input, Regulation=None):
         """ Take in the input in string format and
         Return the list of dictionary containing the part information """
 
@@ -277,7 +277,7 @@ class SimpleDNAplot:
         dr = dpl.DNARenderer()
 
         # Process the arguments
-        design, Regulations = self.circuit(Input, Regulation)
+        design, Regulations = self.CircuitDesign(Input, Regulation)
 
         reg_renderers = dr.std_reg_renderers()
         part_renderers = dr.SBOL_part_renderers()
