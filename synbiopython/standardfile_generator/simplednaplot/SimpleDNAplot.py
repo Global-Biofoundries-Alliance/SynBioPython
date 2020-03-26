@@ -11,6 +11,9 @@ using the modified code from quickplot.py in DNAplotlib library
 
 Reference: https://github.com/VoigtLab/dnaplotlib
 
+Install library:
+pip install dnaplotlib
+
 """
 
 import dnaplotlib as dpl
