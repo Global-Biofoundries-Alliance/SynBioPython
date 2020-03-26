@@ -4,7 +4,7 @@ import os
 import synbiopython.standardfile_generator as stdgen
 
 path = os.path.abspath(os.path.dirname(__file__))
-sbmlpath = r"data\gateNOT_d30_LB_state1_.xml"
+sbmlpath = "data/gateNOT_d30_LB_state1_.xml"
 filepath = os.path.join(path, sbmlpath)
 phrasedml_str = """
       model1 = model "{}"
