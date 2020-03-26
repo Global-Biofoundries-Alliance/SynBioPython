@@ -16,7 +16,7 @@ pip install dnaplotlib
 
 """
 
-from . import dnaplotlib as dpl
+import dnaplotlib as dpl
 import matplotlib.pyplot as plt
 import matplotlib
 import re
