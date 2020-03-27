@@ -1,7 +1,7 @@
 import pytest
 import re
 import os
-import synbiopython.standardfile_generator as stdgen
+import synbiopython.genbabel as stdgen
 
 path = os.path.abspath(os.path.dirname(__file__))
 sbmlpath = "data/gateNOT_d30_LB_state1_.xml"
@@ -16,7 +16,7 @@ phrasedml_str = """
       plot "Fig 1: Pep (NOT gate 30C LB)" task1.time vs task1.Pep2, task2.Pep2
     """
 
-omexgen = stdgen.SEDML_OMEXgen()
+omexgen = stdgen.SEDMLOMEXgen()
 
 
 @pytest.mark.omexgen

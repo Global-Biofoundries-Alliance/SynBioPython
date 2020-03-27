@@ -1,6 +1,6 @@
 import pytest
 
-import synbiopython.standardfile_generator as stdgen
+import synbiopython.genbabel as stdgen
 
 simplot = stdgen.SimpleDNAplot()
 

@@ -20,7 +20,7 @@ te.setDefaultPlottingEngine("matplotlib")
 plt.close("all")
 
 
-class SEDML_OMEXgen:
+class SEDMLOMEXgen:
 
     # get current working directory
     def __init__(self):

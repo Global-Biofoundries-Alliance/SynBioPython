@@ -52,7 +52,7 @@ class GenSBOLconv:
         gd_feature_set = gd_track_for_features.new_set()
 
         for feature in record.features:
-            if feature.type == "primer":
+            if feature.type == "primer" or (feature.type == "misc_feature"):
                 continue
             #            if (feature.type != "CDS"):
             #                # Exclude this feature

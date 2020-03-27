@@ -4,18 +4,12 @@ DEFINITION  Arabinose inducible expression of PZF3838, M.ScaI Fusion protein
 ACCESSION   BBa_K874103
 VERSION     BBa_K874103.1  
 FEATURES             Location/Qualifiers
-     promoter        1..131
-                     /label="promoter"
      misc_feature    40..57
                      /label="AraI1"
      misc_feature    61..78
                      /label="AraI2"
      promoter        1..130
                      /label="BBa_K206001"
-     RBS             139..151
-                     /label="RBS-3\Weak"
-     RBS             145..148
-                     /label="RBS"
      misc_feature    139..151
                      /label="BBa_B0032"
      RBS             139..151
@@ -55,8 +49,6 @@ FEATURES             Location/Qualifiers
      polyA_site      1666..1679
                      /label="polya"
      misc_feature    1639..1679
-                     /label="BBa_B0012"
-     terminator      1639..1679
                      /label="BBa_B0012"
      stem_loop       1700..1722
                      /label="stem_loop"

@@ -1,8 +1,7 @@
 import pytest
 import os
-import synbiopython.standardfile_generator as stdgen
+import synbiopython.genbabel as stdgen
 
-stdconv = stdgen.GenSBOLconv()
 path = os.path.abspath(os.path.dirname(__file__))
 sbolfile = "data/sequence1.xml"
 sbolpath = os.path.join(path, sbolfile)
@@ -10,6 +9,8 @@ gbfile = "data/Testsequence1.gb"
 gbpath = os.path.join(path, gbfile)
 uri_Prefix_isbol = ""
 uri_Prefix_igb = "http://synbiohub.org/public/igem"
+
+stdconv = stdgen.GenSBOLconv()
 
 
 @pytest.mark.stdconv

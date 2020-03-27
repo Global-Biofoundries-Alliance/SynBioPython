@@ -1,7 +1,7 @@
 import pytest
 import re
 
-import synbiopython.standardfile_generator as stdgen
+import synbiopython.genbabel as stdgen
 
 sbmlgen = stdgen.SBMLgen()
 
