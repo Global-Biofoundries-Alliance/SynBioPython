@@ -71,8 +71,12 @@ def test_regulation(regulations):
             "opts": {
                 "color": (0.89, 0.1, 0.11),
                 "linewidth": 1.5,
-                "first_arc_y_offset": 0,
-                "second_arc_y_offset": 0,
+                "arc_height_const": 17,
+                "arc_height_spacing": 4,
+                "arc_height_start": 13,
+                "arc_height_end": 13,
+                "arc_height": 21,
+                "arrowhead_length": 2,
             },
         }
     ]
@@ -96,8 +100,12 @@ def test_derepression(derepression):
             "opts": {
                 "color": (0.0, 0.0, 0.0),
                 "linewidth": 1.5,
-                "first_arc_y_offset": -4,
-                "second_arc_y_offset": 0,
+                "arc_height_const": 17,
+                "arc_height_spacing": -1,
+                "arc_height_start": 13,
+                "arc_height_end": 13,
+                "arc_height": 16,
+                "arrowhead_length": 2,
             },
         },
         {
@@ -107,8 +115,12 @@ def test_derepression(derepression):
             "opts": {
                 "color": (0.89, 0.1, 0.11),
                 "linewidth": 1.5,
-                "first_arc_y_offset": -4,
-                "second_arc_y_offset": 5.5,
+                "arc_height_const": 21.5,
+                "arc_height_spacing": -1,
+                "arc_height_start": 17.5,
+                "arc_height_end": 17.5,
+                "arc_height": 20.5,
+                "arrowhead_length": 2,
             },
         },
     ]
@@ -116,6 +128,7 @@ def test_derepression(derepression):
 
 @pytest.mark.simplot
 def test_maxdnalength():
+    filename = "check_PlotCircuit.png"
     Input = "p r c.green"
-    dnalength = simplot.PlotCircuit(Input, Regulation=None)
+    dnalength = simplot.PlotCircuit(filename, Input, Regulation=None)
     assert dnalength == 60.0

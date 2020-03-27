@@ -165,17 +165,22 @@ class SimpleDNAplot:
         if Regulation is not None:
             Reg_list = Regulation.split(" ")
 
-            first_yoffset = 0
             for r in range(len(Reg_list)):
+                first_yoffset = 0
+                second_yoffset = 0
+                arc_height_const = 17
+                arc_height_spacing = 4
+                arc_height_start = 13
+
                 if Reg_list[r] != "":
                     reg_parts = Reg_list[r].split(".")
                     if "Derepression" in reg_parts[1]:
-                        first_yoffset = -4
-                        second_yoffset = 5.5
+                        first_yoffset = -5
+                        second_yoffset = 4.5
                         reg_type = "Repression"
                     elif "Activation2" in reg_parts[1]:
-                        first_yoffset = -4
-                        second_yoffset = 5.5
+                        first_yoffset = -5
+                        second_yoffset = 4.5
                         reg_type = "Activation"
                     else:
                         second_yoffset = 0
@@ -199,6 +204,12 @@ class SimpleDNAplot:
                     else:
                         reg_rgb = colors["black"]
 
+                    arc_height_spacing = arc_height_spacing + first_yoffset
+                    arc_height_const = arc_height_const + second_yoffset
+                    arc_height_start = arc_height_start + second_yoffset
+                    arc_height_end = arc_height_start * 1
+                    arc_height = arc_height_const + arc_height_spacing
+
                     Regulations.append(
                         {
                             "type": reg_type,
@@ -211,14 +222,19 @@ class SimpleDNAplot:
                             "opts": {
                                 "color": reg_rgb,
                                 "linewidth": 1.5,
-                                "first_arc_y_offset": first_yoffset,
-                                "second_arc_y_offset": second_yoffset,
+                                "arc_height_const": arc_height_const,
+                                "arc_height_spacing": arc_height_spacing,
+                                "arc_height_start": arc_height_start,
+                                "arc_height_end": arc_height_end,
+                                "arc_height": arc_height,
+                                "arrowhead_length": 2,
                             },
                         }
                     )
 
             # Modify the plot of the last Repression before Derepression
             indices = [i for i, s in enumerate(Reg_list) if "Derepression" in s]
+            indices2 = [i for i, s in enumerate(Reg_list) if "Activation2" in s]
 
             Rep = []
             for i in range(len(indices)):
@@ -228,14 +244,41 @@ class SimpleDNAplot:
                         ind.append(j)
                 Rep.append({str(indices[i]): ind})
 
-            print(Rep)
+            Act = []
+            for i in range(len(indices2)):
+                ind = []
+                for j in range(indices2[i]):
+                    if "Activation" in Reg_list[j]:
+                        ind.append(j)
+                Act.append({str(indices2[i]): ind})
 
-            first_yoffset = -4
+            arc_height_const = 17
+            arc_height_spacing = 4
+            first_yoffset = -5
             if len(Rep) != 0:
                 for i in Rep:
+                    arc_height_spacing = arc_height_spacing + first_yoffset
+                    arc_height = arc_height_const + arc_height_spacing
                     Regulations[list(i.values())[0][-1]]["opts"][
-                        "first_arc_y_offset"
-                    ] = first_yoffset
+                        "arc_height_spacing"
+                    ] = arc_height_spacing
+                    Regulations[list(i.values())[0][-1]]["opts"][
+                        "arc_height"
+                    ] = arc_height
+
+            arc_height_const = 17
+            arc_height_spacing = 4
+            first_yoffset = -5
+            if len(Act) != 0:
+                for i in Act:
+                    arc_height_spacing = arc_height_spacing + first_yoffset
+                    arc_height = arc_height_const + arc_height_spacing
+                    Regulations[list(i.values())[0][-1]]["opts"][
+                        "arc_height_spacing"
+                    ] = arc_height_spacing
+                    Regulations[list(i.values())[0][-1]]["opts"][
+                        "arc_height"
+                    ] = arc_height
 
         else:
             Regulations = None
@@ -255,7 +298,7 @@ class SimpleDNAplot:
         dnalen["c"] = 32.0
         dnalen["t"] = 12.0
         dnalen["s"] = 10.0
-        dnalen["="] = 10.0
+        dnalen["="] = 7.0
         dnalen["o"] = 17.0
         dnalen["es"] = 20.0
 
@@ -273,15 +316,16 @@ class SimpleDNAplot:
 
         return dnalength
 
-    def PlotCircuit(self, Input, Regulation=None):
+    def PlotCircuit(self, filename, Input, Regulation=None):
 
         """ Take in the Input design and Regulation from users
         Plot the SBOL-compliant gene circuit figure
         """
 
-        matplotlib.use("Qt5Agg")
+        # matplotlib.use("Qt5Agg")
+        matplotlib.use("Agg")
 
-        dr = dpl.DNARenderer()
+        dr = dpl.DNARenderer(linewidth=1.5)
 
         # Process the arguments
         design, Regulations = self.CircuitDesign(Input, Regulation)
@@ -321,6 +365,7 @@ class SimpleDNAplot:
 
         # Save the figure
         plt.tight_layout()
-        plt.show()
+        fig.savefig(filename, transparent=True, dpi=300)
+        # plt.show()
 
         return max_dna_len
