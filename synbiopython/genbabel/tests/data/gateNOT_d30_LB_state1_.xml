@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model substanceUnits="mole" timeUnits="second" extentUnits="mole">
+    <listOfUnitDefinitions>
+      <unitDefinition id="per_second">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="per_min">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="molperLmin">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="60"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="molperL">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+          <unit kind="litre" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="Dimension_less">
+        <listOfUnits>
+          <unit multiplier="0" scale="0" exponent="0" kind="dimensionless"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="c1" spatialDimensions="3" size="1" units="litre" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="mRNA1" compartment="c1" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Pep1" compartment="c1" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="mRNA2" compartment="c1" initialConcentration="0" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="Pep2" compartment="c1" initialConcentration="0.000168459612947805" substanceUnits="mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="syn_mRNA1" value="2.01379246421315e-06" units="molperLmin" constant="true"/>
+      <parameter id="syn_mRNA2" value="3.59506390233639e-05" units="molperLmin" constant="true"/>
+      <parameter id="syn_Pep" value="0.00794435759402995" units="per_min" constant="true"/>
+      <parameter id="deg_Pep" value="0.0102451982909815" units="per_min" constant="true"/>
+      <parameter id="Kmaxrep" value="0.998837305649496" units="Dimension_less" constant="true"/>
+      <parameter id="Pepmax" value="1.31297576248967e-05" units="molperL" constant="true"/>
+      <parameter id="deg_mRNA" value="0.1386" units="per_min" constant="true"/>
+      <parameter id="state" value="1" units="Dimension_less" constant="true"/>
+    </listOfParameters>
+    <listOfRules>
+      <rateRule variable="mRNA1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> syn_mRNA1 </ci>
+              <ci> state </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> deg_mRNA </ci>
+              <ci> mRNA1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Pep1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> syn_Pep </ci>
+              <ci> mRNA1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> deg_Pep </ci>
+              <ci> Pep1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="mRNA2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> syn_mRNA2 </ci>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <times/>
+                  <ci> Kmaxrep </ci>
+                  <apply>
+                    <divide/>
+                    <ci> Pep1 </ci>
+                    <ci> Pepmax </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> deg_mRNA </ci>
+              <ci> mRNA2 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Pep2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> syn_Pep </ci>
+              <ci> mRNA2 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> deg_Pep </ci>
+              <ci> Pep2 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
+

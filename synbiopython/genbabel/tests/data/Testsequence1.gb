@@ -4,68 +4,60 @@ DEFINITION  Arabinose inducible expression of PZF3838, M.ScaI Fusion protein
 ACCESSION   BBa_K874103
 VERSION     BBa_K874103.1  
 FEATURES             Location/Qualifiers
-     promoter        1..131
-                     /label=promoter
      misc_feature    40..57
-                     /label=AraI1
+                     /label="AraI1"
      misc_feature    61..78
-                     /label=AraI2
+                     /label="AraI2"
      promoter        1..130
-                     /label=BBa_K206001
-     RBS             139..151
-                     /label=RBS-3\Weak
-     RBS             145..148
-                     /label=RBS
+                     /label="BBa_K206001"
      misc_feature    139..151
-                     /label=BBa_B0032
+                     /label="BBa_B0032"
      RBS             139..151
-                     /label=BBa_B0032
+                     /label="BBa_B0032"
      misc_feature    155..157
-                     /label=start
+                     /label="start"
      CDS             158..241
-                     /label=Zinc Finger 1
+                     /label="Zinc Finger 1"
      CDS             242..325
-                     /label=Zinc Finger 2
+                     /label="Zinc Finger 2"
      CDS             326..409
-                     /label=Zinc Finger 3
+                     /label="Zinc Finger 3"
      CDS             410..493
-                     /label=Zinc Finger 4
+                     /label="Zinc Finger 4"
      CDS             494..577
-                     /label=Zinc Finger 5
+                     /label="Zinc Finger 5"
      CDS             578..661
-                     /label=Zinc Finger 6
+                     /label="Zinc Finger 6"
      CDS             662..715
-                     /label=Linker
+                     /label="Linker"
      misc_feature    677..706
-                     /label=Myc
+                     /label="Myc"
      misc_feature    662..715
-                     /label=BBa_K874021
+                     /label="BBa_K874021"
      misc_feature    716..718
-                     /label=start
+                     /label="start"
      misc_feature    1628..1630
-                     /label=stop
+                     /label="stop"
      CDS             716..1630
-                     /label=BBa_K874000
+                     /label="BBa_K874000"
      misc_feature    139..1630
-                     /label=BBa_S05074
+                     /label="BBa_S05074"
      stem_loop       1646..1665
-                     /label=T7 TE
+                     /label="T7 TE"
      misc_feature    1672..1672
-                     /label=stop
+                     /label="stop"
      polyA_site      1666..1679
-                     /label=polya
+                     /label="polya"
      misc_feature    1639..1679
-                     /label=BBa_B0012
-     terminator      1639..1679
-                     /label=BBa_B0012
+                     /label="BBa_B0012"
      stem_loop       1700..1722
-                     /label=stem_loop
+                     /label="stem_loop"
      misc_feature    1688..1733
-                     /label=BBa_B0011
+                     /label="BBa_B0011"
      terminator      1688..1733
-                     /label=BBa_B0011
+                     /label="BBa_B0011"
      terminator      1639..1733
-                     /label=BBa_B0014
+                     /label="BBa_B0014"
 ORIGIN
         1 acattgatta tttgcacggc gtcacacttt gctatgccat agctttttta tccataagat
        61 tagcggatcc tacctgacgc tttttatcgc aactctctac tgtttctcca taccgttttt
