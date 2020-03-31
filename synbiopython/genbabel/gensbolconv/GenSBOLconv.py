@@ -94,7 +94,7 @@ class GenSBOLconv:
         gd_diagram.draw(
             format="circular",
             circular=True,
-            pagesize=(35 * cm, 30 * cm),
+            pagesize=(25 * cm, 20 * cm),  # pagesize=(35 * cm, 30 * cm),
             start=0,
             end=len(record),
             circle_core=0.5,

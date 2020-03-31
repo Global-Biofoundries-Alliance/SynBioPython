@@ -9,7 +9,7 @@ The simplesbml package can be installed via pip
 > pip install simplesbml
 """
 
-import simplesbml
+from . import simplesbml
 import datetime
 
 
@@ -25,6 +25,21 @@ class SBMLgen:
             ParamName: The names of the parameters stored in a list
             Param    : The parameters values
             ParamUnit: The unit for the parameter according to available unit definition """
+
+        for u in ParamUnit:
+            if u == "molL-1min-1":
+                ParamUnit[ParamUnit.index(u)] = "molperLmin"
+            elif u == "molL-1":
+                ParamUnit[ParamUnit.index(u)] = "molperL"
+            elif u == "s-1":
+                ParamUnit[ParamUnit.index(u)] = "per_second"
+            elif u == "min-1":
+                ParamUnit[ParamUnit.index(u)] = "per_min"
+            elif u == "dimensionless":
+                ParamUnit[ParamUnit.index(u)] = "Dimension_less"
+            else:
+                print("Error in the defined units for parameters")
+
         model = simplesbml.sbmlModel()
 
         for s in range(len(Variable)):

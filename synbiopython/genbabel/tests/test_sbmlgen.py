@@ -15,7 +15,7 @@ variable = ["x", "y", "z"]
 Init = [0.8, 1.8, 19]
 paramName = ["sigma", "rho", "beta"]
 param = [20.0, 28, 3]
-paramUnit = ["per_second", "per_second", "per_second"]
+paramUnit = ["s-1", "s-1", "s-1"]
 
 
 @pytest.mark.sbmlgen

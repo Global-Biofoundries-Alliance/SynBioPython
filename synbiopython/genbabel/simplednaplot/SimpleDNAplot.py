@@ -85,6 +85,7 @@ class SimpleDNAplot:
                         part_short_type = el[1]
                     if part_short_type in types.keys():
                         part_type = types[part_short_type]
+
                     else:
                         print("Error! Please specify the correct part type!")
 
