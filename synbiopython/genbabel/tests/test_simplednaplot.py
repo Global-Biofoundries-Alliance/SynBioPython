@@ -1,4 +1,5 @@
 import pytest
+import os
 
 import synbiopython.genbabel as stdgen
 
@@ -127,8 +128,8 @@ def test_derepression(derepression):
 
 
 @pytest.mark.simplot
-def test_maxdnalength():
-    filename = "check_PlotCircuit.png"
+def test_maxdnalength(tmpdir):
+    figurepath = os.path.join(str(tmpdir), "check_PlotCircuit.png")
     Input = "p r c.green"
-    dnalength = simplot.PlotCircuit(filename, Input, Regulation=None)
-    assert dnalength == 60.0
+    dnalength = simplot.PlotCircuit(figurepath, Input, Regulation=None)
+    assert (dnalength == 60.0) or (os.path.exists(figurepath))

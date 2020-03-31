@@ -40,7 +40,7 @@ class GenSBOLconv:
 
     """ Class to convert standard files (SBOL1, SBOL2, GenBank, Fasta, GFF3)"""
 
-    def export_PlasmidMap(self, gbfile):
+    def export_PlasmidMap(self, gbfile, filename=None):
 
         """ Export Linear and Circular Plasmid Map for the generated GenBank file
         """
@@ -81,8 +81,14 @@ class GenSBOLconv:
             start=0,
             end=len(record),
         )
-        gd_diagram.write("plasmid_linear.pdf", "PDF")
-        gd_diagram.write("plasmid_linear.png", "PNG")
+        if filename is None:
+            linfile = "plasmid_linear.png"
+            circfile = "plasmid_circular.png"
+        else:
+            linfile = filename[0]
+            circfile = filename[1]
+
+        gd_diagram.write(linfile, "PNG")
 
         # Draw circular map from genbank
         gd_diagram.draw(
@@ -93,8 +99,8 @@ class GenSBOLconv:
             end=len(record),
             circle_core=0.5,
         )
-        gd_diagram.write("plasmid_circular.pdf", "PDF")
-        gd_diagram.write("plasmid_circular.png", "PNG")
+        # gd_diagram.write("plasmid_circular.pdf", "PDF")
+        gd_diagram.write(circfile, "PNG")
 
         return record.id
 
@@ -145,7 +151,7 @@ class GenSBOLconv:
         }
         return switcher.get(Filetype, "unknown filetype")
 
-    def export_OutputFile(self, input_filename, Response, Output):
+    def export_OutputFile(self, input_filename, Response, Output, outputfile=None):
 
         """ Export the converted output file """
 
@@ -154,7 +160,11 @@ class GenSBOLconv:
 
         if Response.json()["valid"]:
             # export the result from json into the specific output file format
-            output_filename = filename + self.get_outputfile_extension(Output)
+            if outputfile is None:
+                output_filename = filename + self.get_outputfile_extension(Output)
+            else:
+                output_filename = outputfile
+
             print("Output file: ", output_filename)
 
             with open(output_filename, "w", newline="\n") as f:
@@ -162,7 +172,7 @@ class GenSBOLconv:
         else:
             print("Error message: ", Response.json()["errors"])
 
-    def AutoRunSBOLValidator(self, Input_file, Output, uri_Prefix=""):
+    def AutoRunSBOLValidator(self, Input_file, Output, uri_Prefix="", **kwargs):
 
         """ This wrapper function takes in
           input_file: input file or path to input file
@@ -171,6 +181,13 @@ class GenSBOLconv:
                       input conversion
           export output file in your folder """
         Response = self.SBOLValidator(Input_file, Output, uri_Prefix)
-        self.export_OutputFile(Input_file, Response, Output)
+
+        output_filename = None
+
+        for key, value in kwargs.items():
+            if "outputfile" in key:
+                output_filename = value
+
+        self.export_OutputFile(Input_file, Response, Output, outputfile=output_filename)
 
         return "valid: " + str(Response.json()["valid"])

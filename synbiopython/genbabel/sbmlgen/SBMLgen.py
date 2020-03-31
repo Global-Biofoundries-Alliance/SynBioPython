@@ -17,7 +17,7 @@ class SBMLgen:
 
     """ class to generate SBML file for ODE model """
 
-    def exportsbml(self, ODE, Variable, Init, ParamName, Param, ParamUnit):
+    def exportsbml(self, ODE, Variable, Init, ParamName, Param, ParamUnit, **kwargs):
 
         """ ODE      : The ODEs in the form of string stored in a list
             Variable : The names of variable in a list of string
@@ -38,7 +38,13 @@ class SBMLgen:
 
         Model = model.toSBML()
 
-        print(Model, file=open(self.getXMLfilename(), "w"))
+        output_file = self.getXMLfilename()
+
+        for key, value in kwargs.items():
+            if "outputfile" in key:
+                output_file = value
+
+        print(Model, file=open(output_file, "w"))
 
         return Model
 

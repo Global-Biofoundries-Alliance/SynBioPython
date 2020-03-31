@@ -27,7 +27,7 @@ class SEDMLOMEXgen:
 
         self.workingdir0 = os.getcwd()
 
-    def get_sbml_biomodel(self, Biomodels_ID):
+    def get_sbml_biomodel(self, Biomodels_ID, **kwargs):
 
         """ Get the ID for the Biomodels
         export the SBML model into .xml file
@@ -43,6 +43,11 @@ class SEDMLOMEXgen:
         sbml_str = sbml_str.replace("  </sbml", "</sbml")
 
         filepath = os.path.join(self.workingdir0, Biomodels_ID + ".xml")
+
+        for key, value in kwargs.items():
+            if "outputfile" in key:
+                filepath = value
+
         with open(filepath, "wb") as f:
             f.write(sbml_str.encode("utf-8"))
 
@@ -69,7 +74,7 @@ class SEDMLOMEXgen:
         except ValueError:
             return ""
 
-    def export_omex(self, antimony_str, phrasedml_str):
+    def export_omex(self, antimony_str, phrasedml_str, **kwargs):
 
         """take the antimony and phrasedml strings execute the omex and export into omex archive"""
         model = re.search("model (.*)\n", antimony_str)
@@ -82,26 +87,32 @@ class SEDMLOMEXgen:
 
         inline_omex = "\n".join([antimony_str, phrasedml_str])
 
-        dirName = self.getOMEXfilename()
+        if "outputfile" in kwargs:
+            filepath = kwargs["outputfile"]
 
-        try:
-            os.mkdir(dirName)
-            print("Directory ", dirName, " Created ")
-        except FileExistsError:
-            print("Directory ", dirName, " already exists")
+        else:
+            dirName = self.getOMEXfilename()
 
-        workingDir = os.path.join(self.workingdir0, dirName)
+            try:
+                os.mkdir(dirName)
+                print("Directory ", dirName, " Created ")
+            except FileExistsError:
+                print("Directory ", dirName, " already exists")
 
-        print("The output file path: ", workingDir)
+            workingDir = os.path.join(self.workingdir0, dirName)
+
+            filepath = os.path.join(workingDir, "archive.omex")
+
+        print("The output file path: ", filepath)
 
         # execute the inline OMEX
         te.executeInlineOmex(inline_omex)
 
-        te.exportInlineOmex(inline_omex, os.path.join(workingDir, "archive.omex"))
+        te.exportInlineOmex(inline_omex, filepath)
 
         return inline_omex
 
-    def phrasedmltosedml(self, phrasedml_str, sbml_file):
+    def phrasedmltosedml(self, phrasedml_str, sbml_file, **kwargs):
 
         """ take in phrasedml and sbml file in .xml, export the sedml.xml file,
         execute the sedml file, and return the sedml string
@@ -125,7 +136,12 @@ class SEDMLOMEXgen:
 
         if sedml_str is None:
             raise RuntimeError(phrasedml.getLastError())
+
         sedml_file = os.path.join(self.workingdir0, "sedml.xml")
+
+        for key, value in kwargs.items():
+            if "outputfile" in key:
+                sedml_file = value
 
         with open(sedml_file, "wb") as f:
             f.write(sedml_str.encode("utf-8"))
