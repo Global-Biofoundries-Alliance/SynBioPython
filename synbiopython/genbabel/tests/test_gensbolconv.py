@@ -22,7 +22,8 @@ def test_sboltogb(tmpdir):
         sbolpath, Output, uri_Prefix, outputfile=path
     )
     print("tmppath: ", path)
-    assert (Response == "valid: True") or (os.path.exists(path))
+    assert Response == "valid: True"
+    assert os.path.exists(path)
 
 
 @pytest.mark.stdconv
@@ -33,7 +34,8 @@ def test_sboltofasta(tmpdir):
     Response = stdconv.AutoRunSBOLValidator(
         sbolpath, Output, uri_Prefix, outputfile=path
     )
-    assert (Response == "valid: True") or (os.path.exists(path))
+    assert Response == "valid: True"
+    assert os.path.exists(path)
 
 
 @pytest.mark.stdconv
@@ -44,7 +46,8 @@ def test_sboltogff3(tmpdir):
     Response = stdconv.AutoRunSBOLValidator(
         sbolpath, Output, uri_Prefix, outputfile=path
     )
-    assert (Response == "valid: True") or (os.path.exists(path))
+    assert Response == "valid: True"
+    assert os.path.exists(path)
 
 
 @pytest.mark.stdconv
@@ -53,7 +56,8 @@ def test_gbtosbol(tmpdir):
     Output = "SBOL2"
     uri_Prefix = uri_Prefix_igb
     Response = stdconv.AutoRunSBOLValidator(gbpath, Output, uri_Prefix, outputfile=path)
-    assert (Response == "valid: True") or (os.path.exists(path))
+    assert Response == "valid: True"
+    assert os.path.exists(path)
 
 
 @pytest.mark.stdconv
@@ -62,7 +66,8 @@ def test_gbtofasta(tmpdir):
     Output = "FASTA"
     uri_Prefix = uri_Prefix_igb
     Response = stdconv.AutoRunSBOLValidator(gbpath, Output, uri_Prefix, outputfile=path)
-    assert (Response == "valid: True") or (os.path.exists(path))
+    assert Response == "valid: True"
+    assert os.path.exists(path)
 
 
 @pytest.mark.stdconv
@@ -72,7 +77,8 @@ def test_gbtogff3(tmpdir):
     uri_Prefix = uri_Prefix_igb
     # path = None
     Response = stdconv.AutoRunSBOLValidator(gbpath, Output, uri_Prefix, outputfile=path)
-    assert (Response == "valid: True") or (os.path.exists(path))
+    assert Response == "valid: True"
+    assert os.path.exists(path)
     # assert (Response == "valid: True")
 
 
@@ -81,8 +87,6 @@ def test_export_PlasmidMap(tmpdir):
     path1 = os.path.join(str(tmpdir), "plasmid_linear.png")
     path2 = os.path.join(str(tmpdir), "plasmid_circular.png")
     recordid = stdconv.export_PlasmidMap(gbpath, (path1, path2))
-    assert (
-        recordid == "BBa_K874103.1"
-        or (os.path.exists(path1))
-        or (os.path.exists(path2))
-    )
+    assert recordid == "BBa_K874103.1"
+    assert os.path.exists(path1)
+    assert os.path.exists(path2)

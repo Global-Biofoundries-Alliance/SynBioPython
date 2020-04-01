@@ -132,4 +132,5 @@ def test_maxdnalength(tmpdir):
     figurepath = os.path.join(str(tmpdir), "check_PlotCircuit.png")
     Input = "p r c.green"
     dnalength = simplot.PlotCircuit(figurepath, Input, Regulation=None)
-    assert (dnalength == 60.0) or (os.path.exists(figurepath))
+    assert dnalength == 60.0
+    assert os.path.exists(figurepath)

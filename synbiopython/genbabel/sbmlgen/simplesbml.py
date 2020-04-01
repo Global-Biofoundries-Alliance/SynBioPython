@@ -2,6 +2,10 @@
 """
 Created on Tue Jan 27 23:13:42 2015
 @author: carolc24, Kyle Medley
+
+added more unit definitions
+Reference:
+https://github.com/sys-bio/simplesbml/blob/master/simplesbml/__init__.py
 """
 
 import warnings

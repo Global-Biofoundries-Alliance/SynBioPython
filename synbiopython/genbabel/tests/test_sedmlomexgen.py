@@ -40,7 +40,8 @@ def test_phrasedmltosedml(tmpdir):
     path = os.path.join(str(tmpdir), "Testsedml.xml")
     sedml_str = omexgen.phrasedmltosedml(phrasedml_str, sbmlpath, outputfile=path)
     model = re.search('source="(.*)"', sedml_str).group(1)
-    assert (model == sbmlpath) or (os.path.exists(path))
+    assert model == sbmlpath
+    assert os.path.exists(path)
 
 
 @pytest.mark.omexgen
@@ -53,7 +54,8 @@ def test_exportomex(tmpdir):
     antimonymodel = re.search("model (.*)\n", omex_str).group(1)
     phrasedmlmodel = re.search('model1 = model "(.*)"', omex_str).group(1)
     phrasedmlmodel = "*" + phrasedmlmodel + "()"
-    assert (antimonymodel == phrasedmlmodel) or (os.path.exists(path))
+    assert antimonymodel == phrasedmlmodel
+    assert os.path.exists(path)
 
 
 @pytest.mark.omexgen
@@ -61,4 +63,5 @@ def test_getsbmlbiomodel(tmpdir):
     path = os.path.join(str(tmpdir), "Testbiomodel.xml")
     biomodelsbml_str = omexgen.get_sbml_biomodel("BIOMD0000000012", outputfile=path)
     model = re.search('<model id="(.*?)(")', biomodelsbml_str).group(1)
-    assert (model == "BIOMD0000000012") or (os.path.exists(path))
+    assert model == "BIOMD0000000012"
+    assert os.path.exists(path)
