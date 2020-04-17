@@ -1,3 +1,7 @@
+# pylint: disable=C0103
+"""This module contains a class to represent the volume and quantities of a well."""
+
+
 class WellContent:
     """Class to represent the volume and quantities of a well.
 
@@ -12,6 +16,7 @@ class WellContent:
         self.quantities = quantities
 
     def concentration(self, component=None, default=0):
+        """Return concentration of component"""
         if self.quantities == {}:
             return default
         if self.volume == 0:
@@ -27,6 +32,7 @@ class WellContent:
         return {"volume": self.volume, "quantities": self.quantities}
 
     def make_empty(self):
+        """Empty the well"""
         self.volume = 0
         self.quantities = {}
 
