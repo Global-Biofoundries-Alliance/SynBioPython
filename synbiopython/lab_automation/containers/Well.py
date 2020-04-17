@@ -1,5 +1,7 @@
-from .WellContent import WellContent
-from ..Picklist.Transfer import TransferError
+# pylint: disable=C0330,C0103,R0913
+"""This module contains a generic class for a well."""
+from synbiopython.lab_automation.containers.WellContent import WellContent
+from synbiopython.lab_automation.Picklist.Transfer import TransferError
 
 
 class Well:
@@ -40,9 +42,11 @@ class Well:
 
     @property
     def volume(self):
+        """Return volume"""
         return self.content.volume
 
     def iterate_sources_tree(self):
+        """Iterate through the tree of sources"""
         for source in self.sources:
             if isinstance(source, Well):
                 for parent in source.iterate_sources_tree():
@@ -52,6 +56,7 @@ class Well:
         yield self
 
     def add_content(self, components_quantities, volume=None):
+        """Add content to well"""
         if volume > 0:
             final_volume = self.content.volume + volume
             if (self.capacity is not None) and (final_volume > self.capacity):
@@ -66,6 +71,7 @@ class Well:
             self.content.quantities[component] += quantity
 
     def subtract_content(self, components_quantities, volume=0):
+        """Subtract content from well"""
         if volume > 0:
             if volume > self.volume:
                 raise TransferError(
@@ -83,6 +89,7 @@ class Well:
                 self.content.quantities[component] -= quantity
 
     def empty_completely(self):
+        """Empty the well"""
         self.content.quantities = {}
         self.content.volume = 0
 
@@ -100,6 +107,7 @@ class Well:
         return "(%s-%s)" % (self.plate.name, self.name)
 
     def pretty_summary(self):
+        """Return a summary string of the well"""
         data = "\n    ".join(
             [""] + [("%s: %s" % (key, value)) for key, value in self.data.items()]
         )
@@ -118,6 +126,7 @@ class Well:
         ).format(self=self, content=content, data=data)
 
     def to_dict(self):
+        """Convert well to dict"""
         return dict(
             [
                 ["name", self.name],
