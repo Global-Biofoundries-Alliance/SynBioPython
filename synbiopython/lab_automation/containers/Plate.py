@@ -1,18 +1,17 @@
+# pylint: disable=C0330,C0103,E1101,R0913,E0102,R1705
 """This module implements the Base class for all plates.
 
 See plateo.container for more specific plate subclasses, with
 set number of wells, well format, etc.
 """
 from collections import OrderedDict
-import json
-from .Well import Well
-from .helper_functions import (
+from synbiopython.lab_automation.containers.Well import Well
+from synbiopython.lab_automation.containers.helper_functions import (
     index_to_wellname,
     wellname_to_index,
     coordinates_to_wellname,
     rowname_to_number,
 )
-from ..tools import replace_nans_in_dict
 
 
 class Plate:
@@ -67,7 +66,7 @@ class Plate:
         wells = [well for name, well in self.wells.items() if condition(well)]
         if len(wells) > 1:
             raise ValueError("Query returned several wells: %s" % wells)
-        elif len(wells) == 0:
+        if len(wells) == 0:
             raise ValueError("No wells found matching the condition")
         return wells[0]
 
@@ -91,7 +90,6 @@ class Plate:
         >>> for well in plate.list_wells_in_column(5):
         >>>      print(well.name)
         """
-        # TODO: at some point, avoid iterating over all wells, make it smarter
         return [well for well in self.iter_wells() if well.column == column_number]
 
     def list_wells_in_row(self, row):
@@ -129,6 +127,7 @@ class Plate:
         ignore_none=False,
         direction_of_occurence="row",
     ):
+        """Return wells grouped by key"""
         if key is None:
 
             def key(well):
@@ -185,6 +184,7 @@ class Plate:
         return wellname_to_index(wellname, self.num_wells, direction=direction)
 
     def wells_sorted_by(self, sortkey):
+        """Return wells sorted by sortkey"""
         return (e for e in sorted(self.wells.values(), key=sortkey))
 
     def iter_wells(self, direction="row"):
