@@ -1,6 +1,7 @@
+# pylint: disable=C0330,C0103,E0102,R1705,R0913
 """Classes to represent picklists and liquid transfers in general"""
 from copy import deepcopy
-from .Transfer import Transfer
+from synbiopython.lab_automation.Picklist.Transfer import Transfer
 
 
 class PickList:
@@ -55,7 +56,7 @@ class PickList:
         with open(filename, "w+") as f:
             f.write(self.to_plain_string())
 
-    def simulate(self, content_field="content", inplace=True, callback_function=None):
+    def simulate(self, content_field="content", inplace=True):
         """Simulate the execution of the picklist"""
 
         if not inplace:
@@ -92,6 +93,7 @@ class PickList:
         else:
             for transfer in self.transfers_list:
                 transfer.apply()
+            return None
 
     def restricted_to(
         self, transfer_filter=None, source_well=None, destination_well=None
@@ -145,7 +147,7 @@ class PickList:
         for trf in self.transfers_list:
             n_additional_dispense = int(trf.volume / max_dispense_volume)
             rest = trf.volume - n_additional_dispense * max_dispense_volume
-            for i in range(n_additional_dispense):
+            for _ in range(n_additional_dispense):
                 transfers.append(trf.with_new_volume(max_dispense_volume))
             if rest > 0:
                 transfers.append(trf.with_new_volume(rest))
