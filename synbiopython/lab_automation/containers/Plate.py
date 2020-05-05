@@ -1,10 +1,11 @@
-# pylint: disable=C0330,C0103,E1101,R0913,E0102,R1705
+# pylint: disable=C0330,C0103,E1101,R0913,E0102,R1705,E0401
 """This module implements the Base class for all plates.
 
 See plateo.container for more specific plate subclasses, with
 set number of wells, well format, etc.
 """
 from collections import OrderedDict
+import pandas
 from synbiopython.lab_automation.containers.Well import Well
 from synbiopython.lab_automation.containers.helper_functions import (
     index_to_wellname,
@@ -204,10 +205,22 @@ class Plate:
 
     def to_dict(self, replace_nans_by="null"):
         """Convert plate to dict"""
-        dct = {"data": self.data, "wells": {well.name: well.to_dict() for well in self}}
+        dct = {
+            "data": self.data,
+            "wells": {well.name: well.to_dict() for well in self.wells.values()},
+        }
         if replace_nans_by is not None:
             replace_nans_in_dict(dct, replace_by=replace_nans_by)
         return dct
+
+    def to_pandas_dataframe(self, fields=None, direction="row"):
+        """Return a dataframe with the info on each well"""
+        dataframe = pandas.DataFrame.from_records(self.to_dict()["wells"]).T
+        by = ["row", "column"] if direction == "row" else ["column", "row"]
+        dataframe = dataframe.sort_values(by=by)
+        if fields is not None:
+            dataframe = dataframe[fields]
+        return dataframe
 
     def __repr__(self):
         return "%s(%s)" % (self.__class__.__name__, self.name)
