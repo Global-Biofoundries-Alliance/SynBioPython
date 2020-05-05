@@ -12,6 +12,7 @@ from synbiopython.lab_automation.containers.helper_functions import (
     coordinates_to_wellname,
     rowname_to_number,
 )
+from synbiopython.lab_automation.tools import replace_nans_in_dict
 
 
 class Plate:
@@ -200,6 +201,13 @@ class Plate:
             return self.wells_sorted_by(lambda w: (w.row, w.column))
         else:
             return self.wells_sorted_by(lambda w: (w.column, w.row))
+
+    def to_dict(self, replace_nans_by="null"):
+        """Convert plate to dict"""
+        dct = {"data": self.data, "wells": {well.name: well.to_dict() for well in self}}
+        if replace_nans_by is not None:
+            replace_nans_in_dict(dct, replace_by=replace_nans_by)
+        return dct
 
     def __repr__(self):
         return "%s(%s)" % (self.__class__.__name__, self.name)
