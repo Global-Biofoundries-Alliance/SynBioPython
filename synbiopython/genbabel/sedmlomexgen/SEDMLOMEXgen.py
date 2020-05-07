@@ -1,4 +1,4 @@
-# pylint: disable=C0103,E0401,duplicate-code
+# pylint: disable=C0103,E0401
 """
 Synbiopython (c) Global BioFoundry Alliance 2020
 
