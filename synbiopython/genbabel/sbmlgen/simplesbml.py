@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# pylint: disable=C0330,C0103,C0116,R0201,R0912,R0913,R0914,R0915,R0904
 """
 Created on Tue Jan 27 23:13:42 2015
 @author: carolc24, Kyle Medley
@@ -23,27 +23,27 @@ from re import sub
 __version__ = "1.2.2"
 
 
-class sbmlModel(object):
+class sbmlModel:
+    """Class to generate sbml file."""
+
     def check(self, value, message):
         if value is None:
             raise SystemExit("LibSBML returned a null value trying to " + message + ".")
-        elif type(value) is int:
+        if isinstance(value, int):
             if value == libsbml.LIBSBML_OPERATION_SUCCESS:
                 return
-            else:
-                err_msg = (
-                    "Error trying to "
-                    + message
-                    + "."
-                    + "LibSBML returned error code "
-                    + str(value)
-                    + ': "'
-                    + libsbml.OperationReturnValue_toString(value).strip()
-                    + '"'
-                )
+            err_msg = (
+                "Error trying to "
+                + message
+                + "."
+                + "LibSBML returned error code "
+                + str(value)
+                + ': "'
+                + libsbml.OperationReturnValue_toString(value).strip()
+                + '"'
+            )
             raise RuntimeError(err_msg)
-        else:
-            return
+        return
 
     def __init__(
         self,
@@ -190,7 +190,9 @@ class sbmlModel(object):
         self.check(k.setUnits(units), "set parameter k units")
         return k
 
-    def addReaction(self, reactants, products, expression, local_params={}, rxn_id=""):
+    def addReaction(
+        self, reactants, products, expression, local_params=None, rxn_id=""
+    ):
         r1 = self.model.createReaction()
         self.check(r1, "create reaction")
         if len(rxn_id) == 0:
@@ -255,15 +257,16 @@ class sbmlModel(object):
         kinetic_law = r1.createKineticLaw()
         self.check(kinetic_law, "create kinetic law")
         self.check(kinetic_law.setMath(math_ast), "set math on kinetic law")
-        for param in local_params.keys():
-            val = local_params.get(param)
-            if self.document.getLevel() == 3:
-                p = kinetic_law.createLocalParameter()
-            else:
-                p = kinetic_law.createParameter()
-            self.check(p, "create local parameter")
-            self.check(p.setId(param), "set id of local parameter")
-            self.check(p.setValue(val), "set value of local parameter")
+        if local_params is not None:
+            for param in local_params.keys():
+                val = local_params.get(param)
+                if self.document.getLevel() == 3:
+                    p = kinetic_law.createLocalParameter()
+                else:
+                    p = kinetic_law.createParameter()
+                self.check(p, "create local parameter")
+                self.check(p.setId(param), "set id of local parameter")
+                self.check(p.setValue(val), "set value of local parameter")
         return r1
 
     def addEvent(
@@ -334,7 +337,7 @@ class sbmlModel(object):
         if len(rr_id) == 0:
             rr_id = "Rate" + str(self.model.getNumRules())
         r.setIdAttribute(rr_id)
-        print("rr_id=", r.getIdAttribute())
+        # print("rr_id=", r.getIdAttribute())
 
         # self.check(r.setId(rr_id),           'set rate rule id')
         self.check(r.setVariable(var), "set rate rule variable")
@@ -450,13 +453,22 @@ def writeCode(doc):
     comp_template = "model.addCompartment(vol=%s, comp_id='%s');"
     species_template = "model.addSpecies(species_id='%s', amt=%s, comp='%s');"
     param_template = "model.addParameter(param_id='%s', val=%s, units='%s');"
-    rxn_template = "model.addReaction(reactants=%s, products=%s, expression='%s', local_params=%s, rxn_id='%s');"
-    event_template = "model.addEvent(trigger='%s', assignments=%s, persistent=%s, initial_value=%s, priority=%s, delay=%s, event_id='%s');"
+    rxn_template = (
+        "model.addReaction(reactants=%s, products=%s, "
+        "expression='%s', local_params=%s, rxn_id='%s');"
+    )
+    event_template = (
+        "model.addEvent(trigger='%s', assignments=%s, persistent=%s, "
+        "initial_value=%s, priority=%s, delay=%s, event_id='%s');"
+    )
     event_defaults = [True, False, "0", 0]
     assignrule_template = "model.addAssignmentRule(var='%s', math='%s');"
     raterule_template = "model.addRateRule(var='%s', math='%s', rr_id='%s');"
     initassign_template = "model.addInitialAssignment(symbol='%s', math='%s')"
-    init_template = "import simplesbml\nmodel = simplesbml.sbmlModel(time_units='%s', extent_units='%s', sub_units='%s', level=%s, version=%s);"
+    init_template = (
+        "import simplesbml\nmodel = simplesbml.sbmlModel(time_units='%s', "
+        "extent_units='%s', sub_units='%s', level=%s, version=%s);"
+    )
     init_defaults = ["min", "Molar", "Molar", 3, 1]
     command_list = []
 
@@ -579,13 +591,13 @@ def writeCode(doc):
             persistent = e.getTrigger().getPersistent()
             initialValue = e.getTrigger().getInitialValue()
             priority = e.getPriority()
-            if type(priority) == libsbml.Priority:
+            if isinstance(priority, libsbml.Priority):
                 priority = libsbml.formulaToL3String(priority.getMath())
             else:
                 priority = "0"
         tri = libsbml.formulaToL3String(e.getTrigger().getMath())
         did = e.getDelay()
-        if type(did) == libsbml.Delay:
+        if isinstance(did, libsbml.Delay):
             delay = libsbml.formulaToL3String(did.getMath())
         else:
             delay = "0"
@@ -627,7 +639,7 @@ def writeCode(doc):
         elif r.getTypeCode() == libsbml.SBML_RATE_RULE:
             command_list.append(raterule_template % (sym, math, rid))
         else:
-            next
+            pass
 
     for i in inits:
         sym = i.getSymbol()

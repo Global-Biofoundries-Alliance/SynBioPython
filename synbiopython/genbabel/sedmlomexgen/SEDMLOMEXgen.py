@@ -1,3 +1,4 @@
+# pylint: disable=C0103,E0401,duplicate-code
 """
 Synbiopython (c) Global BioFoundry Alliance 2020
 
@@ -7,20 +8,34 @@ Synbiopython is licensed under the MIT License.
 
 """
 
-import tellurium as te
 import os
+import re
+import tellurium as te
 import tellurium.temiriam as temiriam
 import matplotlib.pyplot as plt
 import phrasedml
-import datetime
-import re
+from synbiopython.genbabel import utilities
 
 te.setDefaultPlottingEngine("matplotlib")
 
 plt.close("all")
 
+plt.rcdefaults()
+plt.rcParams["font.family"] = "Arial"
+plt.rcParams["font.weight"] = "normal"
+plt.rcParams["font.size"] = 11
+plt.rcParams["axes.labelsize"] = 11
+plt.rcParams["axes.labelweight"] = "normal"
+plt.rcParams["axes.linewidth"] = 1
+plt.rcParams["axes.formatter.limits"] = -3, 3
+plt.rcParams["legend.frameon"] = False
+params = {"mathtext.default": "regular"}
+plt.rcParams.update(params)
+plt.rcParams.update({"axes.spines.top": False, "axes.spines.right": False})
+
 
 class SEDMLOMEXgen:
+    """ Class to generate the SEDML and COMBINE OMEX files."""
 
     # get current working directory
     def __init__(self):
@@ -55,10 +70,10 @@ class SEDMLOMEXgen:
 
         return sbml_str
 
-    def sbmltoantimony(self, sbmlfile):
+    @staticmethod
+    def sbmltoantimony(sbmlfile):
 
-        """ Get the sbml file and return the antimony string """
-
+        """Get the sbml file and return the antimony string """
         antimony_str = te.sbmlToAntimony(sbmlfile)
         basename = os.path.basename(sbmlfile)
         sbmlfilename = basename.split(".")[0]
@@ -66,7 +81,10 @@ class SEDMLOMEXgen:
 
         return antimony_str
 
-    def find_between(self, s, first, last):
+    @staticmethod
+    def find_between(s, first, last):
+
+        """Get the substring from string"""
         try:
             start = s.index(first) + len(first)
             end = s.index(last, start)
@@ -76,7 +94,7 @@ class SEDMLOMEXgen:
 
     def export_omex(self, antimony_str, phrasedml_str, **kwargs):
 
-        """take the antimony and phrasedml strings execute the omex and export into omex archive"""
+        """Take the antimony and phrasedml strings execute the omex and export into omex archive"""
         model = re.search("model (.*)\n", antimony_str)
 
         if model.group(1)[0] == "*":
@@ -148,18 +166,19 @@ class SEDMLOMEXgen:
 
         return sedml_str
 
-    def getOMEXfilename(self):
+    @staticmethod
+    def getOMEXfilename():
 
         """ return filename to the OMEX file according to the export time"""
 
-        timenow = datetime.datetime.now()
+        #        timenow = datetime.datetime.now()
+        #
+        #        year = str(timenow.year % 100)
+        #        month = str(timenow.month).zfill(2)
+        #        day = str(timenow.day).zfill(2)
+        #        hour = str(timenow.hour).zfill(2)
+        #        minute = str(timenow.minute).zfill(2)
 
-        year = str(timenow.year % 100)
-        month = str(timenow.month).zfill(2)
-        day = str(timenow.day).zfill(2)
-        hour = str(timenow.hour).zfill(2)
-        minute = str(timenow.minute).zfill(2)
-
-        omexfilename = "OMEX" + year + month + day + "_" + hour + minute
+        omexfilename = "OMEX" + utilities.getfilename()
 
         return omexfilename
