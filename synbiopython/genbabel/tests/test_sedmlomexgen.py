@@ -1,11 +1,20 @@
-import pytest
-import re
+# pylint: disable=C0103,E0401
+"""
+Synbiopython (c) Global BioFoundry Alliance 2020
+
+Synbiopython is licensed under the MIT License.
+
+This module is the test file of the class SEDMLOMEXgen for pytest
+"""
+
 import os
+import re
+import pytest
 import synbiopython.genbabel as stdgen
 
-path = os.path.abspath(os.path.dirname(__file__))
+path0 = os.path.abspath(os.path.dirname(__file__))
 sbmlfile = "gateNOT_d30_LB_state1_.xml"
-sbmlpath = os.path.join(path, "data", sbmlfile)
+sbmlpath = os.path.join(path0, "data", sbmlfile)
 phrasedml_str = """
       model1 = model "{}"
       sim1 = simulate uniform(0, 720, 1000)
@@ -21,6 +30,8 @@ omexgen = stdgen.SEDMLOMEXgen()
 
 @pytest.mark.omexgen
 def test_find_between():
+    """Test the substring finding."""
+
     s = "SEDMLOMEXgen"
     first = "SEDML"
     last = "gen"
@@ -30,6 +41,8 @@ def test_find_between():
 
 @pytest.mark.omexgen
 def test_sbmltoantimony():
+    """Test the SBML conversion to antimony string."""
+
     antimony_str = omexgen.sbmltoantimony(sbmlpath)
     model = re.search("model (.*)\n", antimony_str).group(1)
     assert model == "*gateNOT_d30_LB_state1_()"
@@ -37,6 +50,8 @@ def test_sbmltoantimony():
 
 @pytest.mark.omexgen
 def test_phrasedmltosedml(tmpdir):
+    """Test the phrasedml string conversion SEDML."""
+
     path = os.path.join(str(tmpdir), "Testsedml.xml")
     sedml_str = omexgen.phrasedmltosedml(phrasedml_str, sbmlpath, outputfile=path)
     model = re.search('source="(.*)"', sedml_str).group(1)
@@ -46,6 +61,8 @@ def test_phrasedmltosedml(tmpdir):
 
 @pytest.mark.omexgen
 def test_exportomex(tmpdir):
+    """Test the COMBINE OMEX file generation and exportation."""
+
     antimony_str = omexgen.sbmltoantimony(sbmlpath)
 
     path = os.path.join(str(tmpdir), "archive.omex")
@@ -60,6 +77,8 @@ def test_exportomex(tmpdir):
 
 @pytest.mark.omexgen
 def test_getsbmlbiomodel(tmpdir):
+    """Test getting SBML model from biomodel."""
+
     path = os.path.join(str(tmpdir), "Testbiomodel.xml")
     biomodelsbml_str = omexgen.get_sbml_biomodel("BIOMD0000000012", outputfile=path)
     model = re.search('<model id="(.*?)(")', biomodelsbml_str).group(1)
