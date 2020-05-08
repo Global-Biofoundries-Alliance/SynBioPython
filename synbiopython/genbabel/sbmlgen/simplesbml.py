@@ -21,9 +21,11 @@ __version__ = "1.2.2"
 
 
 class sbmlModel:
-    """Class to generate sbml file."""
+    """Class to generate sbml model file using libsbml method."""
 
     def check(self, value, message):
+        """Return value to string using libsbml."""
+
         if value is None:
             raise SystemExit("LibSBML returned a null value trying to " + message + ".")
         if isinstance(value, int):
@@ -138,6 +140,8 @@ class sbmlModel:
         self.addCompartment()
 
     def addCompartment(self, vol=1, comp_id=""):
+        """Create compartment of volume litres to the model."""
+
         c1 = self.model.createCompartment()
         self.check(c1, "create compartment")
         if len(comp_id) == 0:
@@ -151,6 +155,8 @@ class sbmlModel:
         return c1
 
     def addSpecies(self, species_id, amt, comp="c1"):
+        """Create Species with the provided amount."""
+
         s1 = self.model.createSpecies()
         self.check(s1, "create species s1")
         self.check(s1.setCompartment(comp), "set species s1 compartment")
@@ -179,6 +185,8 @@ class sbmlModel:
         return s1
 
     def addParameter(self, param_id, val, units="per_second"):
+        """Add Parameter with value and unit."""
+
         k = self.model.createParameter()
         self.check(k, "create parameter k")
         self.check(k.setId(param_id), "set parameter k id")
@@ -190,6 +198,8 @@ class sbmlModel:
     def addReaction(
         self, reactants, products, expression, local_params=None, rxn_id=""
     ):
+        """Create reaction provided with reactants and products in lists"""
+
         r1 = self.model.createReaction()
         self.check(r1, "create reaction")
         if len(rxn_id) == 0:
@@ -276,6 +286,10 @@ class sbmlModel:
         delay=0,
         event_id="",
     ):
+        """Add event supplied with when an event is triggered and
+        what happens using assignments in a dictionary.
+        """
+
         e1 = self.model.createEvent()
         self.check(e1, "create event")
         if len(event_id) == 0:
@@ -321,6 +335,8 @@ class sbmlModel:
         return e1
 
     def addAssignmentRule(self, var, math):
+        """To assign a state variable with an expression"""
+
         r = self.model.createAssignmentRule()
         self.check(r, "create assignment rule r")
         self.check(r.setVariable(var), "set assignment rule variable")
@@ -329,6 +345,8 @@ class sbmlModel:
         return r
 
     def addRateRule(self, var, math, rr_id=""):
+        """Describe the derivative of the state variable wrt time as an expression."""
+
         r = self.model.createRateRule()
         self.check(r, "create rate rule r")
         if len(rr_id) == 0:
@@ -343,6 +361,10 @@ class sbmlModel:
         return r
 
     def addInitialAssignment(self, symbol, math):
+        """Describe the initial value of the variable in terms of
+        other variables or parameters.
+        """
+
         if self.document.getLevel() == 2 and self.document.getVersion() == 1:
             raise SystemExit(
                 "Error: InitialAssignment does not exist for \
@@ -431,6 +453,8 @@ class sbmlModel:
         return self.model.getListOfInitialAssignments()
 
     def toSBML(self):
+        """Return the model in SBML format as strings."""
+
         errors = self.document.checkConsistency()
         if errors > 0:
             for i in range(errors):
@@ -447,6 +471,10 @@ class sbmlModel:
 
 
 def writeCode(doc):
+    """Return string containing calls to functions that reproduce the model
+    in SBML doc.
+    """
+
     comp_template = "model.addCompartment(vol=%s, comp_id='%s');"
     species_template = "model.addSpecies(species_id='%s', amt=%s, comp='%s');"
     param_template = "model.addParameter(param_id='%s', val=%s, units='%s');"
@@ -652,6 +680,10 @@ def writeCode(doc):
 
 
 def writeCodeFromFile(filename):
+    """Read the SBML format model and returns strings containing calls to
+    functions to reproduce the model in an sbmlModel object.
+    """
+
     reader = libsbml.SBMLReader()
     doc = reader.readSBMLFromFile(filename)
     if doc.getNumErrors() > 0:
@@ -660,6 +692,10 @@ def writeCodeFromFile(filename):
 
 
 def writeCodeFromString(sbmlstring):
+    """Read sbmlstring as the SBML format model and return strings containing
+    calls to functions to reproduce the model in an sbmlModel object.
+    """
+
     reader = libsbml.SBMLReader()
     doc = reader.readSBMLFromString(sbmlstring)
     return writeCode(doc)

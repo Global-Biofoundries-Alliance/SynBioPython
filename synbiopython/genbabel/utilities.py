@@ -5,7 +5,8 @@ import datetime
 
 
 def getfilename():
-    """Autogenerate the filename based on the datetime."""
+    """Generate the filename based on the datetime."""
+
     timenow = datetime.datetime.now()
 
     year = str(timenow.year % 100)
