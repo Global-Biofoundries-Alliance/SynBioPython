@@ -1,7 +1,15 @@
-import pytest
-import re
-import os
+# pylint: disable=C0103,E0401
+"""
+Synbiopython (c) Global BioFoundry Alliance 2020
 
+Synbiopython is licensed under the MIT License.
+
+This module is the test file of the class SBMLgen for pytest
+"""
+
+import os
+import re
+import pytest
 import synbiopython.genbabel as stdgen
 import synbiopython.genbabel.sbmlgen.simplesbml as simplesbml
 
@@ -44,6 +52,8 @@ model.addAssignmentRule("fracATP", "ATP/(ATP+ADP)")
 
 @pytest.mark.sbmlgen
 def test_exportsbml(tmpdir):
+    """Test the SBML file generation and exportation."""
+
     path = os.path.join(str(tmpdir), "Testsbml.xml")
     sbml = sbmlgen.exportsbml(
         ODE, variable, Init, paramName, param, paramUnit, outputfile=path
@@ -58,6 +68,8 @@ def test_exportsbml(tmpdir):
 
 @pytest.mark.sbmlgen
 def test_simplesbml(tmpdir):
+    """Test the additional functions available inside the simplesbml."""
+
     code = simplesbml.writeCode(model.document)
     specieslist = re.findall(r"species_id='(.*?)'", code, re.MULTILINE)
     paramlist = re.findall(r"param_id='(.*?)'", code, re.MULTILINE)
