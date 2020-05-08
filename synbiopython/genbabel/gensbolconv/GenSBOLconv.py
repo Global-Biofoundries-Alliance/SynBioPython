@@ -1,11 +1,9 @@
+# pylint: disable=C0103,E0401
 """
 Synbiopython (c) Global BioFoundry Alliance 2020
 
 Synbiopython is licensed under the MIT License.
 
-Code to invoke the SBOL Validator server over the internet
-
-@author: yeohjingwui
 This module provides code to work with SBOL validator
 https://validator.sbolstandard.org/
 
@@ -27,9 +25,8 @@ The URI prefix is required for FASTA and GenBank conversion,
 and optional for SBOL 1 conversion
 """
 
-import requests
 import os
-
+import requests
 from Bio import SeqIO
 from Bio.Graphics import GenomeDiagram
 from reportlab.lib import colors
@@ -37,12 +34,11 @@ from reportlab.lib.units import cm
 
 
 class GenSBOLconv:
+    """Class to convert standard files (SBOL1, SBOL2, GenBank, Fasta, GFF3)."""
 
-    """ Class to convert standard files (SBOL1, SBOL2, GenBank, Fasta, GFF3)"""
-
-    def export_PlasmidMap(self, gbfile, filename=None):
-
-        """ Export Linear and Circular Plasmid Map for the generated GenBank file
+    @staticmethod
+    def export_PlasmidMap(gbfile, filename=None):
+        """ Export Linear and Circular Plasmid Map for the imported GenBank file.
         """
 
         record = SeqIO.read(gbfile, "genbank")
@@ -104,9 +100,9 @@ class GenSBOLconv:
 
         return record.id
 
-    def SBOLValidator(self, input_file, Output, uri_Prefix=""):
-
-        """ Code to invoke the SBOL Validator server over the internet """
+    @staticmethod
+    def SBOLValidator(input_file, Output, uri_Prefix=""):
+        """Code to invoke the SBOL Validator server over the internet."""
 
         file = open(input_file).read()
 
@@ -137,9 +133,9 @@ class GenSBOLconv:
 
         return response
 
-    def get_outputfile_extension(self, Filetype):
-
-        """ Get the output file extension based on the requested output language
+    @staticmethod
+    def get_outputfile_extension(Filetype):
+        """ Get the output file extension based on the requested output language.
         """
 
         switcher = {
@@ -152,11 +148,10 @@ class GenSBOLconv:
         return switcher.get(Filetype, "unknown filetype")
 
     def export_OutputFile(self, input_filename, Response, Output, outputfile=None):
-
-        """ Export the converted output file """
+        """Export the converted output file."""
 
         filename_w_ext = os.path.basename(input_filename)
-        filename, file_extension = os.path.splitext(filename_w_ext)
+        filename, _ = os.path.splitext(filename_w_ext)
 
         if Response.json()["valid"]:
             # export the result from json into the specific output file format
@@ -173,13 +168,14 @@ class GenSBOLconv:
             print("Error message: ", Response.json()["errors"])
 
     def AutoRunSBOLValidator(self, Input_file, Output, uri_Prefix="", **kwargs):
-
-        """ This wrapper function takes in
-          input_file: input file or path to input file
-          Output: the Output file type (GenBank, FASTA, GFF3, SBOL1, SBOL2)
-          uri_Prefix: '' as default, URI Prefix is required for FASTA and GenBank
-                      input conversion
-          export output file in your folder """
+        """Wrapper function for the SBOL Validator.
+        Parameters:
+            Input_file: input file or path to input file
+            Output: the Output file type (GenBank, FASTA, GFF3, SBOL1, SBOL2)
+            uri_Prefix: '' as default, URI Prefix is required for FASTA and GenBank
+            input conversion
+        Returns:
+            the validity of the Response, and export output file."""
         Response = self.SBOLValidator(Input_file, Output, uri_Prefix)
 
         output_filename = None
