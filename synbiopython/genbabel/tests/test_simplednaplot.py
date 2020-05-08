@@ -4,7 +4,7 @@ Synbiopython (c) Global BioFoundry Alliance 2020
 
 Synbiopython is licensed under the MIT License.
 
-This module is the test file of the class SimpleDNAplot for pytest
+This module is the test file for the class SimpleDNAplot to be used for pytest
 """
 
 import os
