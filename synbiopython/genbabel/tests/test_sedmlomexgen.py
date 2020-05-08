@@ -67,7 +67,7 @@ def test_exportomex(tmpdir):
 
     path = os.path.join(str(tmpdir), "archive.omex")
 
-    omex_str = omexgen.export_omex(antimony_str, phrasedml_str, outputfile=path)
+    omex_str, _ = omexgen.export_omex(antimony_str, phrasedml_str, outputfile=path)
     antimonymodel = re.search("model (.*)\n", omex_str).group(1)
     phrasedmlmodel = re.search('model1 = model "(.*)"', omex_str).group(1)
     phrasedmlmodel = "*" + phrasedmlmodel + "()"

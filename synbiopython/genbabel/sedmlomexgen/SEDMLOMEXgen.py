@@ -128,11 +128,11 @@ class SEDMLOMEXgen:
         print("The output file path: ", filepath)
 
         # execute the inline OMEX
-        te.executeInlineOmex(inline_omex)
+        results = te.executeInlineOmex(inline_omex)
 
         te.exportInlineOmex(inline_omex, filepath)
 
-        return inline_omex
+        return inline_omex, results
 
     def phrasedmltosedml(self, phrasedml_str, sbml_file, **kwargs):
         """Generate SEDML file from phrasedml.
