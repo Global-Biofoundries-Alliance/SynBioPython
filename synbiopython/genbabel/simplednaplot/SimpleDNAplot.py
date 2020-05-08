@@ -352,7 +352,7 @@ class SimpleDNAplot:
         )
         max_dna_len = dna_end - dna_start
 
-        print("Max Dna length: ", max_dna_len)
+        # print("Max Dna length: ", max_dna_len)
 
         # Format the axis
         ax.set_xticks([])
@@ -366,7 +366,7 @@ class SimpleDNAplot:
 
         # Update the size of the figure to fit the constructs drawn
         fig_x_dim = max_dna_len / 30
-        print("x_dim: ", fig_x_dim)
+        # print("x_dim: ", fig_x_dim)
         if fig_x_dim < 1.0:
             fig_x_dim = 1.0
         fig_y_dim = 1.8
