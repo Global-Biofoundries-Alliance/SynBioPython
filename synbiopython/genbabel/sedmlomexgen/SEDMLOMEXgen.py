@@ -127,9 +127,6 @@ class SEDMLOMEXgen:
 
         print("The output file path: ", filepath)
 
-        # execute the inline OMEX
-        te.executeInlineOmex(inline_omex)
-
         te.exportInlineOmex(inline_omex, filepath)
 
         return inline_omex, te.executeInlineOmex(inline_omex)
