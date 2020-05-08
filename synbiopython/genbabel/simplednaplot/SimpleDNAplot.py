@@ -377,4 +377,4 @@ class SimpleDNAplot:
         fig.savefig(filename, transparent=True, dpi=300)
         # plt.show()
 
-        return max_dna_len
+        return max_dna_len, fig
