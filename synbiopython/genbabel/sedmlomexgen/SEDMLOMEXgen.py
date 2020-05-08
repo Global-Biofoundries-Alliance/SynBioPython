@@ -22,10 +22,10 @@ plt.close("all")
 plt.rcdefaults()
 plt.rcParams["font.family"] = "Arial"
 plt.rcParams["font.weight"] = "normal"
-plt.rcParams["font.size"] = 11
-plt.rcParams["axes.labelsize"] = 11
+plt.rcParams["font.size"] = 16
+plt.rcParams["axes.labelsize"] = 16
 plt.rcParams["axes.labelweight"] = "normal"
-plt.rcParams["axes.linewidth"] = 1
+plt.rcParams["axes.linewidth"] = 2
 plt.rcParams["axes.formatter.limits"] = -3, 3
 plt.rcParams["legend.frameon"] = False
 params = {"mathtext.default": "regular"}
