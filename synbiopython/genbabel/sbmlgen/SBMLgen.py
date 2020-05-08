@@ -4,11 +4,8 @@ Synbiopython (c) Global BioFoundry Alliance 2020
 
 Synbiopython is licensed under the MIT License.
 
-@author: yeohjingwui
 This module is to create SBML file for ODE model using simplesbml package,
 which relies on libSBML. Reference: https://github.com/sys-bio/simplesbml
-The simplesbml package can be installed via pip
-> pip install simplesbml
 """
 
 from synbiopython.genbabel.sbmlgen import simplesbml
@@ -17,17 +14,22 @@ from synbiopython.genbabel import utilities
 
 class SBMLgen:
 
-    """ class to generate SBML file for ODE model """
+    """Class to generate SBML file for ODE model."""
 
     @staticmethod
     def exportsbml(ODE, Variable, Init, ParamName, Param, ParamUnit, **kwargs):
 
-        """ ODE      : The ODEs in the form of string stored in a list
+        """Function to generate the SBML xml file.
+        Parameters:
+            ODE      : The ODEs in the form of string stored in a list
             Variable : The names of variable in a list of string
             Init     : Initial conditions for the variables in a list of values
             ParamName: The names of the parameters stored in a list
             Param    : The parameters values
-            ParamUnit: The unit for the parameter according to available unit definition """
+            ParamUnit: The unit for the parameter according to available unit definition
+        Returns:
+            SBML format
+        """
 
         for u in ParamUnit:
             if u == "molL-1min-1":

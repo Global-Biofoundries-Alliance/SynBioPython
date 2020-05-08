@@ -4,8 +4,6 @@ Synbiopython (c) Global BioFoundry Alliance 2020
 
 Synbiopython is licensed under the MIT License.
 
-@author: yeohjingwui
-
 """
 
 import os

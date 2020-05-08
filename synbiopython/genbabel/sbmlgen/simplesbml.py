@@ -1,8 +1,5 @@
 # pylint: disable=C0330,C0103,C0116,R0201,R0912,R0913,R0914,R0915,R0904
 """
-Created on Tue Jan 27 23:13:42 2015
-@author: carolc24, Kyle Medley
-
 added more unit definitions
 Reference:
 https://github.com/sys-bio/simplesbml/blob/master/simplesbml/__init__.py
