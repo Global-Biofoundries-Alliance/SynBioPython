@@ -4,6 +4,7 @@ Synbiopython (c) Global BioFoundry Alliance 2020
 
 Synbiopython is licensed under the MIT License.
 
+This module is to generate SEDML and COMBINE OMEX files.
 """
 
 import os
@@ -33,7 +34,7 @@ plt.rcParams.update({"axes.spines.top": False, "axes.spines.right": False})
 
 
 class SEDMLOMEXgen:
-    """ Class to generate the SEDML and COMBINE OMEX files."""
+    """Class to generate the SEDML and COMBINE OMEX files."""
 
     # get current working directory
     def __init__(self):
@@ -41,10 +42,9 @@ class SEDMLOMEXgen:
         self.workingdir0 = os.getcwd()
 
     def get_sbml_biomodel(self, Biomodels_ID, **kwargs):
-
-        """ Get the ID for the Biomodels
-        export the SBML model into .xml file
-        return the sbml in string format
+        """Get SBML model from biomodel.
+        Parameters: the ID for the Biomodels
+        Returns: the sbml in string format, export the SBML model into .xml file
         """
 
         urn = "urn:miriam:biomodels.db:" + Biomodels_ID
@@ -70,8 +70,8 @@ class SEDMLOMEXgen:
 
     @staticmethod
     def sbmltoantimony(sbmlfile):
+        """Get the sbml file and return the antimony string."""
 
-        """Get the sbml file and return the antimony string """
         antimony_str = te.sbmlToAntimony(sbmlfile)
         basename = os.path.basename(sbmlfile)
         sbmlfilename = basename.split(".")[0]
@@ -81,8 +81,8 @@ class SEDMLOMEXgen:
 
     @staticmethod
     def find_between(s, first, last):
+        """Get the substring from string based on indexes."""
 
-        """Get the substring from string"""
         try:
             start = s.index(first) + len(first)
             end = s.index(last, start)
@@ -91,8 +91,14 @@ class SEDMLOMEXgen:
             return ""
 
     def export_omex(self, antimony_str, phrasedml_str, **kwargs):
+        """Generate COMBINE OMEX file.
+        Parameters:
+            antimony_str: represent the SBML
+            phrasedml_str: represent the SEDML
+        Returns:
+            execute the omex and export omex archive
+        """
 
-        """Take the antimony and phrasedml strings execute the omex and export into omex archive"""
         model = re.search("model (.*)\n", antimony_str)
 
         if model.group(1)[0] == "*":
@@ -129,16 +135,20 @@ class SEDMLOMEXgen:
         return inline_omex
 
     def phrasedmltosedml(self, phrasedml_str, sbml_file, **kwargs):
-
-        """ take in phrasedml and sbml file in .xml, export the sedml.xml file,
-        execute the sedml file, and return the sedml string
+        """Generate SEDML file from phrasedml.
+        Parameters:
+        phrasedml_str: text-based way to represent SEDML
+        sbml_file: the SBML xml file
         Example of phrasedml_str:
             phrasedml_str = '''
             model1 = model "{}"
             .
             .
             '''
+        Returns:
+            execute the sedml file, export the sedml.xml file, return the sedml string
         """
+
         try:
             with open(sbml_file, "r+") as f:
                 sbml_str = f.read()
@@ -166,16 +176,7 @@ class SEDMLOMEXgen:
 
     @staticmethod
     def getOMEXfilename():
-
-        """ return filename to the OMEX file according to the export time"""
-
-        #        timenow = datetime.datetime.now()
-        #
-        #        year = str(timenow.year % 100)
-        #        month = str(timenow.month).zfill(2)
-        #        day = str(timenow.day).zfill(2)
-        #        hour = str(timenow.hour).zfill(2)
-        #        minute = str(timenow.minute).zfill(2)
+        """Return filename to the OMEX file according to the export time."""
 
         omexfilename = "OMEX" + utilities.getfilename()
 
