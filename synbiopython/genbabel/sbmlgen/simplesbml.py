@@ -378,6 +378,8 @@ class sbmlModel:
         return a
 
     def setLevelAndVersion(self, level, version):
+        """Set the level and version of the SBML."""
+
         if level == 2 and version == 1:
             self.check(
                 self.document.checkL2v1Compatibility(), "convert to level 2 version 1"

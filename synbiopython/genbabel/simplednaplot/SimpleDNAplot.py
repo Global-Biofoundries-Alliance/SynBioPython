@@ -1,9 +1,9 @@
+# pylint: disable=E0401,C0103,R0912,R0914,R0915,R1702
 """
 Synbiopython (c) Global BioFoundry Alliance 2020
 
 Synbiopython is licensed under the MIT License.
 
-@author: Yeoh Jing Wui
 This module is to implement the simple plotting of the gene circuit
 using the modified code from quickplot.py in DNAplotlib library
 # added quickplot style for writing Regulations.
@@ -13,30 +13,37 @@ Reference: https://github.com/VoigtLab/dnaplotlib
 
 Install library:
 pip install dnaplotlib
-
 """
 
-import dnaplotlib as dpl
-import matplotlib.pyplot as plt
-import matplotlib
 import re
+import matplotlib
+import matplotlib.pyplot as plt
+import dnaplotlib as dpl
 
 
 class SimpleDNAplot:
-
-    """ Regulation type: Connection, Activation, Repression, Derepression
-    each of the part will be numbered sequentially based on the part type/module
-    from left to right starting from index 0
-    example: p0-r0-c0-t0-p1-r1-c1-t1 for two modules with promoter, RBS, coding
+    """Class to generate SBOL visual compliant gene circuit diagram.
+    Regulation type: Connection, Activation, Repression, Derepression
+    Each of the part will be numbered sequentially based on the part type/module
+    from left to right starting from index 0.
+    Example: p0-r0-c0-t0-p1-r1-c1-t1 for two modules with promoter, RBS, coding
     region, and terminator.
-    Input = "p.pTet r.rbs34 c.orange.LacI t p.pLac r.rbs32 c.green.TetR t"
-    Regulations = "c0->p1.Repression c1->p0.Repression"
+        Input = "p.pTet r.rbs34 c.orange.LacI t p.pLac r.rbs32 c.green.TetR t"
+        Regulations = "c0->p1.Repression c1->p0.Repression"
     # The default color is black if color is not specified
     """
 
     def CircuitDesign(self, Input, Regulation=None):
-        """ Take in the input in string format and
-        Return the list of dictionary containing the part information """
+        """Generate the dictionary list containing circuit design information.
+        Parameters:
+            Input: a string containing the individual type of part, followed by color
+            and name separated by a space.
+            Regulation: a string containing the from_part to the to_part connected
+            by an arrow. Type of interaction is specified after the topart followed
+            by the color. Default color of black is used is not specified.
+        Returns:
+            The list of dictionary containing the part information and Regulations.
+        """
 
         # Types mapping
         types = {}
@@ -118,7 +125,7 @@ class SimpleDNAplot:
                             part_label_color = "black"
                             part_label_size = 8
                             part_label_style = "normal"
-                        elif (part_short_type == "p") or (part_short_type == "r"):
+                        elif part_short_type in ("p", "r"):
                             part_label_yoffset = -5
                             part_label_color = "black"
                             part_label_size = 8
@@ -151,9 +158,9 @@ class SimpleDNAplot:
             part_idx = part_idx + 1
 
         # update the part_length to include the numbering to be used for regulations
-        for i in types.keys():
+        for i in types:
             n = 0
-            for a in range(len(part_length)):
+            for a, _ in enumerate(part_length):
                 if part_length[a] is i:
                     part_length[a] = i + str(n)
                     n += 1
@@ -166,7 +173,7 @@ class SimpleDNAplot:
         if Regulation is not None:
             Reg_list = Regulation.split(" ")
 
-            for r in range(len(Reg_list)):
+            for r, _ in enumerate(Reg_list):
                 first_yoffset = 0
                 second_yoffset = 0
                 arc_height_const = 17
@@ -192,10 +199,9 @@ class SimpleDNAplot:
                     fr_part_len = self.ComputeDNALength(fr_part, part_length)
                     to_part_len = self.ComputeDNALength(to_part, part_length)
 
-                    if (fr_part_len <= to_part_len) or ("Derepression" in reg_parts[1]):
-                        fwd = True
-                    else:
-                        fwd = False
+                    fwd = (fr_part_len <= to_part_len) or (
+                        "Derepression" in reg_parts[1]
+                    )
 
                     if len(reg_parts) > 2:
                         reg_color = reg_parts[2]
@@ -238,7 +244,7 @@ class SimpleDNAplot:
             indices2 = [i for i, s in enumerate(Reg_list) if "Activation2" in s]
 
             Rep = []
-            for i in range(len(indices)):
+            for i, _ in enumerate(indices):
                 ind = []
                 for j in range(indices[i]):
                     if "Repression" in Reg_list[j]:
@@ -246,7 +252,7 @@ class SimpleDNAplot:
                 Rep.append({str(indices[i]): ind})
 
             Act = []
-            for i in range(len(indices2)):
+            for i, _ in enumerate(indices2):
                 ind = []
                 for j in range(indices2[i]):
                     if "Activation" in Reg_list[j]:
@@ -286,10 +292,9 @@ class SimpleDNAplot:
 
         return part_list, Regulations
 
-    def ComputeDNALength(self, part, part_length):
-
-        """ To calculate the position for the to_part or from_part
-        automatically"""
+    @staticmethod
+    def ComputeDNALength(part, part_length):
+        """Calculate the position for the to_part or from_part automatically."""
 
         # dna length
         dnalen = {}
@@ -318,9 +323,12 @@ class SimpleDNAplot:
         return dnalength
 
     def PlotCircuit(self, filename, Input, Regulation=None):
-
-        """ Take in the Input design and Regulation from users
-        Plot the SBOL-compliant gene circuit figure
+        """Plot the SBOL-compliant gene circuit figure.
+        Parameters:
+            filename: the filename for the generated figure
+            Input, Regulation: Input design and Regulation strings from users
+        Returns:
+            Max DNA Design length and export the gene circuit figure
         """
 
         # matplotlib.use("Qt5Agg")
