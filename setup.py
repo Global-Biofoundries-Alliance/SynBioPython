@@ -15,7 +15,7 @@ setuptools.setup(
     description="Python tools for Synthetic Biology.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Global-Biofoundries-Alliance/SynBioPython",
+    url="https://biopython.org",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
