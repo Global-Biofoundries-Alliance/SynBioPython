@@ -1,26 +1,40 @@
+# pylint: disable=C0103,E0401
 """
 Synbiopython (c) Global BioFoundry Alliance 2020
 
 Synbiopython is licensed under the MIT License.
 
-@author: yeohjingwui
-
+This module is to generate SEDML and COMBINE OMEX files.
 """
 
-import tellurium as te
 import os
+import re
+import tellurium as te
 import tellurium.temiriam as temiriam
 import matplotlib.pyplot as plt
 import phrasedml
-import datetime
-import re
+from synbiopython.genbabel import utilities
 
 te.setDefaultPlottingEngine("matplotlib")
 
 plt.close("all")
 
+plt.rcdefaults()
+plt.rcParams["font.family"] = "Arial"
+plt.rcParams["font.weight"] = "normal"
+plt.rcParams["font.size"] = 16
+plt.rcParams["axes.labelsize"] = 16
+plt.rcParams["axes.labelweight"] = "normal"
+plt.rcParams["axes.linewidth"] = 2
+plt.rcParams["axes.formatter.limits"] = -3, 3
+plt.rcParams["legend.frameon"] = False
+params = {"mathtext.default": "regular"}
+plt.rcParams.update(params)
+plt.rcParams.update({"axes.spines.top": False, "axes.spines.right": False})
+
 
 class SEDMLOMEXgen:
+    """Class to generate the SEDML and COMBINE OMEX files."""
 
     # get current working directory
     def __init__(self):
@@ -28,10 +42,9 @@ class SEDMLOMEXgen:
         self.workingdir0 = os.getcwd()
 
     def get_sbml_biomodel(self, Biomodels_ID, **kwargs):
-
-        """ Get the ID for the Biomodels
-        export the SBML model into .xml file
-        return the sbml in string format
+        """Get SBML model from biomodel.
+        Parameters: the ID for the Biomodels
+        Returns: the sbml in string format, export the SBML model into .xml file
         """
 
         urn = "urn:miriam:biomodels.db:" + Biomodels_ID
@@ -55,9 +68,9 @@ class SEDMLOMEXgen:
 
         return sbml_str
 
-    def sbmltoantimony(self, sbmlfile):
-
-        """ Get the sbml file and return the antimony string """
+    @staticmethod
+    def sbmltoantimony(sbmlfile):
+        """Get the sbml file and return the antimony string."""
 
         antimony_str = te.sbmlToAntimony(sbmlfile)
         basename = os.path.basename(sbmlfile)
@@ -66,7 +79,10 @@ class SEDMLOMEXgen:
 
         return antimony_str
 
-    def find_between(self, s, first, last):
+    @staticmethod
+    def find_between(s, first, last):
+        """Get the substring from string based on indexes."""
+
         try:
             start = s.index(first) + len(first)
             end = s.index(last, start)
@@ -75,8 +91,14 @@ class SEDMLOMEXgen:
             return ""
 
     def export_omex(self, antimony_str, phrasedml_str, **kwargs):
+        """Generate COMBINE OMEX file.
+        Parameters:
+            antimony_str: represent the SBML
+            phrasedml_str: represent the SEDML
+        Returns:
+            execute the omex and export omex archive
+        """
 
-        """take the antimony and phrasedml strings execute the omex and export into omex archive"""
         model = re.search("model (.*)\n", antimony_str)
 
         if model.group(1)[0] == "*":
@@ -105,24 +127,25 @@ class SEDMLOMEXgen:
 
         print("The output file path: ", filepath)
 
-        # execute the inline OMEX
-        te.executeInlineOmex(inline_omex)
-
         te.exportInlineOmex(inline_omex, filepath)
 
-        return inline_omex
+        return inline_omex, te.executeInlineOmex(inline_omex)
 
     def phrasedmltosedml(self, phrasedml_str, sbml_file, **kwargs):
-
-        """ take in phrasedml and sbml file in .xml, export the sedml.xml file,
-        execute the sedml file, and return the sedml string
+        """Generate SEDML file from phrasedml.
+        Parameters:
+        phrasedml_str: text-based way to represent SEDML
+        sbml_file: the SBML xml file
         Example of phrasedml_str:
             phrasedml_str = '''
             model1 = model "{}"
             .
             .
             '''
+        Returns:
+            execute the sedml file, export the sedml.xml file, return the sedml string
         """
+
         try:
             with open(sbml_file, "r+") as f:
                 sbml_str = f.read()
@@ -148,18 +171,10 @@ class SEDMLOMEXgen:
 
         return sedml_str
 
-    def getOMEXfilename(self):
+    @staticmethod
+    def getOMEXfilename():
+        """Return filename to the OMEX file according to the export time."""
 
-        """ return filename to the OMEX file according to the export time"""
-
-        timenow = datetime.datetime.now()
-
-        year = str(timenow.year % 100)
-        month = str(timenow.month).zfill(2)
-        day = str(timenow.day).zfill(2)
-        hour = str(timenow.hour).zfill(2)
-        minute = str(timenow.minute).zfill(2)
-
-        omexfilename = "OMEX" + year + month + day + "_" + hour + minute
+        omexfilename = "OMEX" + utilities.getfilename()
 
         return omexfilename

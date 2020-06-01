@@ -1,6 +1,14 @@
-import pytest
-import os
+# pylint: disable=C0103,E0401,W0621
+"""
+Synbiopython (c) Global BioFoundry Alliance 2020
 
+Synbiopython is licensed under the MIT License.
+
+This module is the test file for the class SimpleDNAplot to be used for pytest
+"""
+
+import os
+import pytest
 import synbiopython.genbabel as stdgen
 
 simplot = stdgen.SimpleDNAplot()
@@ -11,27 +19,35 @@ part = "p1"
 
 @pytest.mark.simplot
 def test_dnalength():
+    """Test the dnalength."""
+
     dnalength = simplot.ComputeDNALength(part, part_length)
     assert dnalength == 79.0
 
 
 @pytest.fixture
 def partlist():
+    """Return the partlist for testing."""
+
     inputstr = "p.pTet c.orange.TetR"
-    partlist, _ = simplot.CircuitDesign(inputstr)
-    return partlist
+    Partlist, _ = simplot.CircuitDesign(inputstr)
+    return Partlist
 
 
 @pytest.fixture
 def regulations():
+    """Return the regulation for testing."""
+
     inputstr = "p.pTet c.orange.TetR"
     regulation = "c0->p0.Repression.red"
-    _, regulations = simplot.CircuitDesign(inputstr, regulation)
-    return regulations
+    _, Regulations = simplot.CircuitDesign(inputstr, regulation)
+    return Regulations
 
 
 @pytest.mark.simplot
 def test_inputstr(partlist):
+    """Test the dict list for the tested part list."""
+
     assert partlist == [
         {
             "name": "1",
@@ -64,6 +80,8 @@ def test_inputstr(partlist):
 
 @pytest.mark.simplot
 def test_regulation(regulations):
+    """Test the dict list for the regulations."""
+
     assert regulations == [
         {
             "type": "Repression",
@@ -85,14 +103,18 @@ def test_regulation(regulations):
 
 @pytest.fixture
 def derepression():
+    """Return regulations for Derepression interaction."""
+
     inputstr = "-c.orange.TetR -p.pTet"
     regulation = "c0->p0.Repression p0->p0.Derepression.red"
-    _, regulations = simplot.CircuitDesign(inputstr, regulation)
-    return regulations
+    _, Regulations = simplot.CircuitDesign(inputstr, regulation)
+    return Regulations
 
 
 @pytest.mark.simplot
 def test_derepression(derepression):
+    """Test the dict list for the Derepression regulations"""
+
     assert derepression == [
         {
             "type": "Repression",
@@ -129,7 +151,10 @@ def test_derepression(derepression):
 
 @pytest.mark.simplot
 def test_maxdnalength(tmpdir):
+    """Test the maximum DNA length for the plotted gene circuit diagram."""
+
     figurepath = os.path.join(str(tmpdir), "check_PlotCircuit.png")
     Input = "p r c.green"
-    dnalength = simplot.PlotCircuit(figurepath, Input, Regulation=None)
-    assert (dnalength == 60.0) or (os.path.exists(figurepath))
+    dnalength, _ = simplot.PlotCircuit(figurepath, Input, Regulation=None)
+    assert dnalength == 60.0
+    assert os.path.exists(figurepath)
