@@ -43,10 +43,10 @@ class TestUtils(unittest.TestCase):
         aa_codons = codon_table[amino_acid]
 
         # Generate amino acid sequence and codon optimise:
-        aa_seq = ''.join([amino_acid] * 10000)
+        aa_seq = ''.join([amino_acid] * 100000)
         dna_seq = utils.optimise(codon_table, aa_seq)
 
-        # Extract codons from DNA sequence:
+        # Extract codons from DNA sequence:
         codons = [dna_seq[i:i + 3] for i in range(0, len(dna_seq), 3)]
 
         # Test:
