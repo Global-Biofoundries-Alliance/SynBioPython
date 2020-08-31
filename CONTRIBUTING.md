@@ -1,7 +1,56 @@
-# Contributing to the Project: 
+# Contributing to the Project
+
 Please review the following guidelines in order to make the contribution process effective and easy for everyone. 
 
-## Get Started!
+
+## Governance
+
+The *core team* makes decisions regarding this project. The core team currently consists of the original authors of SynBioPython and its manuscript. Decisions are made following a discussion or a simple majority vote with a quorum of 50%.
+
+SynBioPython is developed by members of the Global Biofoundry Alliance and is released on GitHub under the MIT licence. The project is committed to remain free and open source under a licence approved by the [FSF](https://www.fsf.org) and the [OSI](https://opensource.org).
+
+
+## Feature requests
+
+Feature requests are welcome. Please do so before submitting:
+* Check if the feature has already been requested.
+* Ensure your idea fits with the scope and aims of the project.
+* Please provide details (i.e. explaining the use case (merits of the feature))
+
+
+## Issue tracker
+
+The issue tracker is the preferred channel for bug reports, and feature requests, but please respect the following restrictions:
+* Never use the issue tracker for personal support requests (use [Stack Overflow](https://stackoverflow.com) or [Bioinformatics SE](https://bioinformatics.stackexchange.com)).
+* Keep the discussion on topic and respect the opinions of others.
+
+
+## Contributions
+
+We welcome commits from contributors. We will consider code that is relevant to synthetic biology and meets the following criteria:
+* you have the legal right to contribute the code under the project's licence
+* the contribution follows the coding style outlined below
+* docstrings are included in the code, if applicable
+* tests are written for new code & all tests pass
+
+For bigger contributions, such as modules or addition of dependencies, please contact the core team for a discussion and approval. Contributions should be submitted as GitHub pull requests. New feature or bug fix pull requests are reviewed and merged by a core team member. Large contributions, such as modules, are reviewed by at least two core team members.
+
+
+## Coding conventions
+
+SynBioPython conforms to Black and Flake8 requirements, which are enforced using pre-commit hooks.
+
+Documentation is generated using [Portray](https://github.com/timothycrosley/portray).
+
+Tests are included for each function, with total code coverage >90%.
+
+[Travis CI](https://travis-ci.org/github/Global-Biofoundries-Alliance/SynBioPython) is used for continuous integration.
+
+The project follows the [semantic versioning](https://semver.org) scheme. Major versions are prepared into [GitHub releases](https://github.com/Global-Biofoundries-Alliance/SynBioPython/releases) and also uploaded to [PyPI](https://pypi.org/project/synbiopython/) (Python Package Index).
+
+
+## Get started!
+
 1. Firstly, press the "fork" button in GitHub to create a copy of the repository in your own GitHub account. 
 2. Now you need to clone locally using a terminal:
 ```
@@ -90,15 +139,3 @@ $ git push -u origin feature/Xfeature-update
 Navigate to your fork of the project at the browser, there will be a "Compare & pull request" button beside your new branch at the top. 
 Press the button! This will link you to the original project repository. 
 Press the "Create pull request" button at the bottom and wait for review by the maintainers. 
-
-## Feature Requests
-Feature requests are welcome. Please do so before submitting:
-* Check if the feature has already been requested.
-* Ensure your idea fits with the scope and aims of the project.
-* Please provide details (i.e. explaining the use case (merits of the feature))
-
-## Issue Tracker
-The issue tracker is the preferred channel for bug reports, and features requests, but please respect the following restrictions:
-
-* Never use the issue tracker for personal support requests (use [Stack Overflow](http://stackoverflow.com)).
-* Keep the discussion on topic and respect the opinions of others.
