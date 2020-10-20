@@ -9,6 +9,7 @@ import pandas
 from synbiopython.lab_automation.containers.Well import Well
 from synbiopython.lab_automation.containers.helper_functions import (
     index_to_wellname,
+    number_to_rowname,
     wellname_to_index,
     coordinates_to_wellname,
     rowname_to_number,
@@ -49,6 +50,8 @@ class Plate:
         self.wells_data = wells_data or {}
         self.num_wells = self.num_rows * self.num_columns
         self.wells = {}
+        self.columns = {column: [] for column in range(1, self.num_columns + 1)}
+        self.rows = {number_to_rowname(row): [] for row in range(1, self.num_rows + 1)}
         for row in range(1, self.num_rows + 1):
             for column in range(1, self.num_columns + 1):
                 wellname = coordinates_to_wellname((row, column))
@@ -57,6 +60,8 @@ class Plate:
                     plate=self, row=row, column=column, name=wellname, data=data,
                 )
                 self.wells[wellname] = well
+                self.columns[column] += [wellname]
+                self.rows[number_to_rowname(row)] += [wellname]
 
     def __getitem__(self, k):
         """Return e.g. well A1's dict when calling `myplate['A1']`."""
@@ -88,6 +93,10 @@ class Plate:
         """Return all fields used in well data in the plate"""
         return sorted(list(set(field for well in self for field in well.data.keys())))
 
+    def return_column(self, column_number):
+        """Return the list of all wells of the plate in the given column."""
+        return [self.wells[wellname] for wellname in self.columns[column_number]]
+
     def list_wells_in_column(self, column_number):
         """Return the list of all wells of the plate in the given column.
 
@@ -97,6 +106,15 @@ class Plate:
         >>>      print(well.name)
         """
         return [well for well in self.iter_wells() if well.column == column_number]
+
+    def return_row(self, row):
+        """Return the list of all wells of the plate in the given row.
+
+        The `row` can be either a row number (1,2,3) or row letter(s) (A,B,C).
+        """
+        if isinstance(row, int):
+            row = number_to_rowname(row)
+        return [self.wells[wellname] for wellname in self.rows[row]]
 
     def list_wells_in_row(self, row):
         """Return the list of all wells of the plate in the given row.
