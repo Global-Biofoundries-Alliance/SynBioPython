@@ -15,7 +15,7 @@ setuptools.setup(
     description="Python tools for Synthetic Biology.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Global-Biofoundries-Alliance/SynBioPython",
+    url="https://synbiopython.org",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -29,7 +29,7 @@ setuptools.setup(
         "fuzzywuzzy",
         "dnaplotlib",
         "tellurium",
-        "simplesbml",
+        "tesbml",
         "biopython",
         "reportlab",
     ],
