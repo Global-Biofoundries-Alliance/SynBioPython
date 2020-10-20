@@ -16,6 +16,10 @@ from synbiopython.lab_automation.containers.helper_functions import (
 from synbiopython.lab_automation.tools import replace_nans_in_dict
 
 
+class NoUniqueWell(Exception):
+    pass
+
+
 class Plate:
     """Base class for all plates.
 
@@ -63,13 +67,13 @@ class Plate:
 
         The ``condition`` method should have a signature of Well=>True/False
 
-        Raises a ValueError if 0 or several wells satisfy the condition.
+        Raises a NoUniqueWell error if 0 or several wells satisfy the condition.
         """
         wells = [well for name, well in self.wells.items() if condition(well)]
         if len(wells) > 1:
-            raise ValueError("Query returned several wells: %s" % wells)
+            raise NoUniqueWell("Query returned several wells: %s" % wells)
         if len(wells) == 0:
-            raise ValueError("No wells found matching the condition")
+            raise NoUniqueWell("No wells found matching the condition")
         return wells[0]
 
     def find_unique_well_containing(self, query):
