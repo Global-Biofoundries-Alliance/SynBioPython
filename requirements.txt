@@ -6,7 +6,7 @@ dnaplotlib
 biopython
 reportlab
 tellurium
-tesedml==0.4.3
+tesedml
 simplesbml
 Pillow<6.0.0
 
