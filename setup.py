@@ -29,6 +29,7 @@ setuptools.setup(
         "numpy>=1.19",
         "fuzzywuzzy",
         "dnaplotlib",
+        "tesedml<=0.4.5.3",
         "tellurium",
         "tesbml",
         "biopython",
