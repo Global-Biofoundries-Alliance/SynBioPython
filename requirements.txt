@@ -4,7 +4,7 @@ numpy
 fuzzywuzzy
 dnaplotlib
 biopython
-reportlab
+reportlab==3.5.42
 tellurium
 simplesbml
-Pillow==7.1.2
+
