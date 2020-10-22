@@ -31,7 +31,6 @@ setuptools.setup(
         "dnaplotlib",
         "tellurium",
         "tesbml",
-        "tesedml",
         "biopython",
         "reportlab",
         "Pillow<6.0.0",
