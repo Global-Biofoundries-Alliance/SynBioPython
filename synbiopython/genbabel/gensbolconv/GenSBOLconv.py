@@ -37,7 +37,7 @@ class GenSBOLconv:
     """Class to convert standard files (SBOL1, SBOL2, GenBank, Fasta, GFF3)."""
 
     @staticmethod
-    def export_PlasmidMap(gbfile, filename=None):
+    def export_plasmidmap(gbfile, filename=None):
         """ Export Linear and Circular Plasmid Map for the imported GenBank file.
         """
 
@@ -101,7 +101,7 @@ class GenSBOLconv:
         return record.id
 
     @staticmethod
-    def SBOLValidator(input_file, Output, uri_Prefix=""):
+    def access_sbolvalidator(input_file, Output, uri_Prefix=""):
         """Code to invoke the SBOL Validator server over the internet."""
 
         file = open(input_file).read()
@@ -147,7 +147,7 @@ class GenSBOLconv:
         }
         return switcher.get(Filetype, "unknown filetype")
 
-    def export_OutputFile(self, input_filename, Response, Output, outputfile=None):
+    def export_outputfile(self, input_filename, Response, Output, outputfile=None):
         """Export the converted output file."""
 
         filename_w_ext = os.path.basename(input_filename)
@@ -167,7 +167,7 @@ class GenSBOLconv:
         else:
             print("Error message: ", Response.json()["errors"])
 
-    def AutoRunSBOLValidator(self, Input_file, Output, uri_Prefix="", **kwargs):
+    def run_sbolvalidator(self, Input_file, Output, uri_Prefix="", **kwargs):
         """Wrapper function for the SBOL Validator.
         Parameters:
             Input_file: input file or path to input file
@@ -176,7 +176,7 @@ class GenSBOLconv:
             input conversion
         Returns:
             the validity of the Response, and export output file."""
-        Response = self.SBOLValidator(Input_file, Output, uri_Prefix)
+        Response = self.access_sbolvalidator(Input_file, Output, uri_Prefix)
 
         output_filename = None
 
@@ -184,6 +184,6 @@ class GenSBOLconv:
             if "outputfile" in key:
                 output_filename = value
 
-        self.export_OutputFile(Input_file, Response, Output, outputfile=output_filename)
+        self.export_outputfile(Input_file, Response, Output, outputfile=output_filename)
 
         return "valid: " + str(Response.json()["valid"])

@@ -33,7 +33,7 @@ class SimpleDNAplot:
     # The default color is black if color is not specified
     """
 
-    def CircuitDesign(self, Input, Regulation=None):
+    def set_circuit_design(self, Input, Regulation=None):
         """Generate the dictionary list containing circuit design information.
         Parameters:
             Input: a string containing the individual type of part, followed by color
@@ -196,8 +196,8 @@ class SimpleDNAplot:
                     tofr_part = reg_parts[0].split("->")
                     fr_part = tofr_part[0]
                     to_part = tofr_part[1]
-                    fr_part_len = self.ComputeDNALength(fr_part, part_length)
-                    to_part_len = self.ComputeDNALength(to_part, part_length)
+                    fr_part_len = self.compute_dnalength(fr_part, part_length)
+                    to_part_len = self.compute_dnalength(to_part, part_length)
 
                     fwd = (fr_part_len <= to_part_len) or (
                         "Derepression" in reg_parts[1]
@@ -293,7 +293,7 @@ class SimpleDNAplot:
         return part_list, Regulations
 
     @staticmethod
-    def ComputeDNALength(part, part_length):
+    def compute_dnalength(part, part_length):
         """Calculate the position for the to_part or from_part automatically."""
 
         # dna length
@@ -322,7 +322,7 @@ class SimpleDNAplot:
 
         return dnalength
 
-    def PlotCircuit(self, filename, Input, Regulation=None):
+    def plot_circuit(self, Input, Regulation=None, savefig=None):
         """Plot the SBOL-compliant gene circuit figure.
         Parameters:
             filename: the filename for the generated figure
@@ -337,7 +337,7 @@ class SimpleDNAplot:
         dr = dpl.DNARenderer(linewidth=1.5)
 
         # Process the arguments
-        design, Regulations = self.CircuitDesign(Input, Regulation)
+        design, Regulations = self.set_circuit_design(Input, Regulation)
 
         reg_renderers = dr.std_reg_renderers()
         part_renderers = dr.SBOL_part_renderers()
@@ -374,7 +374,9 @@ class SimpleDNAplot:
 
         # Save the figure
         plt.tight_layout()
-        fig.savefig(filename, transparent=True, dpi=300)
+
+        if savefig is not None:
+            fig.savefig(savefig, transparent=True, dpi=300)
         # plt.show()
 
         return max_dna_len, fig

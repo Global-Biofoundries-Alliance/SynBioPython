@@ -17,7 +17,7 @@ class SBMLgen:
     """Class to generate SBML file for ODE model."""
 
     @staticmethod
-    def exportsbml(ODE, Variable, Init, ParamName, Param, ParamUnit, **kwargs):
+    def export_sbml(ODE, Variable, Init, ParamName, Param, ParamUnit, **kwargs):
 
         """Function to generate the SBML xml file.
         Parameters:
