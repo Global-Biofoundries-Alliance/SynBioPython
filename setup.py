@@ -32,6 +32,7 @@ setuptools.setup(
         "dnaplotlib",
         "tesedml<0.4.5.3",
         "ipykernel<=5.1.0",
+        "phrasedml<=1.0.10",
         "tellurium",
         "tesbml",
         "biopython",
