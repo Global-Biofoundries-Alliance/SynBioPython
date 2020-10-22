@@ -5,6 +5,6 @@ fuzzywuzzy
 dnaplotlib
 biopython
 reportlab
-Pillow<6.0.0
 tellurium
 simplesbml
+Pillow<=6.0.0
