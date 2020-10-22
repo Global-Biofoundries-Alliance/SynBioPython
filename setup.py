@@ -29,7 +29,7 @@ setuptools.setup(
         "numpy",
         "fuzzywuzzy",
         "dnaplotlib",
-        "tellurium",
+        "tellurium==2.1.5",
         "tesbml",
         "biopython",
         "reportlab",
