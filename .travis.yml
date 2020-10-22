@@ -3,6 +3,7 @@ python:
   - "3.7.1"
   
 before_install:
+  - choco install python --version 3.7.1
   - python -m pip install pip==18.1
   
 # command to install dependencies
