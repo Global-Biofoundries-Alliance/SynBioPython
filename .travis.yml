@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.6"
+  - "3.7"
 # command to install dependencies
 install:
   - pip install coveralls pytest-cov==2.6 pytest==3.2.3
