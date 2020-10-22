@@ -30,6 +30,7 @@ setuptools.setup(
         "fuzzywuzzy",
         "dnaplotlib",
         "tesedml<0.4.5.3",
+        "ipykernel<=5.1.0",
         "tellurium",
         "tesbml",
         "biopython",
