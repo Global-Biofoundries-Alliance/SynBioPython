@@ -1,3 +1,4 @@
+# pylint: disable=C0103,C0114, W0122
 import setuptools
 
 with open("README.md", "r") as fh:
@@ -32,5 +33,6 @@ setuptools.setup(
         "tesbml",
         "biopython",
         "reportlab",
+        "Pillow<6.0.0",
     ],
 )
