@@ -1,6 +1,6 @@
 pre-commit
 pandas>=0.22
-numpy
+numpy>=1.19
 fuzzywuzzy
 dnaplotlib
 biopython
