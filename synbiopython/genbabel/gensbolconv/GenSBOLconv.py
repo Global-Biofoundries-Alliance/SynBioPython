@@ -11,15 +11,12 @@ Use sample sbol file from github (can also be obtained from iBioSim)
 
 Reference:
     https://github.com/SynBioDex/SBOL-Validator/blob/master/src/test/sequence1.xml
-    https://www.w3schools.com/python/ref_requests_post.asp
     http://synbiodex.github.io/SBOL-Validator/#query-parameters
     http://synbiodex.github.io/SBOL-Validator/#options
     http://biopython.org/DIST/docs/tutorial/Tutorial.html (Chapter 17 Graphics)
-    https://www.reportlab.com/
 
 install:
-pip install biopython
-pip install reportlab
+    pip install biopython reportlab
 
 The URI prefix is required for FASTA and GenBank conversion,
 and optional for SBOL 1 conversion
@@ -37,8 +34,17 @@ class GenSBOLconv:
     """Class to convert standard files (SBOL1, SBOL2, GenBank, Fasta, GFF3)."""
 
     @staticmethod
-    def export_PlasmidMap(gbfile, filename=None):
+    def export_plasmidmap(gbfile, filename=None):
         """ Export Linear and Circular Plasmid Map for the imported GenBank file.
+
+        :param gbfile: a genbank file in .gb format or the path the file if not in the
+            same folder.
+        :type gbfile: str
+        :param filename: the filenames/path to the filenames for the linear and
+            circular plasmids in tuple
+        :type filename: tuple, optional
+        :return: the version from the genbank file
+        :rtype: str
         """
 
         record = SeqIO.read(gbfile, "genbank")
@@ -101,8 +107,19 @@ class GenSBOLconv:
         return record.id
 
     @staticmethod
-    def SBOLValidator(input_file, Output, uri_Prefix=""):
-        """Code to invoke the SBOL Validator server over the internet."""
+    def access_sbolvalidator(input_file, Output, uri_Prefix=""):
+        """Code to invoke the SBOL Validator server over the internet.
+
+        :param input_file: input filename or filepath
+        :type input_file: str
+        :param Output: the type of Output file
+        :type Output: str, ('GenBank', 'FASTA', 'GFF3', 'SBOL1', 'SBOL2')
+        :param uri_Prefix: '' as default, URI Prefix is required for FASTA and GenBank
+            input conversion
+        :type uri_Prefix: str, optional
+        :return: POST request response from webpage
+        :rtype: object
+        """
 
         file = open(input_file).read()
 
@@ -135,7 +152,12 @@ class GenSBOLconv:
 
     @staticmethod
     def get_outputfile_extension(Filetype):
-        """ Get the output file extension based on the requested output language.
+        """Get the output file extension based on the requested output language.
+
+        :param Filetype: the type of Output file
+        :type Output: str, ('GenBank', 'FASTA', 'GFF3', 'SBOL1', 'SBOL2')
+        :return: the specific file extension
+        :rtype: str
         """
 
         switcher = {
@@ -147,8 +169,18 @@ class GenSBOLconv:
         }
         return switcher.get(Filetype, "unknown filetype")
 
-    def export_OutputFile(self, input_filename, Response, Output, outputfile=None):
-        """Export the converted output file."""
+    def export_outputfile(self, input_filename, Response, Output, outputfile=None):
+        """Export the converted output file.
+
+        :param input_filename: input filename or filepath
+        :type input_filename: str
+        :param Response: response from POST request to sbolvalidator web page
+        :type Response: object
+        :param Output: the type of Output file
+        :type Output: str, ('GenBank', 'FASTA', 'GFF3', 'SBOL1', 'SBOL2')
+        :param outputfile: provide specific outputfilename or filepath
+        :type outputfile: str, optional
+        """
 
         filename_w_ext = os.path.basename(input_filename)
         filename, _ = os.path.splitext(filename_w_ext)
@@ -167,16 +199,22 @@ class GenSBOLconv:
         else:
             print("Error message: ", Response.json()["errors"])
 
-    def AutoRunSBOLValidator(self, Input_file, Output, uri_Prefix="", **kwargs):
+    def run_sbolvalidator(self, Input_file, Output, uri_Prefix="", **kwargs):
         """Wrapper function for the SBOL Validator.
-        Parameters:
-            Input_file: input file or path to input file
-            Output: the Output file type (GenBank, FASTA, GFF3, SBOL1, SBOL2)
-            uri_Prefix: '' as default, URI Prefix is required for FASTA and GenBank
+
+        :param Input_file: input file or path to input file
+        :type Input_file: str, filename or filepath
+        :param Output: the type of Output file
+        :type Output: str, ('GenBank', 'FASTA', 'GFF3', 'SBOL1', 'SBOL2')
+        :param uri_Prefix: '' as default, URI Prefix is required for FASTA and GenBank
             input conversion
-        Returns:
-            the validity of the Response, and export output file."""
-        Response = self.SBOLValidator(Input_file, Output, uri_Prefix)
+        :type uri_Prefix: str, optional
+        :return: the validity of the Response, and export output file.
+        :rtype: str, "valid: True" if the conversion is done properly
+        :Keyword Arguments:
+            * *outputfile*: specify outputfile
+        """
+        Response = self.access_sbolvalidator(Input_file, Output, uri_Prefix)
 
         output_filename = None
 
@@ -184,6 +222,6 @@ class GenSBOLconv:
             if "outputfile" in key:
                 output_filename = value
 
-        self.export_OutputFile(Input_file, Response, Output, outputfile=output_filename)
+        self.export_outputfile(Input_file, Response, Output, outputfile=output_filename)
 
         return "valid: " + str(Response.json()["valid"])

@@ -1,3 +1,4 @@
+# pylint: disable=C0103,C0114, W0122
 import setuptools
 
 with open("README.md", "r") as fh:
@@ -25,12 +26,14 @@ setuptools.setup(
     python_requires=">=3.6",
     install_requires=[
         "pandas>=0.22",
-        "numpy",
+        "numpy>=1.19",
+        "matplotlib<=3.0.2",
         "fuzzywuzzy",
         "dnaplotlib",
         "tellurium",
         "tesbml",
         "biopython",
         "reportlab",
+        "Pillow<6.0.0",
     ],
 )

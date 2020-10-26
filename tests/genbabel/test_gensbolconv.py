@@ -29,9 +29,7 @@ def test_sboltogb(tmpdir):
     path = os.path.join(str(tmpdir), sbolfile.split(".")[0] + ".gb")
     Output = "GenBank"
     uri_Prefix = uri_Prefix_isbol
-    Response = stdconv.AutoRunSBOLValidator(
-        sbolpath, Output, uri_Prefix, outputfile=path
-    )
+    Response = stdconv.run_sbolvalidator(sbolpath, Output, uri_Prefix, outputfile=path)
     print("tmppath: ", path)
     assert Response == "valid: True"
     assert os.path.exists(path)
@@ -44,9 +42,7 @@ def test_sboltofasta(tmpdir):
     path = os.path.join(str(tmpdir), sbolfile.split(".")[0] + ".fasta")
     Output = "FASTA"
     uri_Prefix = uri_Prefix_isbol
-    Response = stdconv.AutoRunSBOLValidator(
-        sbolpath, Output, uri_Prefix, outputfile=path
-    )
+    Response = stdconv.run_sbolvalidator(sbolpath, Output, uri_Prefix, outputfile=path)
     assert Response == "valid: True"
     assert os.path.exists(path)
 
@@ -58,9 +54,7 @@ def test_sboltogff3(tmpdir):
     path = os.path.join(str(tmpdir), sbolfile.split(".")[0] + ".gff")
     Output = "GFF3"
     uri_Prefix = uri_Prefix_isbol
-    Response = stdconv.AutoRunSBOLValidator(
-        sbolpath, Output, uri_Prefix, outputfile=path
-    )
+    Response = stdconv.run_sbolvalidator(sbolpath, Output, uri_Prefix, outputfile=path)
     assert Response == "valid: True"
     assert os.path.exists(path)
 
@@ -72,7 +66,7 @@ def test_gbtosbol(tmpdir):
     path = os.path.join(str(tmpdir), gbfile.split(".")[0] + ".sbol")
     Output = "SBOL2"
     uri_Prefix = uri_Prefix_igb
-    Response = stdconv.AutoRunSBOLValidator(gbpath, Output, uri_Prefix, outputfile=path)
+    Response = stdconv.run_sbolvalidator(gbpath, Output, uri_Prefix, outputfile=path)
     assert Response == "valid: True"
     assert os.path.exists(path)
 
@@ -84,7 +78,7 @@ def test_gbtofasta(tmpdir):
     path = os.path.join(str(tmpdir), gbfile.split(".")[0] + ".fasta")
     Output = "FASTA"
     uri_Prefix = uri_Prefix_igb
-    Response = stdconv.AutoRunSBOLValidator(gbpath, Output, uri_Prefix, outputfile=path)
+    Response = stdconv.run_sbolvalidator(gbpath, Output, uri_Prefix, outputfile=path)
     assert Response == "valid: True"
     assert os.path.exists(path)
 
@@ -97,19 +91,19 @@ def test_gbtogff3(tmpdir):
     Output = "GFF3"
     uri_Prefix = uri_Prefix_igb
     # path = None
-    Response = stdconv.AutoRunSBOLValidator(gbpath, Output, uri_Prefix, outputfile=path)
+    Response = stdconv.run_sbolvalidator(gbpath, Output, uri_Prefix, outputfile=path)
     assert Response == "valid: True"
     assert os.path.exists(path)
     # assert (Response == "valid: True")
 
 
 @pytest.mark.stdconv
-def test_export_PlasmidMap(tmpdir):
+def test_export_plasmidmap(tmpdir):
     """Test Plasmid Map Export function"""
 
     path1 = os.path.join(str(tmpdir), "plasmid_linear.png")
     path2 = os.path.join(str(tmpdir), "plasmid_circular.png")
-    recordid = stdconv.export_PlasmidMap(gbpath, (path1, path2))
+    recordid = stdconv.export_plasmidmap(gbpath, (path1, path2))
     assert recordid == "BBa_K874103.1"
     assert os.path.exists(path1)
     assert os.path.exists(path2)

@@ -1,11 +1,12 @@
 language: python
 python:
-  - "3.6"
+  - "3.7.1"
+
 # command to install dependencies
 install:
-  - pip install coveralls pytest-cov==2.6 pytest==3.2.3
+  - pip install coveralls pytest-cov==2.6 pytest==4.0.2
   - pip install -e .
-  
+
 # command to run tests
 script:
   - python -m pytest -v --cov synbiopython --cov-report term-missing

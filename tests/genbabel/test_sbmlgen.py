@@ -51,11 +51,11 @@ model.addAssignmentRule("fracATP", "ATP/(ATP+ADP)")
 
 
 @pytest.mark.sbmlgen
-def test_exportsbml(tmpdir):
+def test_export_sbml(tmpdir):
     """Test the SBML file generation and exportation."""
 
     path = os.path.join(str(tmpdir), "Testsbml.xml")
-    sbml = sbmlgen.exportsbml(
+    sbml = sbmlgen.export_sbml(
         ODE, variable, Init, paramName, param, paramUnit, outputfile=path
     )
     specieslist = re.findall(r'species id="(.*?)"', sbml, re.MULTILINE)

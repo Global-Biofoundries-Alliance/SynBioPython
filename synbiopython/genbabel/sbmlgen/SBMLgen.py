@@ -5,7 +5,10 @@ Synbiopython (c) Global BioFoundry Alliance 2020
 Synbiopython is licensed under the MIT License.
 
 This module is to create SBML file for ODE model using simplesbml package,
-which relies on libSBML. Reference: https://github.com/sys-bio/simplesbml
+which relies on libSBML.
+
+Reference:
+    https://github.com/sys-bio/simplesbml
 """
 
 from synbiopython.genbabel.sbmlgen import simplesbml
@@ -13,22 +16,26 @@ from synbiopython.genbabel import utilities
 
 
 class SBMLgen:
-
     """Class to generate SBML file for ODE model."""
 
     @staticmethod
-    def exportsbml(ODE, Variable, Init, ParamName, Param, ParamUnit, **kwargs):
-
+    def export_sbml(ODE, Variable, Init, ParamName, Param, ParamUnit, **kwargs):
         """Function to generate the SBML xml file.
-        Parameters:
-            ODE      : The ODEs in the form of string stored in a list
-            Variable : The names of variable in a list of string
-            Init     : Initial conditions for the variables in a list of values
-            ParamName: The names of the parameters stored in a list
-            Param    : The parameters values
-            ParamUnit: The unit for the parameter according to available unit definition
-        Returns:
-            SBML format
+
+        :param ODE: The ODEs in the form of string stored in a list
+        :type ODE: list
+        :param Variable: The names of variable in a list of string
+        :type Variable: list
+        :param Init: Initial conditions for the variables in a list of values
+        :type Init: list
+        :param ParamName: The names of the parameters stored in a list
+        :type ParamName: list
+        :param Param: The parameters values
+        :type Param: list
+        :param ParamUnit: The unit for the parameter according to available unit definition
+        :type ParamUnit: list
+        :return: SBML in str
+        :rtype: str
         """
 
         for u in ParamUnit:

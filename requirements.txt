@@ -1,9 +1,12 @@
 pre-commit
 pandas>=0.22
-numpy
+numpy>=1.19
+matplotlib<=3.0.2
 fuzzywuzzy
 dnaplotlib
-tellurium
-simplesbml
 biopython
 reportlab
+tellurium
+tesbml
+Pillow<6.0.0
+

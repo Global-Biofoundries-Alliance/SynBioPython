@@ -1,11 +1,15 @@
-"""Miscellaneous functions.
+"""Miscellaneous functions for Genbabel package.
 """
 
 import datetime
 
 
 def getfilename():
-    """Generate the filename based on the datetime."""
+    """Return the filename based on the datetime.
+
+    :return: the filename in year-month-day_hour-minute
+    :rtype: str
+    """
 
     timenow = datetime.datetime.now()
 
