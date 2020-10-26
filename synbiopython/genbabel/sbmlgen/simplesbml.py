@@ -1,8 +1,10 @@
 # pylint: disable=C0330,C0103,C0116,R0201,R0912,R0913,R0914,R0915,R0904
 """
-added more unit definitions
+This module is the simplesbml package from https://simplesbml.readthedocs.io/en/latest/
+with minor modifications to include more unit definitions
+
 Reference:
-https://github.com/sys-bio/simplesbml/blob/master/simplesbml/__init__.py
+    https://github.com/sys-bio/simplesbml/blob/master/simplesbml/__init__.py
 """
 
 import warnings
@@ -140,7 +142,13 @@ class sbmlModel:
         self.addCompartment()
 
     def addCompartment(self, vol=1, comp_id=""):
-        """Create compartment of volume litres to the model."""
+        """Create compartment of volume litres to the model.
+
+        :param vol: volume of compartment in L
+        :type vol: float
+        :param comp_id: compartment id
+        :type comp_id: str
+        """
 
         c1 = self.model.createCompartment()
         self.check(c1, "create compartment")
@@ -155,7 +163,15 @@ class sbmlModel:
         return c1
 
     def addSpecies(self, species_id, amt, comp="c1"):
-        """Create Species with the provided amount."""
+        """Create Species with the provided amount.
+
+        :param species_id: id or name of the species.
+        :type species_id: str
+        :param amt: initial amount.
+        :type amt: float
+        :param comp: compartment id
+        :type comp: str
+        """
 
         s1 = self.model.createSpecies()
         self.check(s1, "create species s1")
@@ -185,7 +201,15 @@ class sbmlModel:
         return s1
 
     def addParameter(self, param_id, val, units="per_second"):
-        """Add Parameter with value and unit."""
+        """Add Parameter with value and unit.
+
+        :param param_id: parameter id/name
+        :type param_id: str
+        :param val: value for the parameter
+        :type val: float
+        :param units: unit for the parameter
+        :type units: str
+        """
 
         k = self.model.createParameter()
         self.check(k, "create parameter k")
@@ -198,7 +222,19 @@ class sbmlModel:
     def addReaction(
         self, reactants, products, expression, local_params=None, rxn_id=""
     ):
-        """Create reaction provided with reactants and products in lists"""
+        """Create reaction provided with reactants and products in lists
+
+        :param reactants: list of species id for reactants
+        :type reactants: list
+        :param products: list of species id for products
+        :type products: list
+        :param expression: reaction rate expression
+        :type expression: str
+        :param local_params: keys are the param id and values are their respective values
+        :type local_params: dict
+        :param rxn_id: id for the reaction
+        :type rxn_id: str, optional
+        """
 
         r1 = self.model.createReaction()
         self.check(r1, "create reaction")
@@ -288,6 +324,22 @@ class sbmlModel:
     ):
         """Add event supplied with when an event is triggered and
         what happens using assignments in a dictionary.
+
+        :param trigger: define when an event is triggered (logical expression)
+        :type trigger: str
+        :param assignments: keys are the variables to be modified and the values are the new values
+        :type assignments: dict
+        :param persistent: determine if the event will still be executed if trigger turns from
+            True to False
+        :type persistent: boolean
+        :param initial_value: value of trigger before t=0
+        :type initial_value: boolean
+        :param priority: determine which event is executed, event with larger priority is executed
+        :type priority: float
+        :param delay: time between when the event is triggered and the assignment is implemented
+        :type delay: float
+        :param event_id: id of the event
+        :type event_id: str
         """
 
         e1 = self.model.createEvent()
@@ -335,7 +387,13 @@ class sbmlModel:
         return e1
 
     def addAssignmentRule(self, var, math):
-        """To assign a state variable with an expression"""
+        """To assign a state variable with an expression.
+
+        :param var: id of the state variable
+        :type var: str
+        :param math: expression in str
+        :type math: str
+        """
 
         r = self.model.createAssignmentRule()
         self.check(r, "create assignment rule r")
@@ -345,7 +403,15 @@ class sbmlModel:
         return r
 
     def addRateRule(self, var, math, rr_id=""):
-        """Describe the derivative of the state variable wrt time as an expression."""
+        """Describe the derivative of the state variable wrt time as an expression.
+
+        :param var: id of the state variable
+        :type var: str
+        :param math: expression in str
+        :type math: str
+        :param rr_id: id for the reaction rate
+        :type rr_id: str, optional
+        """
 
         r = self.model.createRateRule()
         self.check(r, "create rate rule r")
@@ -363,6 +429,11 @@ class sbmlModel:
     def addInitialAssignment(self, symbol, math):
         """Describe the initial value of the variable in terms of
         other variables or parameters.
+
+        :param symbol: id of the variable
+        :type symbol: str
+        :param math: expression
+        :type math: str
         """
 
         if self.document.getLevel() == 2 and self.document.getVersion() == 1:
@@ -378,7 +449,13 @@ class sbmlModel:
         return a
 
     def setLevelAndVersion(self, level, version):
-        """Set the level and version of the SBML."""
+        """Set the level and version of the SBML.
+
+        :param level: level of the sbml
+        :type level: int
+        :param version: version of the sbml
+        :type version: int
+        """
 
         if level == 2 and version == 1:
             self.check(
@@ -407,56 +484,71 @@ class sbmlModel:
         self.check(isSet, "convert to level " + str(level) + " version " + str(version))
 
     def getDocument(self):
+        """Return document."""
         return self.document
 
     def getModel(self):
+        """Return Model."""
         return self.model
 
     def getSpecies(self, species_id):
+        """Return Species."""
         return self.model.getSpecies(species_id)
 
     def getListOfSpecies(self):
+        """Return list of species."""
         return self.model.getListOfSpecies()
 
     def getParameter(self, param_id):
+        """Return parameter."""
         return self.model.getParameter(param_id)
 
     def getListOfParameters(self):
+        """Return list of parameters."""
         return self.model.getListOfParameters()
 
     def getReaction(self, rxn_id):
+        """Return Reaction."""
         return self.model.getReaction(rxn_id)
 
     def getListOfReactions(self):
+        """Return list of reactions."""
         return self.model.getListOfReactions()
 
     def getCompartment(self, comp_id):
+        """Return compartment."""
         return self.model.getCompartment(comp_id)
 
     def getListOfEvents(self):
+        """Return list of events."""
         return self.model.getListOfEvents()
 
     def getEvent(self, event_id):
+        """Return event."""
         return self.model.getEvent(event_id)
 
     def getListOfCompartments(self):
+        """Return list of compartments."""
         return self.model.getListOfCompartments()
 
     def getRule(self, var):
+        """Return rule."""
         return self.model.getRule(var)
 
     def getListOfRules(self):
+        """Return list of rules."""
         return self.model.getListOfRules()
 
     def getInitialAssignment(self, var):
+        """Return initial assignment."""
         return self.model.getInitialAssignment(var)
 
     def getListOfInitialAssignments(self):
+        """Return list of initial assignments."""
         return self.model.getListOfInitialAssignments()
 
     def toSBML(self):
         """Return the model in SBML format as strings."""
-
         errors = self.document.checkConsistency()
         if errors > 0:
             for i in range(errors):

@@ -26,8 +26,8 @@ setuptools.setup(
     python_requires=">=3.6",
     install_requires=[
         "pandas>=0.22",
-        "matplotlib<=3.0.2",
         "numpy>=1.19",
+        "matplotlib<=3.0.2",
         "fuzzywuzzy",
         "dnaplotlib",
         "tellurium",

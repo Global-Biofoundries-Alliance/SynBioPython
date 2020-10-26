@@ -3,11 +3,11 @@ python:
   - "3.7.1"
   
 before_install:
-  - choco install python --version 3.7.1
   - python -m pip install pip==18.1
   
 # command to install dependencies
 install:
+  - python -m pip install pip==18.1
   - pip install coveralls pytest-cov==2.6 pytest==4.0.2
   - pip install -e .
   

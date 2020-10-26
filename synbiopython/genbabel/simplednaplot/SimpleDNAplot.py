@@ -4,15 +4,16 @@ Synbiopython (c) Global BioFoundry Alliance 2020
 
 Synbiopython is licensed under the MIT License.
 
-This module is to implement the simple plotting of the gene circuit
-using the modified code from quickplot.py in DNAplotlib library
+This module is to implement the simple plotting of the gene circuit using the modified code
+from quickplot.py in DNAplotlib library
 # added quickplot style for writing Regulations.
 # added new Regulation type: Derepression
 
-Reference: https://github.com/VoigtLab/dnaplotlib
+Reference:
+    https://github.com/VoigtLab/dnaplotlib
 
-Install library:
-pip install dnaplotlib
+Install:
+    pip install dnaplotlib
 """
 
 import re
@@ -28,21 +29,23 @@ class SimpleDNAplot:
     from left to right starting from index 0.
     Example: p0-r0-c0-t0-p1-r1-c1-t1 for two modules with promoter, RBS, coding
     region, and terminator.
-        Input = "p.pTet r.rbs34 c.orange.LacI t p.pLac r.rbs32 c.green.TetR t"
-        Regulations = "c0->p1.Repression c1->p0.Repression"
+    Input = "p.pTet r.rbs34 c.orange.LacI t p.pLac r.rbs32 c.green.TetR t"
+    Regulations = "c0->p1.Repression c1->p0.Repression"
     # The default color is black if color is not specified
     """
 
     def set_circuit_design(self, Input, Regulation=None):
         """Generate the dictionary list containing circuit design information.
-        Parameters:
-            Input: a string containing the individual type of part, followed by color
+
+        :param Input: a string containing the individual type of part, followed by color
             and name separated by a space.
-            Regulation: a string containing the from_part to the to_part connected
+        :type Input: str
+        :param Regulation: a string containing the from_part to the to_part connected
             by an arrow. Type of interaction is specified after the topart followed
             by the color. Default color of black is used is not specified.
-        Returns:
-            The list of dictionary containing the part information and Regulations.
+        :type Regulation: str, optional
+        :return: The part information and Regulations stored in the form of list of dictionaries.
+        :rtype: list of dict
         """
 
         # Types mapping
@@ -294,7 +297,16 @@ class SimpleDNAplot:
 
     @staticmethod
     def compute_dnalength(part, part_length):
-        """Calculate the position for the to_part or from_part automatically."""
+        """Calculate the position for the to_part or from_part for plotting arrows
+        automatically.
+
+        :param part: the to_part or from_part
+        :type part: str
+        :param part_length: all the parts with sequential numbering starting from 0
+        :type part_length: list of str
+        :return: dna length
+        :rtype: float
+        """
 
         # dna length
         dnalen = {}
@@ -324,11 +336,15 @@ class SimpleDNAplot:
 
     def plot_circuit(self, Input, Regulation=None, savefig=None):
         """Plot the SBOL-compliant gene circuit figure.
-        Parameters:
-            filename: the filename for the generated figure
-            Input, Regulation: Input design and Regulation strings from users
-        Returns:
-            Max DNA Design length and export the gene circuit figure
+
+        :param Input: Input design from users
+        :type Input: str
+        :param Regulation: Regulation strings from users
+        :type Regulation: str
+        :param savefig: path to store the output figure
+        :type savefig: str, optional
+        :return: max dna design length and export the gene circuit figure
+        :rtype: float
         """
 
         # matplotlib.use("Qt5Agg")
