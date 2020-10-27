@@ -26,14 +26,12 @@ setuptools.setup(
     python_requires=">=3.6",
     install_requires=[
         "pandas>=0.22",
-        "numpy>=1.19",
-        "matplotlib<=3.0.2",
         "fuzzywuzzy",
         "dnaplotlib",
         "tellurium",
         "tesbml",
         "biopython",
         "reportlab",
-        "Pillow<6.0.0",
+        "nbgitpuller",
     ],
 )

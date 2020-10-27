@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.7.1"
+  - "3.8.3"
 
 # command to install dependencies
 before_install:
@@ -9,6 +9,8 @@ before_install:
   - pip --version
   - pip install --upgrade pytest pytest-cov coveralls
 install:
+  - pip install --upgrade pip
+  - pip install --upgrade coveralls pytest-cov pytest
   - pip install -e .
   - pip uninstall -y tesedml
   - pip install tesedml
