@@ -32,5 +32,6 @@ setuptools.setup(
         "tesbml",
         "biopython",
         "reportlab",
+        "nbgitpuller",
     ],
 )
