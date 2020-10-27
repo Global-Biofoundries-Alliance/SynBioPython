@@ -1,19 +1,17 @@
 language: python
 python:
-  - "3.8.3"
+  - "3.6"
 
 # command to install dependencies
 before_install:
   - pip --version
-  - pip install --upgrade pip
+  - pip install --upgrade pip==19.3.1
   - pip --version
   - pip install --upgrade pytest pytest-cov coveralls
 install:
-  - pip install --upgrade pip
-  - pip install --upgrade coveralls pytest-cov pytest
   - pip install -e .
   - pip uninstall -y tesedml
-  - pip install tesedml
+  - pip install tesedml==0.4.5.2
 # command to run tests
 script:
   - python -m pytest -v --cov synbiopython --cov-report term-missing
