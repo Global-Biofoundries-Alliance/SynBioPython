@@ -28,7 +28,7 @@ setuptools.setup(
         "pandas>=0.22",
         "fuzzywuzzy",
         "dnaplotlib",
-        "tellurium",
+        "tellurium==2.1.5",
         "tesbml",
         "biopython",
         "reportlab",
