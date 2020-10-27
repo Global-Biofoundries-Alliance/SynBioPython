@@ -67,7 +67,7 @@ def test_exportomex(tmpdir):
 
     path = os.path.join(str(tmpdir), "archive.omex")
 
-    omex_str, _ = omexgen.export_omex(antimony_str, phrasedml_str, outputfile=path)
+    omex_str = omexgen.export_omex(antimony_str, phrasedml_str, outputfile=path)
     antimonymodel = re.search("model (.*)\n", omex_str).group(1)
     phrasedmlmodel = re.search('model1 = model "(.*)"', omex_str).group(1)
     phrasedmlmodel = "*" + phrasedmlmodel + "()"
@@ -79,8 +79,9 @@ def test_exportomex(tmpdir):
 def test_getsbmlbiomodel(tmpdir):
     """Test getting SBML model from biomodel."""
 
-    path = os.path.join(str(tmpdir), "Testbiomodel.xml")
+    path = os.path.join(str(tmpdir), "Testbiomodel1.xml")
     biomodelsbml_str = omexgen.get_sbml_biomodel("BIOMD0000000012", outputfile=path)
-    model = re.search('<model id="(.*?)(")', biomodelsbml_str).group(1)
+
+    model = re.search(' id="(.*?)(")', biomodelsbml_str).group(1)
     assert model == "BIOMD0000000012"
     assert os.path.exists(path)
