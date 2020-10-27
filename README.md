@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Global-Biofoundries-Alliance/SynBioPython.svg?branch=master)](https://travis-ci.org/Global-Biofoundries-Alliance/SynBioPython)
 [![Coverage Status](https://coveralls.io/repos/github/Global-Biofoundries-Alliance/SynBioPython/badge.svg?branch=master)](https://coveralls.io/github/Global-Biofoundries-Alliance/SynBioPython?branch=master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/JingWui/SynBioPython/master?filepath=examples%2Findex.ipynb)
 
 Synbiopython will provide generic tools for Synthetic Biology.
 
