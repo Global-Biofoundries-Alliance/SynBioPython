@@ -5,7 +5,7 @@ Please review the following guidelines in order to make the contribution process
 
 ## Governance
 
-The *core team* makes decisions regarding this project. The core team currently consists of the original authors of SynBioPython and its manuscript. Decisions are made following a discussion or a simple majority vote with a quorum of 50%.
+The *core team* makes decisions regarding this project. The core team currently consists of the original authors of SynBioPython and its manuscript. All the *core team* authors are members of the Global Biofoundries Alliance. Decisions are made following a discussion or a simple majority vote with a quorum of 50%.
 
 SynBioPython is developed by members of the Global Biofoundry Alliance and is released on GitHub under the MIT licence. The project is committed to remain free and open source under a licence approved by the [FSF](https://www.fsf.org) and the [OSI](https://opensource.org).
 
