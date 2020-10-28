@@ -23,8 +23,19 @@ def test_list_well_data_fields():
         lab.Plate96().list_well_data_fields()
 
 
+def test_return_column():
+    assert isinstance(lab.Plate96().return_column(5)[0], Well)
+    assert len(lab.Plate96().return_column(5)) == 8
+
+
 def test_list_wells_in_column():
     assert isinstance(lab.Plate96().list_wells_in_column(5)[0], Well)
+
+
+def test_return_row():
+    assert isinstance(lab.Plate96().return_row("A")[0], Well)
+    assert isinstance(lab.Plate96().return_row(1)[0], Well)
+    assert len(lab.Plate96().return_row("A")) == 12
 
 
 def test_list_wells_in_row():

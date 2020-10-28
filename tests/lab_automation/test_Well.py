@@ -26,6 +26,10 @@ def test_add_content():
     well.add_content(components_quantities, volume=volume)
     assert well.content.quantities == {"Compound_1": 5}
 
+    well2 = plate.get_well_at_index(2)
+    well2.add_content(components_quantities, volume=20, unit_volume="uL")
+    assert well2.content.concentration() == 250000.00000000003
+
 
 def test_subtract_content():
     components_quantities = {"Compound_1": 5}

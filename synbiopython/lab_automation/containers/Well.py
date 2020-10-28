@@ -2,6 +2,7 @@
 """This module contains a generic class for a well."""
 from synbiopython.lab_automation.containers.WellContent import WellContent
 from synbiopython.lab_automation.Picklist.Transfer import TransferError
+from ..tools import unit_factors
 
 
 class Well:
@@ -55,8 +56,24 @@ class Well:
                 yield source
         yield self
 
-    def add_content(self, components_quantities, volume=None):
-        """Add content to well"""
+    def add_content(self, components_quantities, volume=None, unit_volume="L"):
+        """Add content to well.
+
+        Parameters
+        ==========
+
+        components_quantities
+          Dictionary of components and quantities (default: gram).
+          Example `{"Compound_1": 5}`.
+
+        volume
+          Volume (default: liter).
+
+        unit_volume
+          Unit of volume (default: liter). Options: liter (L), milliliter (mL),
+          microliter (uL), nanoliter (nL).
+        """
+        volume = volume * unit_factors[unit_volume]
         if volume > 0:
             final_volume = self.content.volume + volume
             if (self.capacity is not None) and (final_volume > self.capacity):

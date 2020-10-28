@@ -21,7 +21,7 @@ part = "p1"
 def test_dnalength():
     """Test the dnalength."""
 
-    dnalength = simplot.ComputeDNALength(part, part_length)
+    dnalength = simplot.compute_dnalength(part, part_length)
     assert dnalength == 79.0
 
 
@@ -30,7 +30,7 @@ def partlist():
     """Return the partlist for testing."""
 
     inputstr = "p.pTet c.orange.TetR"
-    Partlist, _ = simplot.CircuitDesign(inputstr)
+    Partlist, _ = simplot.set_circuit_design(inputstr)
     return Partlist
 
 
@@ -40,7 +40,7 @@ def regulations():
 
     inputstr = "p.pTet c.orange.TetR"
     regulation = "c0->p0.Repression.red"
-    _, Regulations = simplot.CircuitDesign(inputstr, regulation)
+    _, Regulations = simplot.set_circuit_design(inputstr, regulation)
     return Regulations
 
 
@@ -107,7 +107,7 @@ def derepression():
 
     inputstr = "-c.orange.TetR -p.pTet"
     regulation = "c0->p0.Repression p0->p0.Derepression.red"
-    _, Regulations = simplot.CircuitDesign(inputstr, regulation)
+    _, Regulations = simplot.set_circuit_design(inputstr, regulation)
     return Regulations
 
 
@@ -155,6 +155,6 @@ def test_maxdnalength(tmpdir):
 
     figurepath = os.path.join(str(tmpdir), "check_PlotCircuit.png")
     Input = "p r c.green"
-    dnalength, _ = simplot.PlotCircuit(figurepath, Input, Regulation=None)
+    dnalength, _ = simplot.plot_circuit(Input, Regulation=None, savefig=figurepath)
     assert dnalength == 60.0
     assert os.path.exists(figurepath)
