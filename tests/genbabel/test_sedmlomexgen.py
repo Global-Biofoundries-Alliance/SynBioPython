@@ -59,20 +59,20 @@ def test_phrasedmltosedml(tmpdir):
     assert os.path.exists(path)
 
 
-@pytest.mark.omexgen
-def test_exportomex(tmpdir):
-    """Test the COMBINE OMEX file generation and exportation."""
+# @pytest.mark.omexgen
+# def test_exportomex(tmpdir):
+#     """Test the COMBINE OMEX file generation and exportation."""
 
-    antimony_str = omexgen.sbmltoantimony(sbmlpath)
+#     antimony_str = omexgen.sbmltoantimony(sbmlpath)
 
-    path = os.path.join(str(tmpdir), "archive.omex")
+#     path = os.path.join(str(tmpdir), "archive.omex")
 
-    omex_str = omexgen.export_omex(antimony_str, phrasedml_str, outputfile=path)
-    antimonymodel = re.search("model (.*)\n", omex_str).group(1)
-    phrasedmlmodel = re.search('model1 = model "(.*)"', omex_str).group(1)
-    phrasedmlmodel = "*" + phrasedmlmodel + "()"
-    assert antimonymodel == phrasedmlmodel
-    assert os.path.exists(path)
+#     omex_str = omexgen.export_omex(antimony_str, phrasedml_str, outputfile=path)
+#     antimonymodel = re.search("model (.*)\n", omex_str).group(1)
+#     phrasedmlmodel = re.search('model1 = model "(.*)"', omex_str).group(1)
+#     phrasedmlmodel = "*" + phrasedmlmodel + "()"
+#     assert antimonymodel == phrasedmlmodel
+#     assert os.path.exists(path)
 
 
 @pytest.mark.omexgen

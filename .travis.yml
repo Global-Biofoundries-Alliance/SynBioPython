@@ -10,8 +10,6 @@ before_install:
   - pip install --upgrade pytest pytest-cov coveralls
 install:
   - pip install -e .
-  # - pip uninstall -y tesedml
-  # - pip install tesedml==0.4.5.2
 # command to run tests
 script:
   - python -m pytest -v --cov synbiopython --cov-report term-missing
