@@ -1,7 +1,7 @@
 # pylint: disable=C0330,C0103,E0102,R1705,R0913
 """Classes to represent picklists and liquid transfers in general"""
 from copy import deepcopy
-from synbiopython.lab_automation.Picklist.Transfer import Transfer
+from synbiopython.lab_automation.picklist.Transfer import Transfer
 
 
 class PickList:
@@ -86,7 +86,8 @@ class PickList:
 
             new_picklist = PickList(transfers_list=new_transfer_list)
             new_picklist.simulate(
-                content_field=content_field, inplace=True,
+                content_field=content_field,
+                inplace=True,
             )
             return new_plates
 
@@ -133,7 +134,8 @@ class PickList:
                 return transfer.__dict__[sorting_method]
 
         return PickList(
-            sorted(self.transfers_list, key=sorting_method), data={"parent": self},
+            sorted(self.transfers_list, key=sorting_method),
+            data={"parent": self},
         )
 
     def total_transferred_volume(self):
