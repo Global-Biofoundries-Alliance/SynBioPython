@@ -1,7 +1,7 @@
 # pylint: disable=C0330,C0103,R0913
 """This module contains a generic class for a well."""
 from synbiopython.lab_automation.containers.WellContent import WellContent
-from synbiopython.lab_automation.Picklist.Transfer import TransferError
+from synbiopython.lab_automation.picklist.Transfer import TransferError
 from ..tools import unit_factors
 
 

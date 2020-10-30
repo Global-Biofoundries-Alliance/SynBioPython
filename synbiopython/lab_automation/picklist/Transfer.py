@@ -1,3 +1,6 @@
+# pylint: disable=C0103,C0330,C0114,C0115,C0116,C0301
+
+
 class TransferError(ValueError):
     pass
 

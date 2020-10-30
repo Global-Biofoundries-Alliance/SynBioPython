@@ -16,11 +16,6 @@ To install the latest version from Github:
 pip install --user git+https://github.com/Global-Biofoundries-Alliance/SynBioPython
 ```
 
-To install for development, clone the repository into the folder of your choice and install with:
-```
-pip install --user -e .
-```
-
 
 ## Usage
 
