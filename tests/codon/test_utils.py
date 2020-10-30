@@ -7,7 +7,7 @@ To view a copy of this license, visit <http://opensource.org/licenses/MIT/>.
 
 @author: neilswainston
 """
-# pylint: disable=fixme
+# pylint: disable=fixme,C0330
 from collections import Counter
 import unittest
 
@@ -43,11 +43,11 @@ class TestUtils(unittest.TestCase):
         aa_codons = codon_table[amino_acid]
 
         # Generate amino acid sequence and codon optimise:
-        aa_seq = ''.join([amino_acid] * 100000)
+        aa_seq = "".join([amino_acid] * 100000)
         dna_seq = utils.optimise(codon_table, aa_seq)
 
         # Extract codons from DNA sequence:
-        codons = [dna_seq[i:i + 3] for i in range(0, len(dna_seq), 3)]
+        codons = [dna_seq[i : i + 3] for i in range(0, len(dna_seq), 3)]
 
         # Test:
         self._test(codons, aa_codons)
@@ -58,8 +58,7 @@ class TestUtils(unittest.TestCase):
 
         # Ensure codon usage and sample frequencies are similar:
         for codon, count in codons.items():
-            self.assertAlmostEqual(count / len(target),
-                                   aa_codons[codon], delta=1e-2)
+            self.assertAlmostEqual(count / len(target), aa_codons[codon], delta=1e-2)
 
 
 if __name__ == "__main__":

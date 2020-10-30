@@ -1,3 +1,4 @@
+# pylint: disable=C0114,C0103,C0116
 import math
 import re
 
@@ -40,17 +41,22 @@ def coordinates_to_wellname(coords):
 
 
 def wellname_to_index(wellname, num_wells, direction="row"):
-    """ Convert e.g. A1..H12 into 1..96
+    """Convert e.g. A1..H12 into 1..96
     direction is either row for A1 A2 A3... or column for A1 B1 C1 D1 etc.
+
+    :param wellname: the name of the well
+    :param num_wells: number of wells on the plate
+    :type num_wells: int
+    :param direction: the direction of counting. Either "row" or "column".
+    :type direction: str
     """
     n_rows, n_columns = compute_rows_columns(num_wells)
     row, column = wellname_to_coordinates(wellname)
     if direction == "row":
         return column + n_columns * (row - 1)
-    elif direction == "column":
+    if direction == "column":
         return row + n_rows * (column - 1)
-    else:
-        raise ValueError("`direction` must be in (row, column)")
+    raise ValueError("`direction` must be in (row, column)")
 
 
 def index_to_row_column(index, num_wells, direction="row"):
@@ -66,6 +72,14 @@ def index_to_row_column(index, num_wells, direction="row"):
 
 
 def index_to_wellname(index, num_wells, direction="row"):
-    """ Convert e.g. 1..96 into A1..H12"""
+    """Convert e.g. 1..96 into A1..H12
+
+    :param index: the index of the well
+    :type index: int
+    :param num_wells: number of wells on the plate
+    :type num_wells: int
+    :param direction: the direction of counting. Either "row" or "column".
+    :type direction: str
+    """
     row, column = index_to_row_column(index, num_wells, direction)
     return coordinates_to_wellname((row, column))

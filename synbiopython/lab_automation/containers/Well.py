@@ -8,25 +8,11 @@ from ..tools import unit_factors
 class Well:
     """Generic class for a well.
 
-    Parameters
-    ----------
-
-    plate
-      The plate on which the well is located
-
-    row
-      The well's row (a number, starting from 0)
-
-    column
-      The well's column (a number, starting from 0)
-
-    name
-      The well's name, for instance "A1"
-
-    data
-      A dictionary storing data on the well, used in algorithms and reports.
-
-
+    :param plate: The plate on which the well is located
+    :param row: The well's row (a number, starting from 0)
+    :param column: The well's column (a number, starting from 0)
+    :param name: The well's name, for instance "A1"
+    :param data: A dictionary storing data on the well, used in algorithms and reports.
     """
 
     capacity = None
@@ -43,11 +29,11 @@ class Well:
 
     @property
     def volume(self):
-        """Return volume"""
+        """Return volume."""
         return self.content.volume
 
     def iterate_sources_tree(self):
-        """Iterate through the tree of sources"""
+        """Iterate through the tree of sources."""
         for source in self.sources:
             if isinstance(source, Well):
                 for parent in source.iterate_sources_tree():
@@ -59,19 +45,11 @@ class Well:
     def add_content(self, components_quantities, volume=None, unit_volume="L"):
         """Add content to well.
 
-        Parameters
-        ==========
-
-        components_quantities
-          Dictionary of components and quantities (default: gram).
-          Example `{"Compound_1": 5}`.
-
-        volume
-          Volume (default: liter).
-
-        unit_volume
-          Unit of volume (default: liter). Options: liter (L), milliliter (mL),
-          microliter (uL), nanoliter (nL).
+        :param components_quantities: Dictionary of components and quantities
+          (default: gram). Example `{"Compound_1": 5}`.
+        :param volume: Volume (default: liter).
+        :param unit_volume: Unit of volume (default: liter). Options: liter (L),
+            milliliter (mL), microliter (uL), nanoliter (nL).
         """
         volume = volume * unit_factors[unit_volume]
         if volume > 0:
@@ -88,7 +66,7 @@ class Well:
             self.content.quantities[component] += quantity
 
     def subtract_content(self, components_quantities, volume=0):
-        """Subtract content from well"""
+        """Subtract content from well."""
         if volume > 0:
             if volume > self.volume:
                 raise TransferError(
@@ -106,25 +84,25 @@ class Well:
                 self.content.quantities[component] -= quantity
 
     def empty_completely(self):
-        """Empty the well"""
+        """Empty the well."""
         self.content.quantities = {}
         self.content.volume = 0
 
     @property
     def coordinates(self):
-        """Return (well.row, well.column)"""
+        """Return (well.row, well.column)."""
         return (self.row, self.column)
 
     @property
     def is_empty(self):
-        """Return true if the well's volume is 0"""
+        """Return true if the well's volume is 0."""
         return self.volume == 0
 
     def __repr__(self):
         return "(%s-%s)" % (self.plate.name, self.name)
 
     def pretty_summary(self):
-        """Return a summary string of the well"""
+        """Return a summary string of the well."""
         data = "\n    ".join(
             [""] + [("%s: %s" % (key, value)) for key, value in self.data.items()]
         )
@@ -161,9 +139,7 @@ class Well:
     def is_after(self, other, direction="row"):
         """Return whether this well is located strictly after the other well.
 
-        Examples
-        --------
-        To iterate over all free wells after the last non-free well of a plate:
+        Example: iterate over all free wells after the last non-free well:
 
         >>> direction = 'row'
         >>> last_occupied_well = plate.last_nonempty_well(direction=direction)

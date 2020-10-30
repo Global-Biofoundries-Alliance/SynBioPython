@@ -7,6 +7,7 @@ To view a copy of this license, visit <http://opensource.org/licenses/MIT/>.
 
 @author: neilswainston
 """
+# pylint: disable=C0330
 import itertools
 import unittest
 
