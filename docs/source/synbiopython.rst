@@ -1,8 +1,15 @@
-synbiopython package
+Synbiopython package
 ====================
 
-Subpackages
------------
+
+.. automodule:: synbiopython
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Modules
+-------
 
 .. toctree::
 
@@ -10,22 +17,13 @@ Subpackages
     synbiopython.genbabel
     synbiopython.lab_automation
 
-Submodules
-----------
+.. Submodules
+.. ----------
 
-synbiopython.version module
----------------------------
+.. synbiopython.version module
+.. ---------------------------
 
-.. automodule:: synbiopython.version
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: synbiopython
-    :members:
-    :undoc-members:
-    :show-inheritance:
+.. .. automodule:: synbiopython.version
+..     :members:
+..     :undoc-members:
+..     :show-inheritance:

@@ -1,7 +1,7 @@
 # pylint: disable=C0330,C0103,E1101,R0913,E0102,R1705,E0401
 """This module implements the Base class for all plates.
 
-See plateo.container for more specific plate subclasses, with
+See synbiopython.lab_automation.containers for more specific plate subclasses, with
 set number of wells, well format, etc.
 """
 from collections import OrderedDict
@@ -96,8 +96,8 @@ class Plate:
     def list_wells_in_column(self, column_number):
         """Return the list of all wells of the plate in the given column.
 
-        Examples
-        --------
+        Examples:
+
         >>> for well in plate.list_wells_in_column(5):
         >>>      print(well.name)
         """
@@ -117,8 +117,8 @@ class Plate:
 
         The `row` can be either a row number (1,2,3) or row letter(s) (A,B,C).
 
-        Examples
-        --------
+        Examples:
+
         >>> for well in plate.list_wells_in_row("H"):
         >>>      print(well.name)
 
@@ -130,8 +130,8 @@ class Plate:
     def list_filtered_wells(self, well_filter):
         """List filtered wells.
 
-        Examples
-        ---------
+        Examples:
+
         >>> def condition(well):
         >>>     return well.volume > 50
         >>> for well in myplate.list_filtered_wells(condition):
@@ -170,8 +170,8 @@ class Plate:
     def get_well_at_index(self, index, direction="row"):
         """Return the well at the corresponding index.
 
-        Examples
-        --------
+        Examples:
+
         >>> plate.get_well_at_index(1)  # well A1
         >>> plate.get_well_at_index(2)  # well A2
         >>> plate.get_well_at_index(2, direction="column")  # well B1
@@ -179,10 +179,10 @@ class Plate:
         return self[self.index_to_wellname(index, direction=direction)]
 
     def index_to_wellname(self, index, direction="row"):
-        """Return the name of the well at the corresponding index
+        """Return the name of the well at the corresponding index.
 
-        Examples
-        --------
+        Examples:
+
         >>> plate.index_to_wellname(1)  # "A1"
         >>> plate.get_well_at_index(2)  # "A2"
         >>> plate.get_well_at_index(2, direction="column")  # "B1"
@@ -192,8 +192,7 @@ class Plate:
     def wellname_to_index(self, wellname, direction="row"):
         """Return the index of the well in the plate.
 
-        Examples
-        --------
+        Examples:
         >>> plate.wellname_to_index("A1")  # 1
         >>> plate.wellname_to_index("A2")  # 2
         >>> plate.wellname_to_index("A1", direction="column")  # 9 (8x12 plate)
@@ -207,8 +206,8 @@ class Plate:
     def iter_wells(self, direction="row"):
         """Iter through the wells either by row or by column.
 
-        Examples
-        --------
+        Examples:
+
         >>> for well in plate.iter_wells():
         >>>     print (well.name)
         """
