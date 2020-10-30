@@ -8,14 +8,13 @@ import numpy as np
 
 
 def round_at(value, rounding=None):
-    """Round value at the nearest rounding"""
+    """Round value at the nearest rounding.
+
+    :param value: the value to round
+    """
     if rounding is None:
         return value
     return np.round(value / rounding) * rounding
-
-
-def dicts_to_columns(dicts):
-    return {key: [d[key] for d in dicts] for key in dicts[0]}
 
 
 def replace_nans_in_dict(dictionary, replace_by="null"):
