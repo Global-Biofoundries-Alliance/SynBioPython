@@ -18,27 +18,19 @@ from synbiopython.lab_automation.tools import replace_nans_in_dict
 
 
 class NoUniqueWell(Exception):
-    pass
+    """NoUniqueWell exception class."""
 
 
 class Plate:
     """Base class for all plates.
 
     See the builtin_containers for usage classes, such as generic microplate
-    classes (Plate96, Plate384, etc.)
+    classes (Plate96, Plate384, etc).
 
-    Parameters
-    ----------
-
-    name
-      Name or ID of the Plate as it will appear in strings and reports
-
-    wells_data
-      A dict {"A1": {data}, "A2": ...}. The format of the data is left free
-
-
-    plate_data
-
+    :param name: Name or ID of the Plate as it will appear in strings and reports
+    :param wells_data: A dict {"A1": {data}, "A2": ...}.
+        The format of the data is left free
+    :param plate_data: plate data
     """
 
     well_class = Well
@@ -57,7 +49,11 @@ class Plate:
                 wellname = coordinates_to_wellname((row, column))
                 data = self.wells_data.get(wellname, {})
                 well = self.well_class(
-                    plate=self, row=row, column=column, name=wellname, data=data,
+                    plate=self,
+                    row=row,
+                    column=column,
+                    name=wellname,
+                    data=data,
                 )
                 self.wells[wellname] = well
                 self.columns[column] += [wellname]
@@ -70,7 +66,7 @@ class Plate:
     def find_unique_well_by_condition(self, condition):
         """Return the unique well of the plate satisfying the condition.
 
-        The ``condition`` method should have a signature of Well=>True/False
+        The ``condition`` method should have a signature of Well=>True/False.
 
         Raises a NoUniqueWell error if 0 or several wells satisfy the condition.
         """
@@ -90,7 +86,7 @@ class Plate:
         return self.find_unique_well_by_condition(condition)
 
     def list_well_data_fields(self):
-        """Return all fields used in well data in the plate"""
+        """Return all fields used in well data in the plate."""
         return sorted(list(set(field for well in self for field in well.data.keys())))
 
     def return_column(self, column_number):
@@ -132,7 +128,7 @@ class Plate:
         return [well for well in self.iter_wells() if well.row == row]
 
     def list_filtered_wells(self, well_filter):
-        """
+        """List filtered wells.
 
         Examples
         ---------
@@ -151,7 +147,7 @@ class Plate:
         ignore_none=False,
         direction_of_occurence="row",
     ):
-        """Return wells grouped by key"""
+        """Return wells grouped by key."""
         if key is None:
 
             def key(well):
@@ -172,11 +168,10 @@ class Plate:
         return [(k, dct[k]) for k in keys]
 
     def get_well_at_index(self, index, direction="row"):
-        """Return the well at the corresponding index
+        """Return the well at the corresponding index.
 
         Examples
         --------
-
         >>> plate.get_well_at_index(1)  # well A1
         >>> plate.get_well_at_index(2)  # well A2
         >>> plate.get_well_at_index(2, direction="column")  # well B1
@@ -188,7 +183,6 @@ class Plate:
 
         Examples
         --------
-
         >>> plate.index_to_wellname(1)  # "A1"
         >>> plate.get_well_at_index(2)  # "A2"
         >>> plate.get_well_at_index(2, direction="column")  # "B1"
@@ -196,11 +190,10 @@ class Plate:
         return index_to_wellname(index, self.num_wells, direction=direction)
 
     def wellname_to_index(self, wellname, direction="row"):
-        """Return the index of the well in the plate
+        """Return the index of the well in the plate.
 
         Examples
         --------
-
         >>> plate.wellname_to_index("A1")  # 1
         >>> plate.wellname_to_index("A2")  # 2
         >>> plate.wellname_to_index("A1", direction="column")  # 9 (8x12 plate)
@@ -216,7 +209,6 @@ class Plate:
 
         Examples
         --------
-
         >>> for well in plate.iter_wells():
         >>>     print (well.name)
         """
@@ -226,7 +218,7 @@ class Plate:
             return self.wells_sorted_by(lambda w: (w.column, w.row))
 
     def to_dict(self, replace_nans_by="null"):
-        """Convert plate to dict"""
+        """Convert plate to dict."""
         dct = {
             "data": self.data,
             "wells": {well.name: well.to_dict() for well in self.wells.values()},
@@ -236,7 +228,7 @@ class Plate:
         return dct
 
     def to_pandas_dataframe(self, fields=None, direction="row"):
-        """Return a dataframe with the info on each well"""
+        """Return a dataframe with the info on each well."""
         dataframe = pandas.DataFrame.from_records(self.to_dict()["wells"]).T
         by = ["row", "column"] if direction == "row" else ["column", "row"]
         dataframe = dataframe.sort_values(by=by)

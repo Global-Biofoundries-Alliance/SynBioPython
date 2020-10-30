@@ -1,5 +1,5 @@
 # pylint: disable=C0330,C0103,E0102,R1705,R0913
-"""Classes to represent picklists and liquid transfers in general"""
+"""Classes to represent picklists and liquid transfers in general."""
 from copy import deepcopy
 from synbiopython.lab_automation.picklist.Transfer import Transfer
 
@@ -7,15 +7,9 @@ from synbiopython.lab_automation.picklist.Transfer import Transfer
 class PickList:
     """Representation of a list of well-to-well transfers.
 
-    Parameters
-    -----------
-
-    transfers_list
-      A list of Transfer objects that will be part of the same dispensing
-      operation, in the order in which they are meant to be simulated.
-
-    data
-      A dict with information on the picklist.
+    :param transfers_list: A list of Transfer objects that will be part of the same
+        dispensing operation, in the order in which they are meant to be simulated.
+    :param data: A dict with information on the picklist.
     """
 
     def __init__(self, transfers_list=(), data=None):
@@ -34,9 +28,7 @@ class PickList:
         """Add a transfer to the picklist's tranfers list.
 
         You can either provide a ``Transfer`` object with the ``transfer``
-        parameter, or the parameters
-
-
+        parameter, or the parameters.
         """
         if transfer is None:
             transfer = Transfer(
@@ -48,7 +40,7 @@ class PickList:
         self.transfers_list.append(transfer)
 
     def to_plain_string(self):
-        """Return the list of transfers in human-readable format"""
+        """Return the list of transfers in human-readable format."""
         return "\n".join(transfer.to_plain_string() for transfer in self.transfers_list)
 
     def to_plain_textfile(self, filename):
@@ -57,7 +49,7 @@ class PickList:
             f.write(self.to_plain_string())
 
     def simulate(self, content_field="content", inplace=True):
-        """Simulate the execution of the picklist"""
+        """Simulate the execution of the picklist."""
 
         if not inplace:
             all_plates = set(
@@ -106,7 +98,6 @@ class PickList:
         alternatively just a function ``transfer_filter`` with signature
         (transfer)=>True/False that will be used to filter out transfers
         (for which it returns false).
-
         """
         if transfer_filter is None:
 

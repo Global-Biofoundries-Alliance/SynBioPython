@@ -18,6 +18,13 @@ def round_at(value, rounding=None):
 
 
 def replace_nans_in_dict(dictionary, replace_by="null"):
+    """Replace NaNs in a dictionary with a string.
+
+    :param dictionary: the dictionary
+    :type dictionary: dict
+    :param replace_by: replacement
+    :type replace_by: str
+    """
     for key, value in dictionary.items():
         if isinstance(value, dict):
             replace_nans_in_dict(value, replace_by=replace_by)
@@ -47,6 +54,7 @@ volume_values_and_units = sorted(
 
 
 def find_best_volume_unit(vols):
+    """Find the best volume unit for a list of volumes."""
     med = np.median(vols)
     for value, unit in volume_values_and_units:
         if (not unit.endswith("g")) and (med <= 999 * value):
@@ -55,6 +63,7 @@ def find_best_volume_unit(vols):
 
 
 def human_volume(vol, unit="auto"):
+    """Return a human-readable volume."""
     if unit == "auto":
         unit = find_best_volume_unit([vol])
     vol = np.round(vol / unit_factors[unit], 2)
