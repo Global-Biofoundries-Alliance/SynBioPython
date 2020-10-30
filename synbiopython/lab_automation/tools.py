@@ -1,20 +1,17 @@
+# pylint: disable=C0116,C0103,E0401,W0631
 """Miscellaneous useful functions.
 
 In particular, methods for converting to and from plate coordinates.
 """
 
 import numpy as np
-from collections import OrderedDict
-from fuzzywuzzy import process
-import re
 
 
 def round_at(value, rounding=None):
     """Round value at the nearest rounding"""
     if rounding is None:
         return value
-    else:
-        return np.round(value / rounding) * rounding
+    return np.round(value / rounding) * rounding
 
 
 def dicts_to_columns(dicts):
@@ -33,10 +30,10 @@ def human_seq_size(n):
     "Return the given sequence as a human friendly 35b, 1.4k, 15k, etc."
     if n < 1000:
         return "%db" % n
-    elif n < 10000:
+    if n < 10000:
         return "%.1fk" % (n / 1000)
-    else:
-        return "%dk" % np.round(n / 1000)
+
+    return "%dk" % np.round(n / 1000)
 
 
 unit_factors = {
@@ -64,5 +61,5 @@ def human_volume(vol, unit="auto"):
     vol = np.round(vol / unit_factors[unit], 2)
     if int(vol) == vol:
         return "%d %s" % (vol, unit)
-    else:
-        return "%s %s" % (("%.02f" % vol).rstrip("0"), unit)
+
+    return "%s %s" % (("%.02f" % vol).rstrip("0"), unit)
