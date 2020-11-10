@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/Global-Biofoundries-Alliance/SynBioPython.svg?branch=master)](https://travis-ci.org/Global-Biofoundries-Alliance/SynBioPython)
 ![](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue)
-
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Global-Biofoundries-Alliance/SynBioPython/master?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252FGlobal-Biofoundries-Alliance%252FSynBioPython%252Ftree%252Fmaster%252Fexamples%26urlpath%3Dtree%252Fexamples%252Findex.ipynb%26branch%3Dmaster)
 
 Synbiopython provides generic tools for Synthetic Biology.
