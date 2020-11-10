@@ -1,4 +1,4 @@
-# pylint: disable=C0103,E0401
+# pylint: disable=C0103,E0401,W0611
 """
 Synbiopython (c) Global BioFoundry Alliance 2020
 
@@ -28,7 +28,6 @@ phrasedml_str = """
 omexgen = stdgen.SEDMLOMEXgen()
 
 
-@pytest.mark.omexgen
 def test_find_between():
     """Test the substring finding."""
 
@@ -39,7 +38,6 @@ def test_find_between():
     assert substr == "OMEX"
 
 
-@pytest.mark.omexgen
 def test_sbmltoantimony():
     """Test the SBML conversion to antimony string."""
 
@@ -48,7 +46,6 @@ def test_sbmltoantimony():
     assert model == "*gateNOT_d30_LB_state1_()"
 
 
-@pytest.mark.omexgen
 def test_phrasedmltosedml(tmpdir):
     """Test the phrasedml string conversion SEDML."""
 
@@ -59,7 +56,6 @@ def test_phrasedmltosedml(tmpdir):
     assert os.path.exists(path)
 
 
-@pytest.mark.omexgen
 def test_exportomex(tmpdir):
     """Test the COMBINE OMEX file generation and exportation."""
 
@@ -75,7 +71,6 @@ def test_exportomex(tmpdir):
     assert os.path.exists(path)
 
 
-@pytest.mark.omexgen
 def test_getsbmlbiomodel(tmpdir):
     """Test getting SBML model from biomodel."""
 
