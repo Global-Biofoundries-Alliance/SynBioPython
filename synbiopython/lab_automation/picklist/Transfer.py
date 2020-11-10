@@ -1,3 +1,6 @@
+# pylint: disable=C0103,C0330,C0114,C0115,C0116,C0301
+
+
 class TransferError(ValueError):
     pass
 
@@ -5,22 +8,12 @@ class TransferError(ValueError):
 class Transfer:
     """Class representing a transfer from a source well to a destination well.
 
-    Parameters
-    ----------
-
-    source_well
-      A Well object representing the plate well from which to transfer.
-
-    destination_well
-      A Well object representing the plate well to which to transfer.
-
-    volume
-      Volume to be transferred, expressed in liters.
-
-    data
-      A dict containing any useful information about the transfer. This
-      information can be used later e.g. as parameters for the transfer
-      when exporting a picklist.
+    :param source_well: A Well object from which to transfer.
+    :param destination_well: A Well object to which to transfer.
+    :param volume: Volume to be transferred, expressed in liters.
+    :param data: A dict containing any useful information about the transfer.
+        This information can be used later e.g. as parameters for the transfer
+        when exporting a picklist.
     """
 
     def __init__(self, source_well, destination_well, volume, data=None):

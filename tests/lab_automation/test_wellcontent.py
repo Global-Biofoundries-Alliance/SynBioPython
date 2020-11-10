@@ -1,3 +1,4 @@
+# pylint: disable=C0114,E0401,C0103,C0116,W0621
 from synbiopython.lab_automation.containers.WellContent import WellContent
 
 wellcontent = WellContent(

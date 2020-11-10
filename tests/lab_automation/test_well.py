@@ -1,7 +1,8 @@
+# pylint: disable=C0114,E0401,C0103,C0116,W0621
 import pytest
 
 import synbiopython.lab_automation as lab
-from synbiopython.lab_automation.Picklist.Transfer import TransferError
+from synbiopython.lab_automation.picklist.Transfer import TransferError
 from synbiopython.lab_automation.containers.Well import Well
 
 
