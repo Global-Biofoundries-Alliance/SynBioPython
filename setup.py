@@ -33,4 +33,5 @@ setuptools.setup(
         "reportlab",
         "nbgitpuller",
     ],
+    include_package_data=True
 )
