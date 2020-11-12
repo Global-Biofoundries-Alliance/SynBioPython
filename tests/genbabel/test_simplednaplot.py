@@ -17,7 +17,6 @@ part_length = ["p0", "r0", "c0", "t0", "p1", "r1", "c1", "t1"]
 part = "p1"
 
 
-@pytest.mark.simplot
 def test_dnalength():
     """Test the dnalength."""
 
@@ -44,7 +43,6 @@ def regulations():
     return Regulations
 
 
-@pytest.mark.simplot
 def test_inputstr(partlist):
     """Test the dict list for the tested part list."""
 
@@ -78,7 +76,6 @@ def test_inputstr(partlist):
     ]
 
 
-@pytest.mark.simplot
 def test_regulation(regulations):
     """Test the dict list for the regulations."""
 
@@ -111,7 +108,6 @@ def derepression():
     return Regulations
 
 
-@pytest.mark.simplot
 def test_derepression(derepression):
     """Test the dict list for the Derepression regulations"""
 
@@ -149,7 +145,6 @@ def test_derepression(derepression):
     ]
 
 
-@pytest.mark.simplot
 def test_maxdnalength(tmpdir):
     """Test the maximum DNA length for the plotted gene circuit diagram."""
 

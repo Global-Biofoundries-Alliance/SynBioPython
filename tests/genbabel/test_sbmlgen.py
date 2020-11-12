@@ -1,4 +1,4 @@
-# pylint: disable=C0103,E0401
+# pylint: disable=C0103,E0401,W0611
 """
 Synbiopython (c) Global BioFoundry Alliance 2020
 
@@ -50,7 +50,6 @@ model.addAssignmentRule("fracATP", "ATP/(ATP+ADP)")
 # Parameter fracATP is equal to ATP/(ATP+ADP)
 
 
-@pytest.mark.sbmlgen
 def test_export_sbml(tmpdir):
     """Test the SBML file generation and exportation."""
 
@@ -66,7 +65,6 @@ def test_export_sbml(tmpdir):
     assert os.path.exists(path)
 
 
-@pytest.mark.sbmlgen
 def test_simplesbml(tmpdir):
     """Test the additional functions available inside the simplesbml."""
 

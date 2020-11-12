@@ -1,4 +1,4 @@
-# pylint: disable=C0103,E0401
+# pylint: disable=C0103,E0401,W0611
 """
 Synbiopython (c) Global BioFoundry Alliance 2020
 
@@ -22,7 +22,6 @@ uri_Prefix_igb = "http://synbiohub.org/public/igem"
 stdconv = stdgen.GenSBOLconv()
 
 
-@pytest.mark.stdconv
 def test_sboltogb(tmpdir):
     """Test SBOL file conversion to Genbank file."""
 
@@ -35,7 +34,6 @@ def test_sboltogb(tmpdir):
     assert os.path.exists(path)
 
 
-@pytest.mark.stdconv
 def test_sboltofasta(tmpdir):
     """Test SBOL file conversion to FASTA file."""
 
@@ -47,7 +45,6 @@ def test_sboltofasta(tmpdir):
     assert os.path.exists(path)
 
 
-@pytest.mark.stdconv
 def test_sboltogff3(tmpdir):
     """Test SBOL file conversion to GFF3 file."""
 
@@ -59,7 +56,6 @@ def test_sboltogff3(tmpdir):
     assert os.path.exists(path)
 
 
-@pytest.mark.stdconv
 def test_gbtosbol(tmpdir):
     """Test Genbank file conversion to SBOL file."""
 
@@ -71,7 +67,6 @@ def test_gbtosbol(tmpdir):
     assert os.path.exists(path)
 
 
-@pytest.mark.stdconv
 def test_gbtofasta(tmpdir):
     """Test Genbank file conversion to FASTA."""
 
@@ -83,7 +78,6 @@ def test_gbtofasta(tmpdir):
     assert os.path.exists(path)
 
 
-@pytest.mark.stdconv
 def test_gbtogff3(tmpdir):
     """Test Genbank file conversion to GFF3."""
 
@@ -97,7 +91,6 @@ def test_gbtogff3(tmpdir):
     # assert (Response == "valid: True")
 
 
-@pytest.mark.stdconv
 def test_export_plasmidmap(tmpdir):
     """Test Plasmid Map Export function"""
 

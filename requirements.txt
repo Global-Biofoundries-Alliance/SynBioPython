@@ -4,7 +4,7 @@ numpy
 dnaplotlib
 biopython
 reportlab
-tellurium
+git+https://github.com/sys-bio/tellurium.git
 tesbml
 nbgitpuller
 

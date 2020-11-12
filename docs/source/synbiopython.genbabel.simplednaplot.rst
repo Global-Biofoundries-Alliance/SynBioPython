@@ -1,11 +1,11 @@
-synbiopython.genbabel.simplednaplot package
-===========================================
+synbiopython.genbabel.simplednaplot
+===================================
 
-Submodules
-----------
+.. automodule:: synbiopython.genbabel.simplednaplot
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-synbiopython.genbabel.simplednaplot.SimpleDNAplot module
---------------------------------------------------------
 
 .. automodule:: synbiopython.genbabel.simplednaplot.SimpleDNAplot
     :members:
@@ -13,10 +13,3 @@ synbiopython.genbabel.simplednaplot.SimpleDNAplot module
     :show-inheritance:
 
 
-Module contents
----------------
-
-.. automodule:: synbiopython.genbabel.simplednaplot
-    :members:
-    :undoc-members:
-    :show-inheritance:

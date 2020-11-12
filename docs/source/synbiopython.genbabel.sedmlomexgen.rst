@@ -1,22 +1,13 @@
-synbiopython.genbabel.sedmlomexgen package
-==========================================
+synbiopython.genbabel.sedmlomexgen
+==================================
 
-Submodules
-----------
-
-synbiopython.genbabel.sedmlomexgen.SEDMLOMEXgen module
-------------------------------------------------------
-
-.. automodule:: synbiopython.genbabel.sedmlomexgen.SEDMLOMEXgen
+.. automodule:: synbiopython.genbabel.sedmlomexgen
     :members:
     :undoc-members:
     :show-inheritance:
 
 
-Module contents
----------------
-
-.. automodule:: synbiopython.genbabel.sedmlomexgen
+.. automodule:: synbiopython.genbabel.sedmlomexgen.SEDMLOMEXgen
     :members:
     :undoc-members:
     :show-inheritance:

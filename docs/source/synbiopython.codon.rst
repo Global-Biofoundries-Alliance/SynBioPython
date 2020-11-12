@@ -1,19 +1,21 @@
-synbiopython.codon package
-==========================
+synbiopython.codon module
+=========================
 
-Submodules
-----------
+.. automodule:: synbiopython.codon
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-synbiopython.codon.table module
--------------------------------
+synbiopython.codon.table
+------------------------
 
 .. automodule:: synbiopython.codon.table
     :members:
     :undoc-members:
     :show-inheritance:
 
-synbiopython.codon.utils module
--------------------------------
+synbiopython.codon.utils
+------------------------
 
 .. automodule:: synbiopython.codon.utils
     :members:
@@ -21,10 +23,4 @@ synbiopython.codon.utils module
     :show-inheritance:
 
 
-Module contents
----------------
 
-.. automodule:: synbiopython.codon
-    :members:
-    :undoc-members:
-    :show-inheritance:

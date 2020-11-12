@@ -1,11 +1,11 @@
-synbiopython.genbabel.gensbolconv package
-=========================================
+synbiopython.genbabel.gensbolconv
+=================================
 
-Submodules
-----------
+.. automodule:: synbiopython.genbabel.gensbolconv
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-synbiopython.genbabel.gensbolconv.GenSBOLconv module
-----------------------------------------------------
 
 .. automodule:: synbiopython.genbabel.gensbolconv.GenSBOLconv
     :members:
@@ -13,10 +13,3 @@ synbiopython.genbabel.gensbolconv.GenSBOLconv module
     :show-inheritance:
 
 
-Module contents
----------------
-
-.. automodule:: synbiopython.genbabel.gensbolconv
-    :members:
-    :undoc-members:
-    :show-inheritance:

@@ -1,4 +1,5 @@
 # pylint: disable=C0103,W0622
+
 """
 Configuration file for the Sphinx documentation builder.
 
@@ -6,12 +7,13 @@ This file does only contain a selection of the most common options. For a
 full list see the documentation:
 http://www.sphinx-doc.org/en/master/config
 
-# -- Path setup --------------------------------------------------------------
+-- Path setup --------------------------------------------------------------
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
+If extensions (or modules to document with autodoc) are in another directory,
+add these directories to sys.path here. If the directory is relative to the
+documentation root, use os.path.abspath to make it absolute, like shown here.
 """
+
 import os
 import sys
 
@@ -76,7 +78,7 @@ pygments_style = None
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-
+#
 html_theme = "sphinx_rtd_theme"  # 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme

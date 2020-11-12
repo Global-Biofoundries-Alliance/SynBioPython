@@ -1,8 +1,10 @@
-synbiopython.genbabel package
-=============================
+synbiopython.genbabel module
+============================
 
-Subpackages
------------
+.. automodule:: synbiopython.genbabel
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 .. toctree::
 
@@ -10,23 +12,6 @@ Subpackages
     synbiopython.genbabel.sbmlgen
     synbiopython.genbabel.sedmlomexgen
     synbiopython.genbabel.simplednaplot
-
-Submodules
-----------
-
-synbiopython.genbabel.utilities module
---------------------------------------
-
-.. automodule:: synbiopython.genbabel.utilities
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    synbiopython.genbabel.utilities
 
 
-Module contents
----------------
-
-.. automodule:: synbiopython.genbabel
-    :members:
-    :undoc-members:
-    :show-inheritance:
