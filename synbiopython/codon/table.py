@@ -19,17 +19,28 @@ _CODON_REGEX = r"([ATGCU]{3}) ([A-Z]|\*) (\d.\d+)"
 
 
 def get_table(table_id, dna=True):
-    """Get table."""
+    """Gets a codon table from from supplied parameter, which may be either an
+    organism name or a NCBI Taxonomy id.
+
+    :param table_id: an organism name or a NCBI Taxonomy id (as either a str or
+    int).
+    :type table_id: str
+    :param dna: boolean parameter specifying whether the codon table returned
+    should contain DNA or RNA codons (default is DNA).
+    :type dna: bool
+    :return a codon usage table.
+    :rtype dict
+    """
     tax_id = get_tax_id(table_id)
 
     if tax_id:
         results = defaultdict(dict)
         content = _get_content(tax_id)
 
-        for vals in sorted(
-            re.findall(_CODON_REGEX, content), key=lambda x: (x[1], x[2])
-        ):
-            results[vals[1]][_get_codon(vals[0], dna)] = float(vals[2])
+        for vals in sorted(re.findall(_CODON_REGEX, content),
+                           key=lambda x: (x[1], x[2])):
+            results[vals[1]][vals[0].replace("U", "T") if dna else vals[0]] = \
+                float(vals[2])
 
         return dict(results)
 
@@ -37,21 +48,20 @@ def get_table(table_id, dna=True):
 
 
 def _get_content(tax_id):
-    """Get Kazusa content, either from cached file or remotely."""
+    """Gets Codon Usage Database content, either from cached file or remotely.
+
+    :param tax_id: a NCBI Taxonomy id.
+    :type tax_id: str
+    :return the Codon Usage Database content
+    :rtype str
+    """
     target_file = os.path.join(DATA_DIR, "%s.txt" % tax_id)
 
     if not os.path.exists(target_file):
-        url = (
-            "http://www.kazusa.or.jp/codon/cgi-bin/showcodon.cgi?"
-            + "aa=1&style=N&species=%s" % tax_id
-        )
+        url = "http://www.kazusa.or.jp/codon/cgi-bin/showcodon.cgi?" + \
+            "aa=1&style=N&species=%s" % tax_id
 
         urlretrieve(url, target_file)
 
     with open(target_file) as fle:
         return fle.read()
-
-
-def _get_codon(codon, dna):
-    """Get codon."""
-    return codon.replace("U", "T") if dna else codon
