@@ -18,9 +18,9 @@ def _get_spec_df():
     """Get NCBI Taxonomy ids and organism from species.table as a Pandas
     DataFrame.
 
-    :return a Pandas DataFrame, containing NCBI Taxonomy ids and organism
-    names.
-    :rtype pd.DataFrame
+    :return: a Pandas DataFrame, containing NCBI Taxonomy ids and organism
+        names.
+    :rtype: pd.DataFrame
     """
     spec_tab_df = pd.read_csv(
         os.path.join(DATA_DIR, "species.table"),
@@ -40,7 +40,7 @@ def get_tax_id(table_id):
     organism name or a NCBI Taxonomy id.
 
     :param table_id: an organism name or a NCBI Taxonomy id (as either a str or
-    int).
+        int).
     :type table_id: str
     :return: a NCBI Taxonomy id
     :rtype: str
@@ -56,13 +56,14 @@ def get_tax_id(table_id):
 
 
 def get_name(table_id):
-    """Gets amd organism name from supplied parameter, which may be either an
+    """Gets an organism name from supplied parameter, which may be either an
     organism name or a NCBI Taxonomy id.
+
     :param table_id: an organism name or a NCBI Taxonomy id (as either a str or
-    int).
+        int).
     :type table_id: str
-    :return an organism name
-    :rtype str
+    :return: an organism name
+    :rtype: str
     """
     tax_id = get_tax_id(table_id)
     return _SPEC_DF.loc[tax_id, "name"] if tax_id else None

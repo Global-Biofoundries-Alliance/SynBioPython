@@ -23,13 +23,13 @@ def get_table(table_id, dna=True):
     organism name or a NCBI Taxonomy id.
 
     :param table_id: an organism name or a NCBI Taxonomy id (as either a str or
-    int).
+        int).
     :type table_id: str
     :param dna: boolean parameter specifying whether the codon table returned
-    should contain DNA or RNA codons (default is DNA).
+        should contain DNA or RNA codons (default is DNA).
     :type dna: bool
-    :return a codon usage table.
-    :rtype dict
+    :return: a codon usage table.
+    :rtype: dict
     """
     tax_id = get_tax_id(table_id)
 
@@ -52,8 +52,8 @@ def _get_content(tax_id):
 
     :param tax_id: a NCBI Taxonomy id.
     :type tax_id: str
-    :return the Codon Usage Database content
-    :rtype str
+    :return: the Codon Usage Database content
+    :rtype: str
     """
     target_file = os.path.join(DATA_DIR, "%s.txt" % tax_id)
 
