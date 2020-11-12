@@ -1,19 +1,17 @@
-synbiopython.genbabel.sbmlgen package
-=====================================
+synbiopython.genbabel.sbmlgen
+=============================
 
-Submodules
-----------
+.. automodule:: synbiopython.genbabel.sbmlgen
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-synbiopython.genbabel.sbmlgen.SBMLgen module
---------------------------------------------
 
 .. automodule:: synbiopython.genbabel.sbmlgen.SBMLgen
     :members:
     :undoc-members:
     :show-inheritance:
 
-synbiopython.genbabel.sbmlgen.simplesbml module
------------------------------------------------
 
 .. automodule:: synbiopython.genbabel.sbmlgen.simplesbml
     :members:
@@ -21,10 +19,4 @@ synbiopython.genbabel.sbmlgen.simplesbml module
     :show-inheritance:
 
 
-Module contents
----------------
 
-.. automodule:: synbiopython.genbabel.sbmlgen
-    :members:
-    :undoc-members:
-    :show-inheritance:
