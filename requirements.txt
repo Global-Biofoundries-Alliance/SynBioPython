@@ -1,3 +1,4 @@
+-e .
 pre-commit
 pandas>=0.22
 numpy
