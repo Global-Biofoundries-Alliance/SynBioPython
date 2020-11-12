@@ -9,14 +9,20 @@ To view a copy of this license, visit <http://opensource.org/licenses/MIT/>.
 """
 import os.path
 
-import pandas
+import pandas as pd
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data")
 
 
 def _get_spec_df():
-    """Get tax id, name from species.table as Pandas DataFrame."""
-    spec_tab_df = pandas.read_csv(
+    """Get NCBI Taxonomy ids and organism from species.table as a Pandas
+    DataFrame.
+
+    :return a Pandas DataFrame, containing NCBI Taxonomy ids and organism
+    names.
+    :rtype pd.DataFrame
+    """
+    spec_tab_df = pd.read_csv(
         os.path.join(DATA_DIR, "species.table"),
         names=["name", "tax_id"],
         sep="\t",
@@ -30,7 +36,15 @@ _SPEC_DF = _get_spec_df()
 
 
 def get_tax_id(table_id):
-    """Get tax id."""
+    """Gets a NCBI Taxonomy id from supplied parameter, which may be either an
+    organism name or a NCBI Taxonomy id.
+
+    :param table_id: an organism name or a NCBI Taxonomy id (as either a str or
+    int).
+    :type table_id: str
+    :return: a NCBI Taxonomy id
+    :rtype: str
+    """
     table_id = str(table_id)
 
     if table_id in _SPEC_DF.index:
@@ -42,6 +56,13 @@ def get_tax_id(table_id):
 
 
 def get_name(table_id):
-    """Get name."""
+    """Gets amd organism name from supplied parameter, which may be either an
+    organism name or a NCBI Taxonomy id.
+    :param table_id: an organism name or a NCBI Taxonomy id (as either a str or
+    int).
+    :type table_id: str
+    :return an organism name
+    :rtype str
+    """
     tax_id = get_tax_id(table_id)
     return _SPEC_DF.loc[tax_id, "name"] if tax_id else None
