@@ -12,8 +12,8 @@ import os.path
 import re
 from urllib.request import urlretrieve
 
-from synbiopython.codon import get_tax_id, DATA_DIR
-
+from synbiopython.codon import DATA_DIR
+from synbiopython.codon.taxonomy_utils import get_tax_id
 
 _CODON_REGEX = r"([ATGCU]{3}) ([A-Z]|\*) (\d.\d+)"
 
