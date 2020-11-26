@@ -6,9 +6,9 @@ Please review the following guidelines in order to make the contribution process
 ## Governance
 
 SynBioPython will be governed using a three-tiered system of contributors:
-1. Five Editors, which have to be members of the GBA. Editors will be elected by the current Editors and members of the Core Team (see b)) and they will have to self-nominate. Editors serve 2 year-long terms.
-2. The Core Team members, which are approved by the Editors after submitting an Expression of Interest to them. The Core Team stays in regular contact (email group/calls) to discuss development of SynBioPython.
-3. Ad-hoc contributors which contribute through posting issues in Github or submitting ideas/changes via email/any other communication route. There is no regular contact between ad-hoc contributors and Editors/Core Team.
+1. Five Editors, who have to be member of the GBA, will oversee the direction of the development of SynBiopython. The Editors will be elected by the current Editors and members of the Core Team (see point 2) and they will have to self-nominate. Editors serve 2 year-long terms.
+2. The Core Team members, who are approved by the Editors. Interested contributors who like to be in the Core Team will submit an Expression of Interest to the Editors. The Core Team stays in regular contact (email group/calls) to discuss and actively contribute to the development of SynBioPython.
+3. Ad-hoc contributors who contribute through posting issues in Github or submitting ideas/changes via email/any other communication route. There is no regular contact between ad-hoc contributors and Editors/Core Team.
 
 SynBioPython is released on GitHub under the MIT licence. The project is committed to remain free and open source under a licence approved by the [FSF](https://www.fsf.org) and the [OSI](https://opensource.org).
 
