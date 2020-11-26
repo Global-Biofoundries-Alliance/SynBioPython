@@ -20,7 +20,11 @@ class TestTaxonomyUtils(unittest.TestCase):
 
         # Negative tests:
         for table_id in [-1, "hello"]:
-            self.assertIsNone(taxonomy_utils.get_tax_id(table_id))
+            self.assertRaises(ValueError, taxonomy_utils.get_tax_id, table_id)
+
+        # Positive tests:
+        for table_id in [45372, "45372", "Abies alba"]:
+            self.assertEqual(taxonomy_utils.get_tax_id(table_id), "45372")
 
         # Positive tests:
         for table_id in [45372, "45372", "Abies alba"]:
@@ -30,8 +34,9 @@ class TestTaxonomyUtils(unittest.TestCase):
         """Test get_organism_name method."""
 
         # Negative tests:
-        self.assertIsNone(taxonomy_utils.get_organism_name(-1))
-        self.assertIsNone(taxonomy_utils.get_organism_name("hello"))
+        for table_id in [-1, "hello"]:
+            self.assertRaises(ValueError,
+                              taxonomy_utils.get_organism_name, table_id)
 
         # Positive tests:
         self.assertEqual(taxonomy_utils.get_organism_name(255),

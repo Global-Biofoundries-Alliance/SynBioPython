@@ -51,7 +51,10 @@ def get_tax_id(table_id):
 
     tax_ids = _SPEC_DF.index[_SPEC_DF["name"] == table_id]
 
-    return None if tax_ids.empty else tax_ids[0]
+    if tax_ids.any():
+        return tax_ids[0]
+
+    raise ValueError("Unrecognised table id: %s" % table_id)
 
 
 def get_organism_name(table_id):

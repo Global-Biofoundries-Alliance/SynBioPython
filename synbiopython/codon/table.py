@@ -31,19 +31,15 @@ def get_table(table_id, dna=True):
     :rtype: dict
     """
     tax_id = get_tax_id(table_id)
+    results = defaultdict(dict)
+    content = _get_content(tax_id)
 
-    if tax_id:
-        results = defaultdict(dict)
-        content = _get_content(tax_id)
+    for vals in sorted(re.findall(_CODON_REGEX, content),
+                       key=lambda x: (x[1], x[2])):
+        results[vals[1]][vals[0].replace("U", "T") if dna else vals[0]] = \
+            float(vals[2])
 
-        for vals in sorted(re.findall(_CODON_REGEX, content),
-                           key=lambda x: (x[1], x[2])):
-            results[vals[1]][vals[0].replace("U", "T") if dna else vals[0]] = \
-                float(vals[2])
-
-        return dict(results)
-
-    return None
+    return dict(results)
 
 
 def _get_content(tax_id):
