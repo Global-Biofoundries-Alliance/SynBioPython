@@ -12,7 +12,6 @@ import os.path
 import re
 from urllib.request import urlretrieve
 
-from synbiopython.codon import DATA_DIR
 from synbiopython.codon.taxonomy_utils import get_tax_id
 
 _CODON_REGEX = r"([ATGCU]{3}) ([A-Z]|\*) (\d.\d+)"
@@ -55,7 +54,12 @@ def _get_content(tax_id):
     :return: the Codon Usage Database content
     :rtype: str
     """
-    target_file = os.path.join(DATA_DIR, "%s.txt" % tax_id)
+    target_dir = os.path.join(os.path.expanduser('~'), '.synbiopython/codon')
+
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
+
+    target_file = os.path.join(target_dir, "%s.txt" % tax_id)
 
     if not os.path.exists(target_file):
         url = "http://www.kazusa.or.jp/codon/cgi-bin/showcodon.cgi?" + \
