@@ -30,7 +30,6 @@ setuptools.setup(
         "dnaplotlib",
         "biopython",
         "reportlab",
-        "tellurium",
         "tesbml",
         "nbgitpuller",
     ],
