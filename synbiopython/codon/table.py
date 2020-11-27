@@ -12,8 +12,7 @@ import os.path
 import re
 from urllib.request import urlretrieve
 
-from synbiopython.codon import get_tax_id, DATA_DIR
-
+from synbiopython.codon.taxonomy_utils import get_tax_id
 
 _CODON_REGEX = r"([ATGCU]{3}) ([A-Z]|\*) (\d.\d+)"
 
@@ -32,19 +31,15 @@ def get_table(table_id, dna=True):
     :rtype: dict
     """
     tax_id = get_tax_id(table_id)
+    results = defaultdict(dict)
+    content = _get_content(tax_id)
 
-    if tax_id:
-        results = defaultdict(dict)
-        content = _get_content(tax_id)
+    for vals in sorted(re.findall(_CODON_REGEX, content),
+                       key=lambda x: (x[1], x[2])):
+        results[vals[1]][vals[0].replace("U", "T") if dna else vals[0]] = \
+            float(vals[2])
 
-        for vals in sorted(re.findall(_CODON_REGEX, content),
-                           key=lambda x: (x[1], x[2])):
-            results[vals[1]][vals[0].replace("U", "T") if dna else vals[0]] = \
-                float(vals[2])
-
-        return dict(results)
-
-    return None
+    return dict(results)
 
 
 def _get_content(tax_id):
@@ -55,7 +50,12 @@ def _get_content(tax_id):
     :return: the Codon Usage Database content
     :rtype: str
     """
-    target_file = os.path.join(DATA_DIR, "%s.txt" % tax_id)
+    target_dir = os.path.join(os.path.expanduser('~'), '.synbiopython/codon')
+
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
+
+    target_file = os.path.join(target_dir, "%s.txt" % tax_id)
 
     if not os.path.exists(target_file):
         url = "http://www.kazusa.or.jp/codon/cgi-bin/showcodon.cgi?" + \

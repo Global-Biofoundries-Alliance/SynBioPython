@@ -22,7 +22,7 @@ class TestTable(unittest.TestCase):
 
         # Negative tests:
         for table_id in [-1, "hello"]:
-            self.assertIsNone(table.get_table(table_id))
+            self.assertRaises(ValueError, table.get_table, table_id)
 
         # Positive tests:
         for table_id, dna in itertools.product(
