@@ -26,12 +26,13 @@ setuptools.setup(
     python_requires=">=3.6",
     install_requires=[
         "pandas>=0.22",
+        "numpy",
         "dnaplotlib",
-        "tellurium",
-        "tesbml",
         "biopython",
         "reportlab",
+        "git+https://github.com/sys-bio/tellurium.git",
+        "tesbml",
         "nbgitpuller",
     ],
-    include_package_data=True
+    include_package_data=True,
 )
