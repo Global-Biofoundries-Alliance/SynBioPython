@@ -42,13 +42,18 @@ For bigger contributions, such as modules or addition of dependencies, please co
 
 SynBioPython conforms to Black and Flake8 requirements, which are enforced using pre-commit hooks.
 
-Documentation is generated using [Portray](https://github.com/timothycrosley/portray).
-
 Tests are included for each function, with total code coverage >90%.
 
 [Travis CI](https://travis-ci.org/github/Global-Biofoundries-Alliance/SynBioPython) is used for continuous integration.
 
 The project follows the [semantic versioning](https://semver.org) scheme. Major versions are prepared into [GitHub releases](https://github.com/Global-Biofoundries-Alliance/SynBioPython/releases) and also uploaded to [PyPI](https://pypi.org/project/synbiopython/) (Python Package Index).
+
+**Documentation** is generated into `docs/build/html` using [Sphinx](https://www.sphinx-doc.org/en/master/), and is available at https://synbiopython.org or at https://synbiopython.readthedocs.io. To update the html files after modifying the docstrings, run this from the docs folder:
+
+```bash
+make clean   # to clean all the files
+make html    # to generate the new html files
+```
 
 
 ## Get started!
@@ -81,10 +86,10 @@ git push origin master
 ```
 Ensure that your changes pass both Black and Flake8 before committing your staged files. Black is the uncompromising Python Code Formatter. It will reformat your entire file in place according to the Black code style. Flake8 is a powerful tool that checks the code's compliance with PEP8.
 
-7. Create a Pull Request (PR) with the "Compare & pull request" button. Describe your changes then "Create pull request" button at the bottom. and wait for review by the maintainers. Please pull again the latest GBA master into your fork and ensure that the Travis CI build of your fork passes before making a PR.
+7. Create a Pull Request (PR) with the "Compare & pull request" button. Describe your changes then "Create pull request" button at the bottom, and wait for review by the maintainers. Please pull again the latest GBA master into your fork and ensure that the Travis CI build of your fork passes before making a PR.
 
 ---
 
-The project includes the configuration files for pre-commits hooks to automate the code formatting and checking process: _[.pre-commit-config.yaml](https://github.com/Global-Biofoundries-Alliance/SynBioPython/blob/master/.pre-commit-config.yaml)_, _[.flake8](https://github.com/Global-Biofoundries-Alliance/SynBioPython/blob/master/.flake8)_, and _[.toml](https://github.com/Global-Biofoundries-Alliance/SynBioPython/blob/master/.toml)_ for configuring Black.
+The project includes the configuration files for pre-commit hooks to automate the code formatting and checking process: _[.pre-commit-config.yaml](https://github.com/Global-Biofoundries-Alliance/SynBioPython/blob/master/.pre-commit-config.yaml)_, _[.flake8](https://github.com/Global-Biofoundries-Alliance/SynBioPython/blob/master/.flake8)_, and _[.toml](https://github.com/Global-Biofoundries-Alliance/SynBioPython/blob/master/.toml)_ for configuring Black.
 
 Refer to [this page](https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/) for a complete guideline on how to use pre-commit hook to include Black and Flake8.
