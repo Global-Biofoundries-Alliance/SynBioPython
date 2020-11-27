@@ -6,21 +6,11 @@ synbiopython.codon module
     :undoc-members:
     :show-inheritance:
 
-synbiopython.codon.table
-------------------------
+.. toctree::
 
-.. automodule:: synbiopython.codon.table
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-synbiopython.codon.utils
-------------------------
-
-.. automodule:: synbiopython.codon.utils
-    :members:
-    :undoc-members:
-    :show-inheritance:
+    synbiopython.codon.table
+    synbiopython.codon.taxonomy_utils
+    synbiopython.codon.utils
 
 
 
