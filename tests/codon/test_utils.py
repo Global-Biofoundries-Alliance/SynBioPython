@@ -58,7 +58,7 @@ class TestUtils(unittest.TestCase):
 
         # Ensure codon usage and sample frequencies are similar:
         for codon, count in codons.items():
-            self.assertAlmostEqual(count / len(target), aa_codons[codon], delta=1e-2)
+            self.assertAlmostEqual(count / len(target), aa_codons[codon], delta=1e-1)
 
 
 if __name__ == "__main__":
