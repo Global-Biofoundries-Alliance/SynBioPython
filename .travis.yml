@@ -11,8 +11,7 @@ before_install:
   - pip install --upgrade pip
   - pip --version
   - pip install --upgrade pytest pytest-cov coveralls
-  - pip install git+https://github.com/sys-bio/tellurium.git
-  
+
 install:
   - pip install -e .
 # command to run tests

@@ -12,7 +12,6 @@ setuptools.setup(
     name="synbiopython",
     version=version["__version__"],
     author="Global Biofoundries Alliance",
-    author_email="author@example.com",
     description="Python tools for Synthetic Biology.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -32,6 +31,7 @@ setuptools.setup(
         "reportlab",
         "tesbml",
         "nbgitpuller",
+        "tellurium",
     ],
     include_package_data=True,
 )
