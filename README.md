@@ -1,10 +1,13 @@
-# SynBioPython
+# SynBiopython
 
 [![Build Status](https://travis-ci.org/Global-Biofoundries-Alliance/SynBioPython.svg?branch=master)](https://travis-ci.org/Global-Biofoundries-Alliance/SynBioPython)
 ![](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Global-Biofoundries-Alliance/SynBioPython/master?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252FGlobal-Biofoundries-Alliance%252FSynBioPython%252Ftree%252Fmaster%252Fexamples%26urlpath%3Dtree%252Fexamples%252Findex.ipynb%26branch%3Dmaster)
 
-Synbiopython provides generic tools for Synthetic Biology.
+
+SynBiopython provides generic tools for Synthetic Biology. For more details, please see the publication:
+
+SynBiopython: an open-source software library for Synthetic Biology, *Jing Wui Yeoh, Neil Swainston, Peter Vegh, Valentin Zulkower, Pablo Carbonell, Maciej B Holowko, Gopal Peddinti, Chueh Loo Poh.* [Synthetic Biology](https://doi.org/10.1093/synbio/ysab001) (2021) ysab001
 
 
 ## Installation
@@ -15,7 +18,7 @@ pip install synbiopython
 
 To install the latest version from Github:
 ```
-pip install --user git+https://github.com/Global-Biofoundries-Alliance/SynBioPython
+pip install git+https://github.com/Global-Biofoundries-Alliance/SynBioPython
 ```
 Currently Python 3.6, 3.7 and 3.8 are supported.
 
@@ -42,4 +45,4 @@ Example Jupyter notebooks are provided for each module: [codon](https://github.c
 
 ## Contribute!
 
-SynBioPython is developed collectively by members of the Global Biofoundry Alliance and released on Github under the MIT license. Contributions are welcome!
+SynBiopython is developed collectively by members of the Global Biofoundry Alliance and released on Github under the MIT license. Contributions are welcome!
