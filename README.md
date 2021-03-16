@@ -1,4 +1,4 @@
-# SynBiopython
+# SynBioPython
 
 [![Build Status](https://travis-ci.org/Global-Biofoundries-Alliance/SynBioPython.svg?branch=master)](https://travis-ci.org/Global-Biofoundries-Alliance/SynBioPython)
 ![](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue)
