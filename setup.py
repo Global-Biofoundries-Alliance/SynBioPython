@@ -29,9 +29,9 @@ setuptools.setup(
         "dnaplotlib",
         "biopython",
         "reportlab",
-        "tesbml",
         "nbgitpuller",
         "tellurium",
     ],
+    extras_requirements={'sbml': ['tesbml']}, 
     include_package_data=True,
 )
